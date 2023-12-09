@@ -19,16 +19,23 @@ public class QuanLyDanhMuc {
     }
     public void menu() {
         Scanner sc = new Scanner(System.in);
-        System.out.println("-------------------------------------------XIN NHẬP LỰA CHỌN-------------------------------------------");
+        System.out.println("___________________________________________XIN NHẬP LỰA CHỌN___________________________________________");
         System.out.println("|1.THÊM DANH MỤC                                                                                      |");
+        System.out.println("|------------------------------------------------------------------------------------------------------");
         System.out.println("|2.XÓA DANH MỤC                                                                                       |");
+        System.out.println("|------------------------------------------------------------------------------------------------------");
         System.out.println("|3.SỬA DANH MỤC                                                                                       |");
+        System.out.println("|------------------------------------------------------------------------------------------------------");
         System.out.println("|4.DISPLAY DANH MỤC                                                                                   |");
+        System.out.println("|------------------------------------------------------------------------------------------------------");
         System.out.println("|5.GIAO DỊCH                                                                                          |");
+        System.out.println("|------------------------------------------------------------------------------------------------------");
         System.out.println("|6.XEM LỊCH SỬ GIAO DỊCH                                                                              |");
-        System.out.println("|7.THỐNG KÊ GIAO DỊCH                                                                                  ");
+        System.out.println("|------------------------------------------------------------------------------------------------------");
+        System.out.println("|7.THỐNG KÊ GIAO DỊCH                                                                                 |");
+        System.out.println("|------------------------------------------------------------------------------------------------------");
         System.out.println("|8.THOÁT                                                                                              |");
-        System.out.println("-------------------------------------------------------------------------------------------------------");
+        System.out.println("|-----------------------------------------------------------------------------------------------------|");
 
         try {
             int choice = sc.nextInt();
@@ -99,8 +106,8 @@ public class QuanLyDanhMuc {
                             System.out.println("|Tên danh mục                                                       |");
                             name = sc.nextLine();
                             danhmuccanthem = new DanhMuc(id, name);
-                            System.out.println("|Vai trò danh mục cấp 1 hay cấp 2                                       |");
-                            System.out.println("Nhập 1 nếu danh mục cấp 1,Nhập 2 nếu danh mục cấp 2                      |");
+                            System.out.println("|Vai trò danh mục cấp 1 hay cấp 2                                         |");
+                            System.out.println("|Nhập 1 nếu danh mục cấp 1,Nhập 2 nếu danh mục cấp 2                      |");
                             m = sc.nextInt();
                             sc.nextLine();
                             switch (m) {
@@ -119,7 +126,7 @@ public class QuanLyDanhMuc {
                                     try {
                                         DanhMuc DanhMucCha = danhmucthu.getDsDanhMuc().get(type - 1);
                                         DanhMucCha.getdanhsachdanhmuccon().add(danhmuccanthem);
-
+                                        danhmuccanthem.setName_danhmuccha(DanhMucCha.gettendanhmuc());
                                     } catch (Exception e) {
                                         System.out.println("bạn nhập không hợp lệ");
                                         menu();
@@ -220,9 +227,9 @@ public class QuanLyDanhMuc {
 
                 case 4:
                     System.out.println("Danh Mục Chi là");
-                    danhmucchi.lietkedanhmuc("Danh mục chi :");
+                    danhmucchi.lietkedanhmuc("danh mục chi :");
                     System.out.println("Danh Mục thu là");
-                    danhmucthu.lietkedanhmuc("Danh mục thu :");
+                    danhmucthu.lietkedanhmuc("danh mục thu :");
                     menu();
                     break;
 
@@ -242,7 +249,7 @@ public class QuanLyDanhMuc {
                     }
                     System.out.println("Nhập năm giao dịch");
                     int nam = sc.nextInt();
-                    while (nam < 2020 || nam > 2023 || nam != (int) nam) {
+                    while (nam < 2000 || nam > 2023 || nam != (int) nam) {
                         System.out.println("Năm không hợp,mời nhập lại");
                         nam = sc.nextInt();
                     }
@@ -271,6 +278,7 @@ public class QuanLyDanhMuc {
                             System.out.println("Nhấn 0 nếu tiếp tục nhập, Nhấn các nút còn lại để thoát  ");
                             int choices = sc.nextInt();
                             if (choices == 0) {
+                                sc.nextLine();
                                 System.out.println("Mời bạn nhập lại ");
                                 tendanhmuc = sc.nextLine();
                                 DanhMucCanGiaoDich = danhmucthu.timdanhmuctheoten(danhmucthu.getDsDanhMuc(), tendanhmuc);
@@ -278,10 +286,10 @@ public class QuanLyDanhMuc {
                                 menu();
                             }
                         }
-                        System.out.println(DanhMucCanGiaoDich.gettendanhmuc());
+                        System.out.println("Đã thêm vào danh mục " +DanhMucCanGiaoDich.gettendanhmuc());
                         GiaoDich Bill = new GiaoDich(date, noidung, sotien, DanhMucCanGiaoDich, 2);
                         Bill.Chuyentienvaodanhmuc();
-                        danhmucthu.timdanhmuctheoten(DanhMucCanGiaoDich.getName_danhmuccha()).setMoney();
+                        danhmucchi.timdanhmuctheoten(danhmucthu.getDsDanhMuc(),DanhMucCanGiaoDich.getName_danhmuccha()).setMoney();
                         danhmucthu.setTongsotien();
                         dsgiaodich.addGD(Bill);
                         System.out.println("Giao dịch thành công");
@@ -305,7 +313,7 @@ public class QuanLyDanhMuc {
                                 menu();
                             }
                         }
-                        System.out.println(DanhMucCanGiaoDich.gettendanhmuc());
+                        System.out.println("Đã thêm vào danh mục " +DanhMucCanGiaoDich.gettendanhmuc());
                         GiaoDich Bill = new GiaoDich(date, noidung, sotien, DanhMucCanGiaoDich, 1);
                         Bill.Chuyentienvaodanhmuc();
                         danhmucchi.timdanhmuctheoten(DanhMucCanGiaoDich.getName_danhmuccha()).setMoney();
@@ -337,14 +345,26 @@ public class QuanLyDanhMuc {
                             int year_1 = sc.nextInt();
                             System.out.println("Nhap thang ");//thieu rang buoc
                             int month_1 = sc.nextInt();
-                            thongke(month_1,year_1);
+                            thongke(month_1, year_1);
+                            menu();
+                            break;
+
+                        case 2:
+                            sc.nextLine();
+                            System.out.println("Nhap nam ");//thieu rang buoc
+                            int year_2 = sc.nextInt();
+                            thongke(year_2);
+                            menu();
+                            break;
+
+
+                        case 4:
+                            menu();
                     }
                     break;
                case 8:
                    System.out.println("HẸN GẶP LẠI!!!!!!");
-                default:
-                    System.out.println("Bạn nhập sai yêu cầu");
-                    menu();
+
             }
         }
         catch(InputMismatchException e) {
@@ -355,102 +375,79 @@ public class QuanLyDanhMuc {
     public void setdanhmucchi(ListDanhMuc danhmucchi){
         this.danhmucchi=danhmucchi;
     }
-    public void thongke(int month,int year){
+    public void thongke(int month, int year) {
+        int[] danhmucthu = new int[4];
+        int[] danhmucchi = new int[4];
 
-        int [] danhmucthu = new int [4];
-        int [] danhmucchi = new int [4];
-        for(int i=0;i<3;i++){
-            danhmucthu[i]=0;
-            danhmucchi[i]=0;
-        }
-        for(GiaoDich gd :dsgiaodich.getDsGD()){
-            if(gd.getNgayGiaoDich().getngay()<8 && gd.getNgayGiaoDich().getthang()==month && gd.getNgayGiaoDich().getnam()==year){
-
-                if(gd.getLoaigiaodich().equals("Giao dịch chi")){
-                    danhmucchi[0]+=gd.getsotien();
-                }
-                else if(gd.getLoaigiaodich().equals("Giao dịch thu")){
-                    danhmucthu[0]+=gd.getsotien();
-                }
-            }
-            else if(gd.getNgayGiaoDich().getngay()>7 && gd.getNgayGiaoDich().getngay()<15 && gd.getNgayGiaoDich().getthang()==month && gd.getNgayGiaoDich().getnam()==year){
-
-                if(gd.getLoaigiaodich().equals("Giao dịch chi")){
-                    danhmucchi[1]+=gd.getsotien();
-                }
-                else if(gd.getLoaigiaodich().equals("Giao dịch thu")){
-                    danhmucthu[1]+=gd.getsotien();
-                }
-            }
-            else if(gd.getNgayGiaoDich().getngay()>14 && gd.getNgayGiaoDich().getngay()<22 && gd.getNgayGiaoDich().getthang()==month && gd.getNgayGiaoDich().getnam()==year){
-
-                if(gd.getLoaigiaodich().equals("Giao dịch chi")){
-                    danhmucchi[2]+=gd.getsotien();
-                }
-                else if(gd.getLoaigiaodich().equals("Giao dịch thu")){
-                    danhmucthu[2]+=gd.getsotien();
-                }
-            }
-            else if(gd.getNgayGiaoDich().getngay()>21 && gd.getNgayGiaoDich().getngay()<=31 && gd.getNgayGiaoDich().getthang()==month && gd.getNgayGiaoDich().getnam()==year){
-
-                if(gd.getLoaigiaodich().equals("Giao dịch chi")){
-                    danhmucchi[3]+=gd.getsotien();
-                }
-                else if(gd.getLoaigiaodich().equals("Giao dịch thu")){
-                    danhmucthu[3]+=gd.getsotien();
-                }
-            }
-
-            for(int i=0;i<4;i++) {
-                System.out.println(" - Tuần "+ i+1+ " :");
-                System.out.println(" +Số tiền chi: " + danhmucchi[0]);
-                double percent = danhmucchi[0]*1.0/TongSoTientrongdanhmuc(danhmucchi);
-                System.out.println(" Chiếm " + percent);
-                System.out.println(" +Số tiền thu được: " + danhmucthu[0]);
-                if(danhmucchi[i]>danhmucthu[i]){
-                    int use = danhmucchi[i]-danhmucthu[i];
-                    System.out.println("sử dùng nhiều hơn thu nhập "+ use);
-                }
-            }
-            System.out.println("Tuần chi nhiều nhất là "+chiNhieunhat(danhmucchi));
-
+        for (int i = 0; i < 4; i++) {
+            danhmucthu[i] = 0;
+            danhmucchi[i] = 0;
         }
 
+        for (GiaoDich gd : dsgiaodich.getDsGD()) {
+            if (gd.getNgayGiaoDich().getthang() == month && gd.getNgayGiaoDich().getnam() == year) {
+                int week = (gd.getNgayGiaoDich().getngay() - 1) / 7; // Xác định tuần
 
+                if (gd.getLoaigiaodich().equals("Giao dịch chi")) {
+                    danhmucchi[week] += gd.getsotien();
+                } else if (gd.getLoaigiaodich().equals("Giao dịch thu")) {
+                    danhmucthu[week] += gd.getsotien();
+                }
+            }
+        }
 
+        for (int i = 0; i < 4; i++) {
+            System.out.println(" - Tuần " + (i + 1) + " :");
+            System.out.println(" +Số tiền chi: " + danhmucchi[i]);
+            System.out.println(" +Số tiền thu được: " + danhmucthu[i]);
+
+            double percent = danhmucchi[i] * 1.0 / (danhmucchi[i] + danhmucthu[i]);
+            System.out.println(" Chiếm " + percent * 100 + "%");
+
+            if (danhmucchi[i] > danhmucthu[i]) {
+                int use = danhmucchi[i] - danhmucthu[i];
+                System.out.println(" Sử dụng nhiều hơn thu nhập " + use);
+            }
+        }
+        System.out.println("Tuần chi nhiều nhất là Tuần " + (chiNhieunhat(danhmucchi) + 1)+"với số tiền là "+danhmucchi[chiNhieunhat(danhmucchi)]);
     }
-    public void thongke(int year){
-        int [] danhmucthu = new int [12];
-        int [] danhmucchi = new int [12];
-        for(int i=0;i<12;i++){
-            danhmucthu[i]=0;
-            danhmucchi[i]=0;
+
+    public void thongke(int year) {
+        int[] danhmucthu = new int[12];
+        int[] danhmucchi = new int[12];
+
+        for (int i = 0; i < 12; i++) {
+            danhmucthu[i] = 0;
+            danhmucchi[i] = 0;
         }
-        for(GiaoDich gd :dsgiaodich.getDsGD()) {
-            if (gd.getNgayGiaoDich().getnam() == year){
-                int i = gd.getNgayGiaoDich().getthang();
-                if(gd.getLoaigiaodich().equals("Giao dịch chi")){
+
+        for (GiaoDich gd : dsgiaodich.getDsGD()) {
+            if (gd.getNgayGiaoDich().getnam() == year) {
+                int i = gd.getNgayGiaoDich().getthang() - 1; // Số tháng từ 0 đến 11
+
+                if (gd.getLoaigiaodich().equals("Giao dịch chi")) {
                     danhmucchi[i] += gd.getsotien();
-                }
-                else if(gd.getLoaigiaodich().equals("Giao dịch chi")) {
+                } else if (gd.getLoaigiaodich().equals("Giao dịch thu")) {
                     danhmucthu[i] += gd.getsotien();
                 }
             }
         }
-        for(int i=0;i<12;i++) {
-            System.out.println(" - Tháng "+ i+1+ " :");
-            System.out.println(" +Số tiền chi: " + danhmucchi[0]);
-            double percent = danhmucchi[0]*1.0/TongSoTientrongdanhmuc(danhmucchi);
-            System.out.println(" Chiếm " + percent);
-            System.out.println(" +Số tiền thu được: " + danhmucthu[0]);
-            if(danhmucchi[i]>danhmucthu[i]){
-                int use = danhmucchi[i]-danhmucthu[i];
-                System.out.println("sử dùng nhiều hơn thu nhập "+ use);
+        for (int i = 0; i < 12; i++) {
+            System.out.println(" - Tháng " + (i + 1) + " :");
+            System.out.println(" +Số tiền chi: " + danhmucchi[i]);
+            System.out.println(" +Số tiền thu được: " + danhmucthu[i]);
+
+            double percent = danhmucchi[i] * 1.0 / (danhmucchi[i] + danhmucthu[i]);
+            System.out.println(" Danh mục chi chiếm " + percent * 100 + "%");
+
+            if (danhmucchi[i] > danhmucthu[i]) {
+                int use = danhmucchi[i] - danhmucthu[i];
+                System.out.println(" Sử dụng nhiều hơn thu nhập " + use);
             }
         }
-        System.out.println("Tháng chi nhiều nhất là "+chiNhieunhat(danhmucchi));
-
+        System.out.println("Tháng chi nhiều nhất là Tháng " + (chiNhieunhat(danhmucchi) + 1)+"với số tiền là "+danhmucchi[chiNhieunhat(danhmucchi)]);
     }
+
 
 
     public double TongSoTientrongdanhmuc(int [] array){
@@ -460,14 +457,16 @@ public class QuanLyDanhMuc {
         }
         return sum;
     }
-    public int chiNhieunhat(int [] array){
-        int max = 0;
-        for(int i=0;i<array.length;i++){
-            if(array[i]>max){
-                max = array[i];
+    public int chiNhieunhat(int [] arr){
+        int maxIndex = 0;
+        int maxVal = arr[0];
+        for (int i = 1; i < arr.length; i++) {
+            if (arr[i] > maxVal) {
+                maxVal = arr[i];
+                maxIndex = i;
             }
         }
-        return max;
+        return maxIndex;
     }
     public void setdanhmucthu(ListDanhMuc danhmucthu){
         this.danhmucthu=danhmucthu;

@@ -16,8 +16,6 @@ public class GiaoDich {
     private static int soLanGiaoDich = 0;
     Scanner sc = new Scanner(System.in);
     public void ChonLoaiGiaoDich(int n){
-        System.out.println("1.Giao Dich Chi");
-        System.out.println("2.Giao Dich Thu");
         switch(n){
             case 1:
                 this.loaigiaodich = "Giao dịch chi";

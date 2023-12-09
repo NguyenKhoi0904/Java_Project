@@ -334,10 +334,30 @@ public class QuanLyDanhMuc {
                         case 1:
                             sc.nextLine();
                             System.out.println("Nhap nam ");//thieu rang buoc
+                        
                             int year_1 = sc.nextInt();
+                            while(year_1<1000 || year_1>2022){
+                                 System.out.println("VUI LONG NHAP LAI ");
+                                 int year_1 = sc.nextInt();
+                            }
                             System.out.println("Nhap thang ");//thieu rang buoc
                             int month_1 = sc.nextInt();
+                             while( month_1<1 ||  month_1>12){
+                                 System.out.println("VUI LONG NHAP LAI ");
+                                  int month_1 = sc.nextInt();
+                            }
                             thongke(month_1,year_1);
+                    }
+                    case 2:
+                            sc.nextLine();
+                            System.out.println("Nhap nam ");//thieu rang buoc
+                        
+                            int year_1 = sc.nextInt();
+                            while(year_1<1000 || year_1>2022){
+                                 System.out.println("VUI LONG NHAP LAI ");
+                                 int year_1 = sc.nextInt();
+                            }
+                            thongke(year_1);
                     }
                     break;
                case 8:

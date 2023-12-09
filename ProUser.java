@@ -8,7 +8,7 @@ package com.bt.quanlythuchicanhan;
  *
  * @author aries
  */
-public class ProUser {
+public class ProUser extends User{
     int gioiHanNganSach;
 
     public ProUser() {

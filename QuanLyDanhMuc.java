@@ -3,7 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.bt.quanlythuchicanhan;
-
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -11,24 +10,25 @@ import java.util.Scanner;
 public class QuanLyDanhMuc {
     private ListDanhMuc danhmucchi;
     private ListDanhMuc danhmucthu;
-    private ArrayList<GiaoDich> dsgiaodich;
+    private ListGiaoDich dsgiaodich;
 
     public QuanLyDanhMuc(){
         this.danhmucchi=new ListDanhMuc(new DanhMuc("TY1","Thiết yếu"),new DanhMuc("BT1","Biếu tặng"),new DanhMuc("SK1","Sức khỏe"),new DanhMuc("GT","Giải trí"));
-        this.danhmucthu=danhmucthu = new ListDanhMuc(new DanhMuc("L1","Lương"),new DanhMuc("T1","Thưởng"));
-        dsgiaodich = new ArrayList<>();
+        this.danhmucthu = new ListDanhMuc(new DanhMuc("L1","Lương"),new DanhMuc("T1","Thưởng"));
+        this.dsgiaodich = new ListGiaoDich();
     }
     public void menu() {
         Scanner sc = new Scanner(System.in);
-        System.out.println("--------------------------XIN NHẬP LỰA CHỌN--------------------------");
-        System.out.println("| 1.THÊM DANH MỤC                                                   |");
-        System.out.println("| 2.XÓA DANH MỤC                                                    |");
-        System.out.println("| 3.SỬA DANH MỤC                                                    |");
-        System.out.println("| 4.DISPLAY DANH MỤC                                                |");
-        System.out.println("| 5.GIAO DỊCH                                                       |");
-        System.out.println("| 6.XEM LỊCH SỬ GIAO DỊCH                                           |");
-        System.out.println("| 7.THOÁT                                                           |");
-        System.out.println("---------------------------------------------------------------------");
+        System.out.println("-------------------------------------------XIN NHẬP LỰA CHỌN-------------------------------------------");
+        System.out.println("|1.THÊM DANH MỤC                                                                                      |");
+        System.out.println("|2.XÓA DANH MỤC                                                                                       |");
+        System.out.println("|3.SỬA DANH MỤC                                                                                       |");
+        System.out.println("|4.DISPLAY DANH MỤC                                                                                   |");
+        System.out.println("|5.GIAO DỊCH                                                                                          |");
+        System.out.println("|6.XEM LỊCH SỬ GIAO DỊCH                                                                              |");
+        System.out.println("|7.THỐNG KÊ GIAO DỊCH                                                                                  ");
+        System.out.println("|8.THOÁT                                                                                              |");
+        System.out.println("-------------------------------------------------------------------------------------------------------");
 
         try {
             int choice = sc.nextInt();
@@ -40,16 +40,16 @@ public class QuanLyDanhMuc {
                     switch (sc.nextInt()) {
                         case 1:
                             System.out.println("VUI LÒNG NHẬP DANH MỤC CẦN THÊM");
-                            System.out.println("|Nhập id                                                            |");
+                            System.out.println("|Nhập ID danh mục cần thêm                                                             |");
                             String id = sc.nextLine();
                             sc.nextLine();
-                            System.out.println("|Tên danh mục                                                       |");
+                            System.out.println("|Tên danh mục cần thêm                                                                 |");
                             String name = sc.nextLine();
                             DanhMuc danhmuccanthem = new DanhMuc(id, name);
-                            System.out.println("|Vai trò danh mục cha hay con                                       |");
-                            System.out.println("|Nhập 1 nếu danh mục cha                                            |");
-                            System.out.println("|Nhập 2 nếu danh mục con                                            |");
-                            System.out.println("|Nhập các nút còn lại nếu thoát                                     |");
+                            System.out.println("|Vai trò danh mục cấp 1 hay cấp 2                                                      |");
+                            System.out.println("|Nhập 1 nếu danh mục cấp 1                                                             |");
+                            System.out.println("|Nhập 2 nếu danh mục cấp 2                                                             |");
+                            System.out.println("|Nhập các nút còn lại nếu thoát                                                        |");
                             int m = sc.nextInt();
                             sc.nextLine();
                             try {
@@ -99,8 +99,8 @@ public class QuanLyDanhMuc {
                             System.out.println("|Tên danh mục                                                       |");
                             name = sc.nextLine();
                             danhmuccanthem = new DanhMuc(id, name);
-                            System.out.println("|Vai trò danh mục cha hay con                                       |");
-                            System.out.println("Nhập 1 nếu danh mục cha,Nhập 2 nếu danh mục con                     |");
+                            System.out.println("|Vai trò danh mục cấp 1 hay cấp 2                                       |");
+                            System.out.println("Nhập 1 nếu danh mục cấp 1,Nhập 2 nếu danh mục cấp 2                      |");
                             m = sc.nextInt();
                             sc.nextLine();
                             switch (m) {
@@ -126,21 +126,22 @@ public class QuanLyDanhMuc {
                                     }
                                     menu();
                             }
-                        default:menu();
+                        default:
+                            menu();
                     }
                     break;
 
 
                 case 2:
-                    System.out.println("Nhap ten danh muc can xoa");
+                    System.out.println("Nhập tên danh mục cần xóa");
                     sc.nextLine();
                     String nameDanhMuc = sc.nextLine();
-                    System.out.println("Nhap Loai danh muc can xoa");
-                    System.out.println("1 :Danh Muc chi");
-                    System.out.println("2 :Nhap Loai thu");
+                    System.out.println("Nhap loại danh mục cần xóa");
+                    System.out.println("1 :Danh mục chi        ");
+                    System.out.println("2 :Danh mục thu        ");
                     int typeDanhMuc = Integer.parseInt(sc.nextLine());
                     while (typeDanhMuc != 1 && typeDanhMuc != 2) {
-                        System.out.println("Vui lòng nhập lại                            ");
+                        System.out.println("Vui lòng nhập lại ");
                         typeDanhMuc = Integer.parseInt(sc.nextLine());
                     }
                     if (typeDanhMuc == 1) {
@@ -151,27 +152,28 @@ public class QuanLyDanhMuc {
                     menu();
                     break;
                 case 3:
-                    System.out.println("Nhap Loai danh muc can sua ");
-                    System.out.println("Nhap 1 nếu là Chi ");
-                    System.out.println("Nhap 2 nếu là Thu ");
+                    System.out.println("Nhập loại danh mục cần sửa ");
+                    System.out.println("Nhập 1 nếu là Chi ");
+                    System.out.println("Nhập 2 nếu là Thu ");
                     System.out.println("Các nút còn lại để thoát");
                     switch (sc.nextInt()) {
                         case 1:
-                            System.out.println("Ban muon sua danh muc cha hay con ");
-                            System.out.println("Chon 1 neu la cha , 2 neu la con , còn lại là thoát ");
+                            System.out.println("Bạn muốn sửa danh mục cấp 1 hay cấp 2 ");
+                            System.out.println("Chon 1 nếu là cấp 1 , 2 nếu là cấp 2 , còn lại là thoát ");
                             switch (sc.nextInt()) {
                                 case 1:
-                                    System.out.println("Nhap ten danh muc can sua");
+                                    System.out.println("Nhập tên danh mục cần sửa");
+                                    sc.nextLine();
                                     String name1 = sc.nextLine();
-                                    System.out.println("Nhap ten danh muc moi");
+                                    System.out.println("Nhập tên danh mục mới");
                                     String name2 = sc.nextLine();
                                     danhmucchi.EditDanhMucCha(name1, name2);
                                     menu();
                                     break;
                                 case 2:
-                                    System.out.println("Nhap ten danh muc can sua");
+                                    System.out.println("Nhập tên danh mục cần sửa");
                                     String name3 = sc.nextLine();
-                                    System.out.println("Nhap ten danh muc moi");
+                                    System.out.println("Nhập tên danh mục mới");
                                     String name4 = sc.nextLine();
                                     danhmucchi.EditDanhMucCon(name3, name4);
                                     menu();
@@ -182,21 +184,21 @@ public class QuanLyDanhMuc {
                             }
                             break;
                         case 2:
-                            System.out.println("Ban muon sua danh muc cha hay con ");
-                            System.out.println("Chon 1 neu la cha , 2 neu la con ,các số còn lại là thoát ");
+                            System.out.println("Bạn muốn thêm vào cấp 1 hay cấp 2");
+                            System.out.println("Chọn 1 nếu là cấp 1 , 2 nếu là cấp 2 ,các số còn lại là thoát ");
                             switch (sc.nextInt()) {
                                 case 1:
-                                    System.out.println("Nhap ten danh muc can sua");
+                                    System.out.println("Nhập tên danh mục cần sửa");
                                     String name1 = sc.nextLine();
-                                    System.out.println("Nhap ten danh muc moi");
+                                    System.out.println("Nhập tên danh mục mới");
                                     String name2 = sc.nextLine();
                                     danhmucthu.EditDanhMucCha(name1, name2);
                                     menu();
                                     break;
                                 case 2:
-                                    System.out.println("Nhap ten danh muc can sua");
+                                    System.out.println("Nhập tên danh mục cần sửa");
                                     String name3 = sc.nextLine();
-                                    System.out.println("Nhap ten danh muc moi");
+                                    System.out.println("Nhập tên danh mục mới");
                                     String name4 = sc.nextLine();
                                     danhmucthu.EditDanhMucCon(name3, name4);
                                     menu();
@@ -205,7 +207,7 @@ public class QuanLyDanhMuc {
                                     try {
                                         menu();
                                     } catch (Exception e) {
-                                        System.out.println("Vui long nhap so");
+                                        System.out.println("------------Vui lòng nhập số hợp lệ!!------------ ");
                                         menu();
                                     }
                             }
@@ -225,38 +227,38 @@ public class QuanLyDanhMuc {
                     break;
 
                 case 5:
-                    System.out.println("Nhap ngay giao dich");
+                    System.out.println("Nhập ngày giao dịch");
                     int ngay = sc.nextInt();
                     while (ngay > 31 || ngay < 1 || ngay != (int) ngay) {
-                        System.out.println("Ngay khong hop le, moi nhap lai");
+                        System.out.println("Ngày không hợp lệ, mời nhập lại");
 
                         ngay = sc.nextInt();
                     }
-                    System.out.println("Nhap thang giao dich");
+                    System.out.println("Nhập tháng giao dịch");
                     int thang = sc.nextInt();
                     while (thang > 12 || thang < 1 || thang != (int) thang) {
-                        System.out.println("Thang khong hop le,moi nhap lai");
+                        System.out.println("Tháng không hợp mời nhập lại");
                         thang = sc.nextInt();
                     }
-                    System.out.println("Nhap nam giao dich");
+                    System.out.println("Nhập năm giao dịch");
                     int nam = sc.nextInt();
                     while (nam < 2020 || nam > 2023 || nam != (int) nam) {
-                        System.out.println("Nam khong hop le,moi nhap lai");
+                        System.out.println("Năm không hợp,mời nhập lại");
                         nam = sc.nextInt();
                     }
                     sc.nextLine();
                     NgayThangNam date = new NgayThangNam(ngay, thang, nam);
-                    System.out.println("Nhap noi dung can giao dich");
+                    System.out.println("Nhập nội dung giao dịch");
                     String noidung = sc.nextLine();
-                    System.out.println("Nhap so tien giao dich");
+                    System.out.println("Nhập số tiền cần giao dịch");
                     int sotien = Integer.parseInt(sc.nextLine());
 
-                    System.out.println("Nhap loai danh muc can giao dich ");
+                    System.out.println("Nhập loại danh mục cần giao dịch ");
                     System.out.println("1 Thu                            ");
                     System.out.println("2 Chi                            ");
                     int type = Integer.parseInt(sc.nextLine());
                     while (type != 1 && type != 2) {
-                        System.out.println("Vui Long Nhap Lai");
+                        System.out.println("Vui lòng nhập lại");
                         type = Integer.parseInt(sc.nextLine());
                     }
                     if (type == 1) {
@@ -281,8 +283,8 @@ public class QuanLyDanhMuc {
                         Bill.Chuyentienvaodanhmuc();
                         danhmucthu.timdanhmuctheoten(DanhMucCanGiaoDich.getName_danhmuccha()).setMoney();
                         danhmucthu.setTongsotien();
-                        dsgiaodich.add(Bill);
-                        System.out.println("Giao Dich Thanh Cong");
+                        dsgiaodich.addGD(Bill);
+                        System.out.println("Giao dịch thành công");
                         menu();
                     }
                     if (type == 2) {
@@ -308,8 +310,8 @@ public class QuanLyDanhMuc {
                         Bill.Chuyentienvaodanhmuc();
                         danhmucchi.timdanhmuctheoten(DanhMucCanGiaoDich.getName_danhmuccha()).setMoney();
                         danhmucchi.setTongsotien();
-                        dsgiaodich.add(Bill);
-                        System.out.println("Giao Dich Thanh Cong");
+                        dsgiaodich.addGD(Bill);
+                        System.out.println("Giao dịch thành công");
                         menu();
                     }
                     break;
@@ -317,14 +319,25 @@ public class QuanLyDanhMuc {
                 case 6:
                     System.out.println("-----------------------------------------------------Lịch sử giao dịch của bạn------------------------------------------------");
                     System.out.println("--------------------------------------------------------Thông tin giao dịch---------------------------------------------------");
-                    for (GiaoDich lichsu : dsgiaodich) {
+                    for (GiaoDich lichsu : dsgiaodich.getDsGD()) {
                         System.out.println(lichsu.toStringGiaoDich());
                     }
                     menu();
                     break;
                 case 7:
-                    System.out.println("HẸN GẶP LẠI!!!!!!");
+                    System.out.println("----------------------------------THỐNG KÊ----------------------------------");
+                    System.out.println("|1.Thống kê theo tuần                                                                        |");
+                    System.out.println("|2.Thống kê theo tháng                                                                       |");
+                    System.out.println("|1.Thống kê theo năm                                                                         |");
+                    switch(sc.nextInt()) {
 
+                        case 1:
+
+
+                    }
+                    break;
+               case 8:
+                   System.out.println("HẸN GẶP LẠI!!!!!!");
                 default:
                     System.out.println("Bạn nhập sai yêu cầu");
                     menu();
@@ -338,6 +351,33 @@ public class QuanLyDanhMuc {
     public void setdanhmucchi(ListDanhMuc danhmucchi){
         this.danhmucchi=danhmucchi;
     }
+    public void thongke(int month,int year){
+        ArrayList<ArrayList<GiaoDich>> listWeek = new ArrayList<>();
+        ArrayList<GiaoDich> week1 = new ArrayList<>();
+        ArrayList<GiaoDich> week2 = new ArrayList<>();
+        ArrayList<GiaoDich> week3 = new ArrayList<>();
+        ArrayList<GiaoDich> week4 = new ArrayList<>();
+        for(GiaoDich gd :dsgiaodich.getDsGD()){
+            if(gd.getNgayGiaoDich().getngay()<8){
+                week1.add(gd);
+            }
+            else if(gd.getNgayGiaoDich().getngay()>7 && gd.getNgayGiaoDich().getngay()<15){
+                week2.add(gd);
+            }
+            else if(gd.getNgayGiaoDich().getngay()>14 && gd.getNgayGiaoDich().getngay()<22){
+                week3.add(gd);
+            }
+            else if(gd.getNgayGiaoDich().getngay()>21 && gd.getNgayGiaoDich().getngay()<=31){
+                week4.add(gd);
+            }
+
+        }
+        listWeek.add(week1);
+        listWeek.add(week2);
+        listWeek.add(week3);
+        listWeek.add(week4);
+
+    }
     public void setdanhmucthu(ListDanhMuc danhmucthu){
         this.danhmucthu=danhmucthu;
     }
@@ -347,6 +387,14 @@ public class QuanLyDanhMuc {
     public ListDanhMuc getDanhMucThu(){
         return this.danhmucthu;
     }
+
+    public ListGiaoDich getDsgiaodich() {
+        return dsgiaodich;
+    }
+    public void setDsgiaodich(ListGiaoDich dsgiaodich) {
+        this.dsgiaodich = dsgiaodich;
+    }
+
     public static void main(String [] args){
         QuanLyDanhMuc user = new QuanLyDanhMuc();
         user.menu();

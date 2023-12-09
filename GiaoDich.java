@@ -47,7 +47,6 @@ public class GiaoDich {
         this.thongtingiaodich = thongtingiaodich;
         this.sotien=sotien;
         this.tendanhmuc = tendanhmuc;
-
         this.tendanhmuc=tendanhmuc;
         soLanGiaoDich++;
     }

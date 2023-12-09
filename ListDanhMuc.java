@@ -1,11 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package com.bt.quanlythuchicanhan;
 
-import java.util.ArrayList;
-import java.util.Scanner;
+ import java.util.ArrayList;
+ import java.util.Scanner;
 
 public class ListDanhMuc{
     private ArrayList<DanhMuc> dsdanhmuc;
@@ -65,7 +62,7 @@ public class ListDanhMuc{
             System.out.println("Khong tim thay danh muc");
         }
     }
-    public void kiemTraPhanCapDanhMuc(){};
+
     public void lietkedanhmuc(String typeDanhMuc){
         for (DanhMuc ds : dsdanhmuc) {
             System.out.println("-" + ds.gettendanhmuc() + ":" + ds.getMoney());
@@ -174,16 +171,9 @@ public class ListDanhMuc{
     }
 
     public void EditDanhMucCha(String namecansua, String name) {
-        Boolean timkiem = false;
-        for (DanhMuc danhmuc : dsdanhmuc) {
-            if (danhmuc.gettendanhmuc().equals(namecansua)) {
-                timkiem = true;
-                danhmuc.setTendanhmuc(name);
-            }
-        }
-        if (!timkiem) {
-            System.out.println("Khong tim thay danh muc");
-        }
+        DanhMuc danhmuccansua = timdanhmuctheoten(dsdanhmuc,namecansua);
+        danhmuccansua.setTendanhmuc(name);
+
     }
 
     public void EditDanhMucCon(String namecansua, String name) {

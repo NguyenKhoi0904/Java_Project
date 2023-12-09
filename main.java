@@ -19,16 +19,8 @@ import java.util.Scanner;
 public class main {
     private static ArrayList<User> dsUser = new ArrayList<>();
     
-    private ArrayList<User> docUserData(){
-        ArrayList<User> a = new ArrayList<>();
-        try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream("userData.txt"))) {
-            a = (ArrayList<User>)ois.readObject();
-        } catch (Exception e) {
-        }
-        return a;
-    }
     
-    private boolean ghiUserDataLenFile(User a) throws FileNotFoundException, ClassNotFoundException{
+private boolean ghiUserDataLenFile(User a) throws FileNotFoundException, ClassNotFoundException{
         ArrayList<User> b = new ArrayList<>(); 
         try(ObjectInputStream oos = new ObjectInputStream(new FileInputStream("userData.txt"))){
             b = (ArrayList<User>)oos.readObject();
@@ -48,31 +40,38 @@ public class main {
         }
 
         return false;
-    }
+}
     
     public static void ChoUserDangNhap() throws FileNotFoundException, ClassNotFoundException{
         boolean flag = true;
-        Scanner input = new Scanner(System.in);
         User a = new User();
-        do{
-            System.out.println("------------------");
-            System.out.println("0.Đăng ký");
-            System.out.println("1.Đăng Nhập");
-            System.out.println("2.Thoát");
-            System.out.print("Mời bạn lựa chọn: ");
-            int n = Integer.parseInt(input.nextLine());
-            switch(n){
-                case 0 -> {
-                    a.DangKy();
+        int n;
+        try(Scanner scanner = new Scanner(System.in)){
+            do{
+                System.out.println("------------------");
+                System.out.println("0.Đăng ký");
+                System.out.println("1.Đăng Nhập");
+                System.out.println("2.Thoát");
+                System.out.print("Mời bạn lựa chọn: ");
+                n = Integer.parseInt(scanner.nextLine());
+                switch(n){
+                    case 0 -> {
+                        a.DangKy();
+                        break;
+                    }
+                    case 1 -> {
+                        a.DangNhap();
+                        flag = false;
+                        break;
+                    }
+                    default ->{
+                        break;
+                    }
                 }
-                case 1 -> {
-                    a.DangNhap();
-                }
-                default ->{
-                    break;
-                }
-            }
-        }while(flag);
+          }while(flag);
+        }catch(IOException e){
+            e.printStackTrace();
+        }
         
     }
     
@@ -85,11 +84,25 @@ public class main {
     public static void main(String[] args) throws FileNotFoundException, ClassNotFoundException {
         // Dang nhap
         // kiem tra tai khoan mat khau trong file
+        ChoUserDangNhap();
         // Neu co tra ve User 
         // Neu khong co se hoi user dang ky va tao ra user moi
-
+        //readIntegerFromUser();
         // sau khi tao ra user thi lưu user vào file 
         // nếu user muốn update lên pro thì dùng phương thức update()
         // downcasting xuong lop freeuser và dùng phương thức nâng cấp
+    }
+    private static void readIntegerFromUser(){
+        Scanner scanner = new Scanner(System.in);
+        int a;
+
+        do {
+            System.out.print("Nhập giá trị cho a: ");
+            a = Integer.parseInt(scanner.nextLine());
+
+            System.out.println("Giá trị của a là: " + a);
+        } while (a <= 100);
+
+        System.out.println("Biến a đã vượt qua giá trị 100.");
     }
 }

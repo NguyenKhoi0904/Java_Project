@@ -4,6 +4,8 @@
  */
 package com.bt.quanlythuchicanhan;
 
+import java.io.EOFException;
+import java.io.File;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.FileOutputStream;
@@ -68,56 +70,73 @@ public class User implements Serializable {
         this.idUser = idUser;
     }
     
-    public void DangNhap() throws ClassNotFoundException {
-        ArrayList<AccountUser> tmpDN;
-        int flag = 0;
+    public User DangNhap() throws ClassNotFoundException {
+        ArrayList<AccountUser> tmpDN = readAccountUserDataFromFileAndCheck();
+        ArrayList<User> pxm = docUserData();
+        boolean isAccountValid = false;
         try (Scanner input_User = new Scanner(System.in)) {
             System.out.println("  ^^^  DANG NHAP  ^^^  ");
             System.out.print("Tai khoan: ");
             String username = input_User.nextLine();
             System.out.print("Mat khau: ");
             String password = input_User.nextLine();
-            tmpDN = readAccountUserDateFromFileAndCheck();
+            int index = 0;
             for(AccountUser au: tmpDN){
+                if(au.getTendangnhap().equals(username)&&au.getMatkhau().equals(password)){
+                    System.out.println("Dang nhap thanh cong");
+                    return pxm.get(index);
+                }
                 if(au.getTendangnhap().equals(username)){
-                    flag = 0;
-                    if(au.getMatkhau().equals(password)){
-                        System.out.println("Dang nhap thanh cong");
-                        return;
-                    }
-                    else{
-                        int count = 0;
-                        do{    
-                            System.out.println("&&&&&&&&&&");
-                            System.out.println("Sai mật khẩu");
-                            System.out.print("Moi ban nhap lai mat khau: ");
-                            password = input_User.nextLine();
-                            count++;
-                            if(au.getMatkhau().equals(password)){
-                                System.out.println("Dang nhap thanh cong");
-                                return;
-                            }
-                            if(count == 3){
-                                return;
-                            }
-                        }while(true);
-                    }
+                    isAccountValid = true;
+                    break;
                 }
-                flag = 1;
+                index++;
             }
-            switch(flag){
-                case 1 -> {
-                    System.out.println("Sai tài khoản hoặc tài khoản không tồn tại");
-                    return;
-                }
-                default -> {
-                    return;
-                }
+            index = 0;
+            if(isAccountValid){
+                int count;
+                boolean flag = true;
+                System.out.println("&&&&&& 404 &&&&&&");
+                System.out.println("Sai mật khẩu");
+                do{
+                    System.out.println("Mời bạn nhập lại mật khẩu: ");
+                    password = input_User.nextLine();
+                    for(AccountUser au : tmpDN){
+                        if(au.getMatkhau().equals(password)){
+                            System.out.println("Dang nhap thanh cong");
+                            return pxm.get(index);
+                        }else{
+                            flag = false;
+                        }
+                    }
+                    if(!flag)   System.out.println("Sai mật khẩu");
+                    System.out.println("Bạn có muốn thoát ra không?");
+                    System.out.println("0.Không");
+                    System.out.println("1.Có");
+                    System.out.print("Mời bạn lựa chọn: ");
+                    count = Integer.parseInt(input_User.nextLine());
+                    if(count == 1){
+                        return null;
+                    }
+                }while(true);
+            }else{
+                System.out.println("Sai tài khoản hoặc tài khoản không tồn tại");
             }
+            input_User.close();
         }
+        return null;
     }
 
-    private ArrayList<AccountUser> readAccountUserDateFromFileAndCheck() throws ClassNotFoundException {
+    private ArrayList<User> docUserData(){
+        ArrayList<User> a = new ArrayList<>();
+        try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream("userData.txt"))) {
+            a = (ArrayList<User>)ois.readObject();
+        } catch (Exception e) {
+        }
+        return a;
+    }
+    
+    private ArrayList<AccountUser> readAccountUserDataFromFileAndCheck() throws ClassNotFoundException {
         ArrayList<AccountUser> tmp = new ArrayList<>();
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("accountUser.txt"))) {
             tmp = (ArrayList<AccountUser>) ois.readObject();
@@ -131,26 +150,42 @@ public class User implements Serializable {
 
     public void DangKy() throws FileNotFoundException, ClassNotFoundException {
         Scanner input_User = new Scanner(System.in);
-        
+        boolean isAccountExist = false;
+        boolean flag = true;
         AccountUser a = new AccountUser();
         a.setInfor_AccountUser();
         try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream("accountUser.txt"))) {
             ArrayList<AccountUser> arrayListAU = (ArrayList<AccountUser>) ois.readObject();
+            for(AccountUser t : arrayListAU){
+                System.out.println(t.getTendangnhap());
+            }
             for(AccountUser tmp: arrayListAU){
                 if(tmp.getTendangnhap().equals(a.getTendangnhap())){
                     System.out.println("Tai khoan da ton tai");
-                    do{
-                        System.out.println("Mời bạn nhập lại tài khoản");
-                        a.setTendangnhap(input_User.nextLine());
-                        if(tmp.getTendangnhap().equals(a.getTendangnhap())){
-                            System.out.println("Tài khoản hợp lệ");
+                    isAccountExist = true;
+                    break;
+                }
+            }
+            if(isAccountExist){
+                do{
+                    System.out.print("Mời bạn nhập lại tài khoản: ");
+                    a.setTendangnhap(input_User.nextLine());
+                    System.out.println("tai khoan moi nhap: " +  a.getTendangnhap());
+                    for(AccountUser temporary : arrayListAU){
+                        System.out.println(temporary.getTendangnhap());
+                        if(temporary.getTendangnhap().equals(a.getTendangnhap())){
+                            System.out.println("Tai khoan da ton tai");
+                            flag = true;
                             break;
                         }else{
-                            System.out.println("Tai khoan da ton tai");
+                            flag = false;
                         }
-                    }while(true);
-                    return;
-                }
+                    }
+                    if(!flag){
+                        System.out.println("Tai khoan hop le");
+                        break;
+                    }
+                }while(true);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -166,11 +201,19 @@ public class User implements Serializable {
         if (temporary == 0) {
             this.setLoaitaiKhoan("FREE");
             this.setIdUser(generateID_User(this.getLoaitaiKhoan()));
-            if (writeAccountUserDateToFile(a)) {
+            FreeUser fe = (FreeUser)this;//TẠO RA 1 FREE USER ĐỂ LƯU LÊN FILE
+            if(ghiUserDataLenFile(fe)){ // GHI THÔNG TIN CỦA 1 USER LÊN FILE
+                System.out.println("Ghi thong tin user thanh cong");
+            }else{
+                System.out.println("Ghi thong tin user that bai");
+            }
+            
+            if (writeAccountUserDateToFile(a)) { //GHI ACCOUNT USER LÊN FILE
                 System.out.println("Dang ky thanh cong");
             } else {
                 System.out.println("Dang ky that bai");
             }
+            
         } else {
             System.out.println("Ban phai tra 100USD de tro thanh Pro User!!!!");
             System.out.println("Ban co dong y khong?");
@@ -183,7 +226,14 @@ public class User implements Serializable {
                     System.out.println("Xac nhan thanh toan");
                     this.setLoaitaiKhoan("PRO");
                     this.setIdUser(generateID_User(this.getLoaitaiKhoan()));
-                    if (writeAccountUserDateToFile(a)) {
+                    ProUser pu = (ProUser)this; // TẠO RA 1 PRO USER ĐỂ GHI LÊN FILE
+                    if(ghiUserDataLenFile(pu)){ // GHI THÔNG TIN CỦA 1 USER LÊN FILE
+                        System.out.println("Ghi thong tin user thanh cong");
+                    }else{
+                        System.out.println("Ghi thong tin user that bai");
+                    }
+                    
+                    if (writeAccountUserDateToFile(a)) { //GHI ACCOUNT USER LÊN FILE
                         System.out.println("Dang ky thanh cong");
                     } else {
                         System.out.println("Dang ky that bai");
@@ -192,7 +242,15 @@ public class User implements Serializable {
                 case 0 -> {
                     this.setLoaitaiKhoan("FREE");
                     this.setIdUser(generateID_User(this.getLoaitaiKhoan()));
-                    if (writeAccountUserDateToFile(a)) {
+                    FreeUser fe = (FreeUser)this;//TẠO RA 1 FREE USER ĐỂ LƯU LÊN FILE
+
+                    if(ghiUserDataLenFile(fe)){ // GHI THÔNG TIN CỦA 1 USER LÊN FILE
+                        System.out.println("Ghi thong tin user thanh cong");
+                    }else{
+                        System.out.println("Ghi thong tin user that bai");
+                    }
+                    
+                    if (writeAccountUserDateToFile(a)) { //GHI ACCOUNT USER LÊN FILE
                         System.out.println("Dang ky thanh cong");
                         
                     } else {
@@ -209,6 +267,32 @@ public class User implements Serializable {
         String formatNumber = String.format("%0" + 6 + "d", randomNumber);
         return prefix + formatNumber;
     }
+    
+    private boolean ghiUserDataLenFile(User a) throws FileNotFoundException, ClassNotFoundException{
+        ArrayList<User> b = new ArrayList<>();
+        File f = new File("userData.txt");
+        if(f.exists()){
+            try(ObjectInputStream oos = new ObjectInputStream(new FileInputStream("userData.txt"))){
+            b = (ArrayList<User>)oos.readObject();
+            oos.close();
+            }catch(EOFException e){
+                b = new ArrayList<>();
+            }catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        b.add(a);
+        
+        try(ObjectOutputStream ois = new ObjectOutputStream(new FileOutputStream("userData.txt"))) {
+            ois.writeObject(b);
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+    
     private boolean writeAccountUserDateToFile(AccountUser au) throws FileNotFoundException, ClassNotFoundException {
         ArrayList<AccountUser> auTmp = new ArrayList<>();
         try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream("accountUser.txt"))){

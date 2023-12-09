@@ -336,15 +336,21 @@ public class QuanLyDanhMuc {
                     System.out.println("----------------------------------THỐNG KÊ----------------------------------");
                     System.out.println("|1.Thống kê theo tuần                                                                        |");
                     System.out.println("|2.Thống kê theo tháng                                                                       |");
-                    System.out.println("|1.Thống kê theo năm                                                                         |");
+                    System.out.println("|3.Thống kê theo năm                                                                         |");
                     switch(sc.nextInt()) {
 
                         case 1:
                             sc.nextLine();
                             System.out.println("Nhap nam ");//thieu rang buoc
+                        
                             int year_1 = sc.nextInt();
+                            while(year_1<1000 || year_1>2022){
+                                 System.out.println("VUI LONG NHAP LAI ");
+                                  year_1 = sc.nextInt();
+                            }
                             System.out.println("Nhap thang ");//thieu rang buoc
                             int month_1 = sc.nextInt();
+
                             thongke(month_1, year_1);
                             menu();
                             break;
@@ -358,10 +364,10 @@ public class QuanLyDanhMuc {
                             break;
 
 
-                        case 4:
-                            menu();
+
+
                     }
-                    break;
+
                case 8:
                    System.out.println("HẸN GẶP LẠI!!!!!!");
 

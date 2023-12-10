@@ -3,8 +3,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.bt.quanlythuchicanhan;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.Random;
 import java.util.Scanner;
 
 public class QuanLyDanhMuc {
@@ -17,23 +19,30 @@ public class QuanLyDanhMuc {
         this.danhmucthu = new ListDanhMuc(new DanhMuc("L1","Lương"),new DanhMuc("T1","Thưởng"));
         this.dsgiaodich = new ListGiaoDich();
     }
+    private String generateID_DanhMuc(String prefix){
+        Random random = new Random();
+        int randomNumber = random.nextInt((int) Math.pow(10, 9));
+
+        String formatNumber = String.format("%0" + 9 + "d", randomNumber);
+        return prefix + formatNumber;
+    }
     public void menu() {
         Scanner sc = new Scanner(System.in);
         System.out.println("___________________________________________XIN NHẬP LỰA CHỌN___________________________________________");
         System.out.println("|1.THÊM DANH MỤC                                                                                      |");
-        System.out.println("|------------------------------------------------------------------------------------------------------");
+        System.out.println("|-----------------------------------------------------------------------------------------------------|");
         System.out.println("|2.XÓA DANH MỤC                                                                                       |");
-        System.out.println("|------------------------------------------------------------------------------------------------------");
+        System.out.println("|-----------------------------------------------------------------------------------------------------|");
         System.out.println("|3.SỬA DANH MỤC                                                                                       |");
-        System.out.println("|------------------------------------------------------------------------------------------------------");
+        System.out.println("|-----------------------------------------------------------------------------------------------------|");
         System.out.println("|4.DISPLAY DANH MỤC                                                                                   |");
-        System.out.println("|------------------------------------------------------------------------------------------------------");
+        System.out.println("|-----------------------------------------------------------------------------------------------------|");
         System.out.println("|5.GIAO DỊCH                                                                                          |");
-        System.out.println("|------------------------------------------------------------------------------------------------------");
+        System.out.println("|-----------------------------------------------------------------------------------------------------|");
         System.out.println("|6.XEM LỊCH SỬ GIAO DỊCH                                                                              |");
-        System.out.println("|------------------------------------------------------------------------------------------------------");
+        System.out.println("|-----------------------------------------------------------------------------------------------------|");
         System.out.println("|7.THỐNG KÊ GIAO DỊCH                                                                                 |");
-        System.out.println("|------------------------------------------------------------------------------------------------------");
+        System.out.println("|-----------------------------------------------------------------------------------------------------|");
         System.out.println("|8.THOÁT                                                                                              |");
         System.out.println("|-----------------------------------------------------------------------------------------------------|");
 
@@ -42,17 +51,23 @@ public class QuanLyDanhMuc {
             switch (choice) {
                 case 1:
                     System.out.println("Chọn loại danh mục ");
+                    System.out.println("Hãy nhập số ");
                     System.out.println("1 CHI ");
                     System.out.println("2 THU ");
+
                     switch (sc.nextInt()) {
                         case 1:
-                            System.out.println("VUI LÒNG NHẬP DANH MỤC CẦN THÊM");
-                            System.out.println("|Nhập ID danh mục cần thêm                                                             |");
-                            String id = sc.nextLine();
                             sc.nextLine();
+                            System.out.println("VUI LÒNG NHẬP DANH MỤC CẦN THÊM");
+                            String id = generateID_DanhMuc("DMC");
                             System.out.println("|Tên danh mục cần thêm                                                                 |");
                             String name = sc.nextLine();
                             DanhMuc danhmuccanthem = new DanhMuc(id, name);
+                            while(danhmucchi.timdanhmuctheoten(danhmucchi.getDsDanhMuc(),danhmuccanthem.gettendanhmuc())!=null || danhmucthu.timdanhmuctheoten(danhmucthu.getDsDanhMuc(),danhmuccanthem.gettendanhmuc())!=null){
+                                System.out.println("Danh mục bị trùng , hãy nhập lại");
+                                name = sc.nextLine();
+                                danhmuccanthem.setTendanhmuc(name);
+                            }
                             System.out.println("|Vai trò danh mục cấp 1 hay cấp 2                                                      |");
                             System.out.println("|Nhập 1 nếu danh mục cấp 1                                                             |");
                             System.out.println("|Nhập 2 nếu danh mục cấp 2                                                             |");
@@ -63,6 +78,7 @@ public class QuanLyDanhMuc {
                                 switch (m) {
                                     case 1:
                                         danhmucchi.themdanhmuc(danhmuccanthem);
+                                        System.out.println("Đã tạo danh mục "+danhmuccanthem.gettendanhmuc());
                                         menu();
                                         break;
                                     case 2:
@@ -73,11 +89,13 @@ public class QuanLyDanhMuc {
                                             i++;
                                         }
                                         System.out.println("Chọn danh mục cha :");
+                                        System.out.println("Hãy nhập số :");
                                         int type = sc.nextInt();
                                         try {
                                             DanhMuc DanhMucCha = danhmucchi.getDsDanhMuc().get(type - 1);
                                             DanhMucCha.getdanhsachdanhmuccon().add(danhmuccanthem);
                                             danhmuccanthem.setName_danhmuccha(DanhMucCha.gettendanhmuc());
+                                            System.out.println("Đã tạo danh mục "+danhmuccanthem.gettendanhmuc());
 
                                         } catch (Exception e) {
                                             System.out.println("bạn nhập không hợp lệ");
@@ -88,24 +106,28 @@ public class QuanLyDanhMuc {
 
 
                                     default:
-                                        System.out.println("------------------Bạn đã thoát-------------------");
+                                        System.out.println("-----------------------------------------Bạn đã thoát-----------------------------------------");
                                         menu();
 
                                 }
                             } catch (Exception e) {
-                                System.out.println("------------------Bạn đã thoát-------------------");
+                                System.out.println("-----------------------------------------Bạn đã thoát-----------------------------------------");
                                 menu();
                             }
 
                             break;
                         case 2:
                             System.out.println("VUI LÒNG NHẬP DANH MỤC CẦN THÊM");
-                            System.out.println("|Nhập id                                                            |");
-                            id = sc.nextLine();
+                            id = generateID_DanhMuc("DMT");
                             sc.nextLine();
                             System.out.println("|Tên danh mục                                                       |");
                             name = sc.nextLine();
                             danhmuccanthem = new DanhMuc(id, name);
+                            while(danhmucchi.timdanhmuctheoten(danhmucchi.getDsDanhMuc(),danhmuccanthem.gettendanhmuc())!=null || danhmucthu.timdanhmuctheoten(danhmucthu.getDsDanhMuc(),danhmuccanthem.gettendanhmuc())!=null){
+                                System.out.println("Danh mục bị trùng , hãy nhập lại");
+                                name = sc.nextLine();
+                                danhmuccanthem.setTendanhmuc(name);
+                            }
                             System.out.println("|Vai trò danh mục cấp 1 hay cấp 2                                         |");
                             System.out.println("|Nhập 1 nếu danh mục cấp 1,Nhập 2 nếu danh mục cấp 2                      |");
                             m = sc.nextInt();
@@ -113,6 +135,7 @@ public class QuanLyDanhMuc {
                             switch (m) {
                                 case 1:
                                     danhmucthu.themdanhmuc(danhmuccanthem);
+                                    System.out.println("Đã tạo danh mục "+danhmuccanthem.gettendanhmuc());
                                     menu();
                                     break;
                                 case 2:
@@ -122,11 +145,14 @@ public class QuanLyDanhMuc {
                                         System.out.println(x + ": " + list.gettendanhmuc());
                                         x++;
                                     }
+                                    System.out.println("Chọn danh mục cha :");
+                                    System.out.println("Hãy nhập số :");
                                     int type = sc.nextInt();
                                     try {
                                         DanhMuc DanhMucCha = danhmucthu.getDsDanhMuc().get(type - 1);
                                         DanhMucCha.getdanhsachdanhmuccon().add(danhmuccanthem);
                                         danhmuccanthem.setName_danhmuccha(DanhMucCha.gettendanhmuc());
+                                        System.out.println("Đã tạo danh mục "+danhmuccanthem.gettendanhmuc());
                                     } catch (Exception e) {
                                         System.out.println("bạn nhập không hợp lệ");
                                         menu();
@@ -191,7 +217,7 @@ public class QuanLyDanhMuc {
                             }
                             break;
                         case 2:
-                            System.out.println("Bạn muốn thêm vào cấp 1 hay cấp 2");
+                            System.out.println("Bạn muốn sửa danh mục cấp 1 hay cấp 2");
                             System.out.println("Chọn 1 nếu là cấp 1 , 2 nếu là cấp 2 ,các số còn lại là thoát ");
                             switch (sc.nextInt()) {
                                 case 1:
@@ -228,8 +254,10 @@ public class QuanLyDanhMuc {
                 case 4:
                     System.out.println("Danh Mục Chi là");
                     danhmucchi.lietkedanhmuc("danh mục chi :");
+                    System.out.println("Tổng số tiền của danh mục thu là "+danhmucchi.getTongsotien());
                     System.out.println("Danh Mục thu là");
                     danhmucthu.lietkedanhmuc("danh mục thu :");
+                    System.out.println("Tổng số tiền của danh mục thu là "+danhmucthu.getTongsotien());
                     menu();
                     break;
 
@@ -333,43 +361,64 @@ public class QuanLyDanhMuc {
                     menu();
                     break;
                 case 7:
-                    System.out.println("----------------------------------THỐNG KÊ----------------------------------");
+                    System.out.println(" __________________________________________THỐNG KÊ__________________________________________");
                     System.out.println("|1.Thống kê theo tuần                                                                        |");
                     System.out.println("|2.Thống kê theo tháng                                                                       |");
                     System.out.println("|3.Thống kê theo năm                                                                         |");
-                    switch(sc.nextInt()) {
+                    System.out.println("|4.Thoát                                                                                     |");
+                    System.out.println("|____________________________________________________________________________________________|");
+                    int choose = sc.nextInt();
+                    try {
+                        switch (choose) {
 
-                        case 1:
-                            sc.nextLine();
-                            System.out.println("Nhap nam ");//thieu rang buoc
-                        
-                            int year_1 = sc.nextInt();
-                            while(year_1<1000 || year_1>2022){
-                                 System.out.println("VUI LONG NHAP LAI ");
-                                  year_1 = sc.nextInt();
-                            }
-                            System.out.println("Nhap thang ");//thieu rang buoc
-                            int month_1 = sc.nextInt();
+                            case 1:
+                                sc.nextLine();
+                                System.out.println("Nhap nam ");//thieu rang buoc
 
-                            thongke(month_1, year_1);
-                            menu();
-                            break;
+                                int year_1 = sc.nextInt();
+                                while (year_1 < 1000 || year_1 > 2022) {
+                                    System.out.println("VUI LONG NHAP LAI ");
+                                    year_1 = sc.nextInt();
+                                }
+                                System.out.println("Nhap thang ");//thieu rang buoc
+                                int month_1 = sc.nextInt();
 
-                        case 2:
-                            sc.nextLine();
-                            System.out.println("Nhap nam ");//thieu rang buoc
-                            int year_2 = sc.nextInt();
-                            thongke(year_2);
-                            menu();
-                            break;
+                                thongke(month_1, year_1);
+                                menu();
+                                break;
+
+                            case 2:
+                                sc.nextLine();
+                                System.out.println("Nhap nam ");//thieu rang buoc
+                                int year_2 = sc.nextInt();
+                                thongke(year_2);
+                                menu();
+                                break;
+
+                            case 3:
+                                sc.nextLine();
+                                int currentYear = LocalDate.now().getYear();
+                                System.out.println("Số năm hiện tại là " + currentYear);
+                                System.out.println("Nhập số năm gần đây nhất mà bạn muốn xem dữ liệu từ trước năm " + currentYear);
+                                int year = Integer.parseInt(sc.nextLine());
+                                thongketheonam(year);
+                                menu();
+                                break;
+                            default:
+                                System.out.println("Bạn đã thoát");
 
 
-
-
+                        }
                     }
+                    catch(Exception E){
+                        System.out.println("Bạn đã thoát do nhập chữ");
+                        menu();
+                    }
+                    break;
+
 
                case 8:
-                   System.out.println("HẸN GẶP LẠI!!!!!!");
+                   System.out.println("HẸN GẶP LẠI!");
 
             }
         }
@@ -408,14 +457,18 @@ public class QuanLyDanhMuc {
             System.out.println(" +Số tiền thu được: " + danhmucthu[i]);
 
             double percent = danhmucchi[i] * 1.0 / (danhmucchi[i] + danhmucthu[i]);
-            System.out.println(" Chiếm " + percent * 100 + "%");
+            System.out.println("số tiền chi chiếm " + percent * 100 + "% trên tổng số tiền");
 
             if (danhmucchi[i] > danhmucthu[i]) {
                 int use = danhmucchi[i] - danhmucthu[i];
                 System.out.println(" Sử dụng nhiều hơn thu nhập " + use);
             }
         }
-        System.out.println("Tuần chi nhiều nhất là Tuần " + (chiNhieunhat(danhmucchi) + 1)+"với số tiền là "+danhmucchi[chiNhieunhat(danhmucchi)]);
+        System.out.println("                                        Ta có dữ liệu thống kê như sau                                           ");
+        System.out.println("- Tuần chi nhiều nhất là Tuần " + (Nhieunhat(danhmucchi) + 1)+" với số tiền là "+danhmucchi[Nhieunhat(danhmucchi)]);
+        System.out.println("- Tuần thu nhiều nhất là Tuần " + (Nhieunhat(danhmucthu) + 1)+" với số tiền là "+danhmucthu[Nhieunhat(danhmucthu)]);
+        System.out.println("- Tuần chi ít nhất là Tuần " + (Itnhat(danhmucchi) + 1)+" với số tiền là "+danhmucchi[Itnhat(danhmucchi)]);
+        System.out.println("- Tuần thu ít nhất là Tuần " + (Itnhat(danhmucthu) + 1)+" với số tiền là "+danhmucthu[Itnhat(danhmucthu)]);
     }
 
     public void thongke(int year) {
@@ -442,20 +495,57 @@ public class QuanLyDanhMuc {
             System.out.println(" - Tháng " + (i + 1) + " :");
             System.out.println(" +Số tiền chi: " + danhmucchi[i]);
             System.out.println(" +Số tiền thu được: " + danhmucthu[i]);
-
             double percent = danhmucchi[i] * 1.0 / (danhmucchi[i] + danhmucthu[i]);
             System.out.println(" Danh mục chi chiếm " + percent * 100 + "%");
-
             if (danhmucchi[i] > danhmucthu[i]) {
                 int use = danhmucchi[i] - danhmucthu[i];
                 System.out.println(" Sử dụng nhiều hơn thu nhập " + use);
             }
         }
-        System.out.println("Tháng chi nhiều nhất là Tháng " + (chiNhieunhat(danhmucchi) + 1)+"với số tiền là "+danhmucchi[chiNhieunhat(danhmucchi)]);
+        System.out.println(" Dữ liệu trong năm "+year +" :");
+        System.out.println("|Tháng chi nhiều nhất là Tháng " + (Nhieunhat(danhmucchi) + 1)+" với số tiền là "+danhmucchi[Nhieunhat(danhmucchi)]);
+        System.out.println("|Tháng thu nhiều nhất là Tháng " + (Nhieunhat(danhmucthu) + 1)+" với số tiền là "+danhmucthu[Nhieunhat(danhmucthu)]);
+        System.out.println("|Tháng chi ít nhất là Tháng " + (Itnhat(danhmucchi) + 1)+" với số tiền là "+danhmucchi[Itnhat(danhmucchi)]);
+        System.out.println("|Tháng thu ít nhất là Tháng " + (Itnhat(danhmucthu) + 1)+" với số tiền là "+danhmucthu[Itnhat(danhmucthu)]);
     }
 
 
-
+    public void thongketheonam(int soNamGanDay){
+        int[] danhmucthu = new int[soNamGanDay];
+        int[] danhmucchi = new int[soNamGanDay];
+        for (int i = 0; i < soNamGanDay; i++) {
+            danhmucthu[i] = 0;
+            danhmucchi[i] = 0;
+        }
+        int currentYear = LocalDate.now().getYear();
+        for (GiaoDich gd : dsgiaodich.getDsGD()) {
+            int transactionYear = gd.getNgayGiaoDich().getnam();
+            int yearIndex = soNamGanDay - (currentYear - transactionYear) - 1;
+            if (yearIndex >= 0 && yearIndex < soNamGanDay) {
+                if (gd.getLoaigiaodich().equals("Giao dịch chi")) {
+                    danhmucchi[yearIndex] += gd.getsotien();
+                } else if (gd.getLoaigiaodich().equals("Giao dịch thu")) {
+                    danhmucthu[yearIndex] += gd.getsotien();
+                }
+            }
+        }
+        for (int i = soNamGanDay-1; i >=0; i--) {
+            System.out.println(" - Năm " + (currentYear -  i) + " :");
+            System.out.println(" +Số tiền chi: " + danhmucchi[i]);
+            System.out.println(" +Số tiền thu được: " + danhmucthu[i]);
+            double percent = danhmucchi[i] * 1.0 / (danhmucchi[i] + danhmucthu[i]);
+            System.out.println(" Danh mục chi chiếm " + percent * 100 + "%");
+            if (danhmucchi[i] > danhmucthu[i]) {
+                int use = danhmucchi[i] - danhmucthu[i];
+                System.out.println(" Sử dụng nhiều hơn thu nhập " + use);
+            }
+        }
+        System.out.println(" Dữ liệu từ "+soNamGanDay+" gần đây nhất ");
+        System.out.println("-Năm chi nhiều nhất trong những năm gần đây là " + (Nhieunhat(danhmucchi) + 1)+" với số tiền là "+danhmucchi[Nhieunhat(danhmucchi)]);
+        System.out.println("-Năm thu nhiều trong những năm gần đây là " + (Nhieunhat(danhmucthu) + 1)+" với số tiền là "+danhmucchi[Nhieunhat(danhmucthu)]);
+        System.out.println("-Năm chi ít nhất trong những năm gần đây là " + (Itnhat(danhmucchi) + 1)+" với số tiền là "+danhmucchi[Itnhat(danhmucchi)]);
+        System.out.println("-Năm thu ít nhất năm trong những năm gần đây là " + (Itnhat(danhmucthu) + 1)+" với số tiền là "+danhmucthu[Itnhat(danhmucthu)]);
+    }
     public double TongSoTientrongdanhmuc(int [] array){
         int sum=0;
         for(int i=0;i<array.length;i++){
@@ -463,7 +553,7 @@ public class QuanLyDanhMuc {
         }
         return sum;
     }
-    public int chiNhieunhat(int [] arr){
+    public int Nhieunhat(int [] arr){
         int maxIndex = 0;
         int maxVal = arr[0];
         for (int i = 1; i < arr.length; i++) {
@@ -473,6 +563,17 @@ public class QuanLyDanhMuc {
             }
         }
         return maxIndex;
+    }
+    public int Itnhat(int [] arr){
+        int minIndex = 0;
+        int minVal = arr[0];
+        for (int i = 1; i < arr.length; i++) {
+            if (arr[i] < minVal) {
+                minVal = arr[i];
+                minIndex = i;
+            }
+        }
+        return minIndex;
     }
     public void setdanhmucthu(ListDanhMuc danhmucthu){
         this.danhmucthu=danhmucthu;

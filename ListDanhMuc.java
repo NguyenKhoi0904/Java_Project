@@ -70,17 +70,7 @@ public class ListDanhMuc{
                 System.out.println(" +" + ds2.gettendanhmuc() + ":" + ds2.getMoney());
             }
         }
-        System.out.println("Tổng số tiền của "+typeDanhMuc + getTongsotien());
     }
-    public void lietketendanhmuccon(ArrayList<DanhMuc> List) {
-        if(List!=null){
-        for (DanhMuc ds : List) {
-            System.out.println("  +" + ds.gettendanhmuc() + ":" + ds.getMoney());
-            lietketendanhmuccon(ds.getdanhsachdanhmuccon());
-        }
-
-    }}
-
     public int getTongsotien() {
         return this.tongsotien;
     }

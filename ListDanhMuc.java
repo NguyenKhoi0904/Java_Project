@@ -63,13 +63,27 @@ public class ListDanhMuc{
         }
     }
 
-    public void lietkedanhmuc(String typeDanhMuc){
+    public void lietkedanhmuc(){
         for (DanhMuc ds : dsdanhmuc) {
             System.out.println("-" + ds.gettendanhmuc() + ":" + ds.getMoney());
             for (DanhMuc ds2 : ds.getdanhsachdanhmuccon()) {
                 System.out.println(" +" + ds2.gettendanhmuc() + ":" + ds2.getMoney());
             }
         }
+    }
+    public void changeMoneyDanhMuc(String namedanhmuc,int sotien){
+        DanhMuc danhmuc = timdanhmuctheoten(dsdanhmuc,namedanhmuc);
+        if(danhmuc!=null){
+            danhmuc.setMoney(sotien);
+            DanhMuc danhmuccha = timdanhmuctheoten(dsdanhmuc,danhmuc.getName_danhmuccha());
+            if(danhmuccha!=null){
+                danhmuccha.setMoney();
+            }
+            else
+                System.out.println("Không tìm thấy tên danh mục ");
+        }
+        else
+            System.out.println("Không tìm thấy tên danh mục ");
     }
     public int getTongsotien() {
         return this.tongsotien;
@@ -146,14 +160,15 @@ public class ListDanhMuc{
                     if (danhMuc.getdanhsachdanhmuccon().contains(danhMucCanXoa)) {
                         danhMuc.getdanhsachdanhmuccon().remove(danhMucCanXoa);
                         setTongsotien(getTongsotien() - danhMucCanXoa.getMoney());
+                        System.out.println("Bạn đã xóa danh mục thành công");
                         break;
                     } else if (danhMuc == danhMucCanXoa) {
                         dsdanhmuc.remove(danhMucCanXoa);
-
+                        setTongsotien();
+                        System.out.println("Bạn đã xóa danh mục thành công");
                         break;
                     }
                 }
-                System.out.println("Xóa danh mục thành công");
             }
         } else {
             System.out.println("Không tìm thấy danh mục");

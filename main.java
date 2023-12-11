@@ -18,7 +18,7 @@ import java.util.Scanner;
  */
 public class main {
     private static ArrayList<User> dsUser = new ArrayList<>();
-    
+    private static User u = new User();
     
 private boolean ghiUserDataLenFile(User a) throws FileNotFoundException, ClassNotFoundException{
         ArrayList<User> b = new ArrayList<>(); 
@@ -60,12 +60,12 @@ private boolean ghiUserDataLenFile(User a) throws FileNotFoundException, ClassNo
                         break;
                     }
                     case 1 -> {
-                        a.DangNhap();
+                        u = a.DangNhap();
                         flag = false;
                         break;
                     }
                     default ->{
-                        break;
+                        return;
                     }
                 }
           }while(flag);
@@ -85,24 +85,13 @@ private boolean ghiUserDataLenFile(User a) throws FileNotFoundException, ClassNo
         // Dang nhap
         // kiem tra tai khoan mat khau trong file
         ChoUserDangNhap();
+        System.out.println(u.getIdUser());
+        System.out.println(u.getLoaitaiKhoan());
+        System.out.println(u.getTaiKhoanNguoiDung().toString());
         // Neu co tra ve User 
         // Neu khong co se hoi user dang ky va tao ra user moi
-        //readIntegerFromUser();
         // sau khi tao ra user thi lưu user vào file 
         // nếu user muốn update lên pro thì dùng phương thức update()
         // downcasting xuong lop freeuser và dùng phương thức nâng cấp
-    }
-    private static void readIntegerFromUser(){
-        Scanner scanner = new Scanner(System.in);
-        int a;
-
-        do {
-            System.out.print("Nhập giá trị cho a: ");
-            a = Integer.parseInt(scanner.nextLine());
-
-            System.out.println("Giá trị của a là: " + a);
-        } while (a <= 100);
-
-        System.out.println("Biến a đã vượt qua giá trị 100.");
     }
 }

@@ -16,8 +16,6 @@ public class GiaoDich {
     private static int soLanGiaoDich = 0;
     Scanner sc = new Scanner(System.in);
     public void ChonLoaiGiaoDich(int n){
-        System.out.println("1.Giao Dich Chi");
-        System.out.println("2.Giao Dich Thu");
         switch(n){
             case 1:
                 this.loaigiaodich = "Giao dịch chi";
@@ -134,10 +132,8 @@ public class GiaoDich {
         this.getTendanhmuc().setMoney((int) ((getTendanhmuc().getMoney())+this.getsotien()));
     }
     public String toStringGiaoDich(){
-        return "|ID giao dịch: " +this.getidGiaodich()+", DATE: "+this.getNgayGiaoDich().toStringdate()+", THÔNG TIN GIAO DỊCH "+this.getThongtingiaodich()+":, SỐ TIỀN: "+this.getsotien()+"đ ,TÊN DANH MỤC: "+tendanhmuc.gettendanhmuc() +", TYPE : "+this.getLoaigiaodich();
+        return "|ID giao dịch: " +this.getidGiaodich()+", DATE: "+this.getNgayGiaoDich().toStringdate()+", THÔNG TIN GIAO DỊCH "+this.getThongtingiaodich()+":, SỐ TIỀN: "+this.getsotien()+"đ ,TÊN DANH MỤC: "+tendanhmuc.gettendanhmuc() +", TYPE : "+this.getLoaigiaodich()+"|";
     }
     
-    public static void main(String[] args) {
-        
-    }
+
 }

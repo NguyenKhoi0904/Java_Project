@@ -40,7 +40,7 @@ public class ListDanhMuc{
         }
         if (!timThay) {
             dsdanhmuc.add(danhmuccanthem);
-            System.out.println("Them danh muc thanh cong");
+            System.out.println("Thêm danh mục thành công");
         }
         setTongsotien();
     }
@@ -52,14 +52,14 @@ public class ListDanhMuc{
             if (danhMuc.gettendanhmuc().equals(tendanhmuc)) {
                 danhMuc.themdanhmuccon(danhmuccanthem);
                 timThay = true;
-                System.out.println("Them danh muc thanh cong");
+                System.out.println("Thêm danh mục thành công");
                 setTongsotien();
                 break;
             }
         }
 
         if (!timThay) {
-            System.out.println("Khong tim thay danh muc");
+            System.out.println("Không tìm thấy danh mục");
         }
     }
 
@@ -191,25 +191,6 @@ public class ListDanhMuc{
             }
         }
 
-    }
-
-    public DanhMuc timdanhmuctheoten(String name) {
-        Boolean timkiem = false;
-        for (DanhMuc danhmuc : dsdanhmuc) {
-            if (danhmuc.gettendanhmuc().equals(name)) {
-                timkiem = true;
-                return danhmuc;
-            }
-        }
-        if (!timkiem) {
-            for (DanhMuc danhmuc : dsdanhmuc) {
-                if (danhmuc.gettendanhmuc().equals(name)) {
-                    timkiem = true;
-                    return danhmuc;
-                }
-            }
-        }
-        return null;
     }
 
     public DanhMuc timdanhmuctheoten(ArrayList<DanhMuc> list, String name) {

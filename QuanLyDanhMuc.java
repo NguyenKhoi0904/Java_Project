@@ -3,18 +3,19 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.bt.quanlythuchicanhan;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
 
-public class QuanLyDanhMuc {
+public class QuanLyDanhMuc implements Serializable{
 
     private ListDanhMuc danhmucchi;
     private ListDanhMuc danhmucthu;
     private ListGiaoDich dsgiaodich;
-    Scanner sc = new Scanner(System.in);
+    
     public QuanLyDanhMuc(){
         this.danhmucchi=new ListDanhMuc(new DanhMuc("TY1","Thiết yếu"),new DanhMuc("BT1","Biếu tặng"),new DanhMuc("SK1","Sức khỏe"),new DanhMuc("GT","Giải trí"));
         this.danhmucthu = new ListDanhMuc(new DanhMuc("L1","Lương"),new DanhMuc("T1","Thưởng"));
@@ -28,6 +29,7 @@ public class QuanLyDanhMuc {
         return prefix + formatNumber;
     }
     public void ChonDanhMucDeThem(){
+        Scanner sc = new Scanner(System.in);
         System.out.println("Chọn loại danh mục ");
         System.out.println("Hãy nhập số ");
         System.out.println("1:CHI ");
@@ -52,7 +54,7 @@ public class QuanLyDanhMuc {
         }
     }
     public void ThemDanhMuc(ListDanhMuc danhmuc,String idDanhMuc){
-
+        Scanner sc = new Scanner(System.in);
         System.out.println("VUI LÒNG NHẬP DANH MỤC CẦN THÊM");
         String id = generateID_DanhMuc(idDanhMuc);
         System.out.println("|Tên danh mục cần thêm                                                                 |");
@@ -153,7 +155,7 @@ public class QuanLyDanhMuc {
         }
     }
     public void ChonDanhMucdexoa(){
-
+        Scanner sc = new Scanner(System.in);
         System.out.println("Bạn muốn xóa danh mục nào ");
         System.out.println("1:CHI ");
         System.out.println("2:THU ");
@@ -200,12 +202,14 @@ public class QuanLyDanhMuc {
 
     }
     public void xoaDanhMuc(ListDanhMuc danhmuc){
+        Scanner sc = new Scanner(System.in);
         danhmuc.lietkedanhmuc();
         System.out.println("Bạn muốn xóa danh mục nào trong các danh mục trên");
         String nameDanhMuc = sc.nextLine();
         danhmuc.deleteDanhMuc(nameDanhMuc);
     }
     public void chonDanhMucDeSua(){
+        Scanner sc = new Scanner(System.in);
         System.out.println("NHẬP LOẠI DANH MỤC CẦN SỬA ");
         System.out.println("HÃY NHẬP SỐ");
         System.out.println("1:CHI ");
@@ -247,7 +251,7 @@ public class QuanLyDanhMuc {
         }
     }
     public void suaDanhMuc(ListDanhMuc danhmuc) {
-
+        Scanner sc = new Scanner(System.in);
                 System.out.println("|Bạn muốn sửa danh mục cấp 1 hay cấp 2                  |");
                 System.out.println("|1: nếu là cấp 1 ");
                 System.out.println("|2: nếu là cấp 2 ");
@@ -328,6 +332,7 @@ public class QuanLyDanhMuc {
                 }
     }
     public void chonloaigiaodich(){
+        Scanner sc = new Scanner(System.in);
         System.out.println("Nhập loại danh mục cần giao dịch ");
         System.out.println("1 Chi                            ");
         System.out.println("2 Thu                            ");
@@ -378,6 +383,7 @@ public class QuanLyDanhMuc {
         }
     }
     public void giaodich(ListDanhMuc danhmuc,int loaigd){
+        Scanner sc = new Scanner(System.in);
         {
             System.out.println("Nhập ngày giao dịch");
             int ngay = sc.nextInt();
@@ -443,7 +449,7 @@ public class QuanLyDanhMuc {
         }
     }
     public void menu() {
-
+        Scanner sc = new Scanner(System.in);
         System.out.println("___________________________________________XIN NHẬP LỰA CHỌN___________________________________________");
         System.out.println("|1.THÊM DANH MỤC                                                                                      |");
         System.out.println("|-----------------------------------------------------------------------------------------------------|");

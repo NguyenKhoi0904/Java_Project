@@ -15,5 +15,10 @@ public class InterfaceClass {
         void timKiemThongTinGiaoDich();
     }
     
+    public interface ManageCategory{
+        void taoDanhMuc();
+        void doiTenDanhMuc();
+        void xoaDanhMuc();
+    }
     
 }

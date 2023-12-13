@@ -3,12 +3,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.bt.quanlythuchicanhan;
+import java.io.Serializable;
 import java.util.ArrayList;
 /**
  *
  * @author aries
  */
-public class ListGiaoDich {
+public class ListGiaoDich implements Serializable{
     private ArrayList<GiaoDich> dsGD;
 
     public ListGiaoDich() {

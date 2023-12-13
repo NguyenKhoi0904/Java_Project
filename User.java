@@ -74,121 +74,133 @@ public class User implements Serializable {
         ArrayList<AccountUser> tmpDN = readAccountUserDataFromFileAndCheck();
         ArrayList<User> pxm = docUserData();
         boolean isAccountValid = false;
-        try (Scanner input_User = new Scanner(System.in)) {
-            System.out.println("  ^^^  DANG NHAP  ^^^  ");
-            System.out.print("Tai khoan: ");
-            String username = input_User.nextLine();
-            System.out.print("Mat khau: ");
-            String password = input_User.nextLine();
-            int index = 0;
-            for(AccountUser au: tmpDN){
-                if(au.getTendangnhap().equals(username)&&au.getMatkhau().equals(password)){
-                    System.out.println("Dang nhap thanh cong");
-                    return pxm.get(index);
-                }
-                if(au.getTendangnhap().equals(username)){
-                    isAccountValid = true;
-                    break;
-                }
-                index++;
+        Scanner input_User = new Scanner(System.in);
+        System.out.println("++++++++++++++++++++++++++++++++++++++++++  ĐĂNG NHẬP  +++++++++++++++++++++++++++++++++++++");
+        System.out.print("  Tai khoan: ");
+        String username = input_User.nextLine();
+        System.out.print("  Mat khau: ");
+        String password = input_User.nextLine();
+        int index = 0;
+        for(AccountUser au: tmpDN){
+            if(au.getTendangnhap().equals(username)&&au.getMatkhau().equals(password)){
+                System.out.println("    ĐĂNG NHẬP THÀNH CÔNG");
+                System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+                return pxm.get(index);
             }
-            
-            if(isAccountValid){
-                int count;
-                boolean flag = true;
-                System.out.println("&&&&&& 404 &&&&&&");
-                System.out.println("Sai mật khẩu");
-                do{
-                    index = 0;
-                    System.out.print("Mời bạn nhập lại mật khẩu: ");
-                    password = input_User.nextLine();
-                    for(AccountUser au : tmpDN){
-                        if(au.getMatkhau().equals(password)){
-                            System.out.println("Dang nhap thanh cong");
-                            return pxm.get(index);
-                        }else{
-                            flag = false;
+            if(au.getTendangnhap().equals(username)){
+                isAccountValid = true;
+                break;
+            }
+            index++;
+        }
+        if(isAccountValid){
+            int count = 0;
+            boolean flag = true;
+            System.out.println("&&&&&& 404 &&&&&&");
+            System.out.println("Sai mật khẩu");
+            do{
+                index = 0;
+                System.out.print("Mời bạn nhập lại mật khẩu: ");
+                password = input_User.nextLine();
+                for(AccountUser au : tmpDN){
+                    if(au.getMatkhau().equals(password)){
+                        System.out.println("    ĐĂNG NHẬP THÀNH CÔNG");
+                        return pxm.get(index);
+                    }else{
+                        flag = false;
+                    }
+                    index++;
+                }
+                
+                if(!flag){
+                    System.out.println("Sai mật khẩu");
+                    count++;
+                    if(count >= 3){
+                        System.out.println("Bạn có muốn thoát ra không?"); // CẦN XỬ LÝ LẠI CHỖ NÀY
+                        System.out.println("0.Không");
+                        System.out.println("1.Có");
+                        System.out.print("Mời bạn lựa chọn: ");
+                        int temp = Integer.parseInt(input_User.nextLine());
+                        if(temp == 1){
+                            return null;
                         }
-                        index++;
                     }
-                    
-                    if(!flag)   System.out.println("Sai mật khẩu");
-                    System.out.println("Bạn có muốn thoát ra không?");
-                    System.out.println("0.Không");
-                    System.out.println("1.Có");
-                    System.out.print("Mời bạn lựa chọn: ");
-                    count = Integer.parseInt(input_User.nextLine());
-                    if(count == 1){
-                        return null;
+                }   
+            }while(true);
+        }else{ //KIỂM TRA TRUÒNG HỢP TÀI KHOẢN KHÔNG TỒN TẠI
+            int chiso = 0;
+            int dem = 0; //BIẾN NÀY DÙNG ĐỂ ĐẾM SỐ VÒNG CHẠY CỦA DO WHILE
+            boolean cohieu = true;
+            System.out.println("---------- 404 ----------");
+            System.out.println("  Sai tài khoản hoặc tài khoản không tồn tại");
+            do{
+                System.out.print("  Mời bạn nhập lại tài khoản: ");
+                username = input_User.nextLine();
+                for(AccountUser au : tmpDN){
+                    if(au.getTendangnhap().equals(username)){
+                        if(au.getTendangnhap().equals(password)){
+                            System.out.println("    ĐĂNG NHẬP THÀNH CÔNG");
+                            return pxm.get(chiso);
+                        }
+                        else{
+                            cohieu = false;
+                        }
                     }
-                }while(true);
-            }else{ //KIỂM TRA TRUÒNG HỢP TÀI KHOẢN KHÔNG TỒN TẠI
-                int chiso = 0;
-                boolean cohieu = true;
-                System.out.println("&&&&& 404 &&&&&");
-                System.out.println("Sai tài khoản hoặc tài khoản không tồn tại");
-                do{
-                    System.out.print("Moi ban nhap lai tai khoan: ");
-                    username = input_User.nextLine();
-                    for(AccountUser au : tmpDN){
-                        if(au.getTendangnhap().equals(username)){
-                            if(au.getTendangnhap().equals(password)){
-                                System.out.println("Dang nhap thanh cong");
+                    chiso++;
+                }
+                
+                if(!cohieu){ //TRƯỜNG HỢP SAU KHI NHẬP ĐÚNG TÀI KHOẢN NHƯNG LẠI NHẬP SAI MẬT KHẨU
+                    boolean isCorrectPassword = true;
+                    int count = 0;
+                    System.out.println("---------- 404 ----------");
+                    System.out.println("  Mật khẩu ở trên của bạn bị sai");
+                    do{
+                        chiso=0;
+                        System.out.print("  Mời bạn nhập lại mật khẩu: ");
+                        password = input_User.nextLine();
+                        for(AccountUser au : tmpDN){
+                            if(au.getMatkhau().equals(password)){
+                                System.out.println("    ĐĂNG NHẬP THÀNH CÔNG");
                                 return pxm.get(chiso);
+                            }else{
+                                isCorrectPassword = false;
                             }
-                            else{
-                                cohieu = false;
-                            }
+                            chiso++;
                         }
-                        chiso++;
-                    }
-                    
-                    if(!cohieu){
-                        boolean isCorrectPassword = true;
-                        
-                        int count;
-                        System.out.println("&&&&&& 404 &&&&&&");
-                        System.out.println("Sai mật khẩu");
-                        do{
-                            chiso=0;
-                            System.out.print("Mời bạn nhập lại mật khẩu: ");
-                            password = input_User.nextLine();
-                            for(AccountUser au : tmpDN){
-                                if(au.getMatkhau().equals(password)){
-                                    System.out.println("Dang nhap thanh cong");
-                                    return pxm.get(chiso);
-                                }else{
-                                    isCorrectPassword = false;
-                                }
-                                chiso++;
-                            }
-                            if(!isCorrectPassword)   System.out.println("Sai mật khẩu");
-                            System.out.println("Bạn có muốn thoát ra không?");
-                            System.out.println("0.Không");
-                            System.out.println("1.Có");
-                            System.out.print("Mời bạn lựa chọn: ");
-                            count = Integer.parseInt(input_User.nextLine());
-                            if(count == 1){
+                        if(!isCorrectPassword){
+                            System.out.println(" Sai mật khẩu");
+                            count++;
+                        }
+                        if(count >= 3){
+                            System.out.println(" Bạn có muốn thoát ra không?");
+                            System.out.println(" 0.Không");
+                            System.out.println(" 1.Có");
+                            System.out.print(" Mời bạn lựa chọn: ");
+                            int temp = Integer.parseInt(input_User.nextLine());
+                            if(temp == 1){
                                 return null;
                             }
-                        }while(true);
-                    }
-                    System.out.println("&&&&& 404 &&&&&");
-                    System.out.println("Sai tài khoản hoặc tài khoản không tồn tại");
-                    System.out.println("Bạn có muốn thoát ra không?");
-                    System.out.println("0.Không");
-                    System.out.println("1.Có");
-                    System.out.print("Mời bạn lựa chọn: ");
+                        }
+                        
+                    }while(true);
+                }
+                System.out.println("---------- 404 ----------");
+                System.out.println("Sai tài khoản hoặc tài khoản không tồn tại");
+                dem++;
+                if(dem >= 3){
+                    System.out.println(" Bạn có muốn thoát ra không?");
+                    System.out.println(" 0.Không");
+                    System.out.println(" 1.Có");
+                    System.out.print(" Mời bạn lựa chọn: ");
                     int i = Integer.parseInt(input_User.nextLine());
                     if(i == 1){
                         return null;
                     }
-                }while(true);
-                
-            }
-//            input_User.close();
+                }
+            }while(true);
+            
         }
-//        return null;
+//            input_User.close();
     }
 
     private ArrayList<User> docUserData(){
@@ -222,11 +234,11 @@ public class User implements Serializable {
             ArrayList<AccountUser> arrayListAU = readAccountUserDataFromFileAndCheck();
             if(!arrayListAU.isEmpty()){
                 for(AccountUser tmp: arrayListAU){
-                if(tmp.getTendangnhap().equals(a.getTendangnhap())){
-                    System.out.println("Tai khoan da ton tai");
-                    isAccountExist = true;
-                    break;
-                }
+                    if(tmp.getTendangnhap().equals(a.getTendangnhap())){        
+                        System.out.println("Tai khoan da ton tai");
+                        isAccountExist = true;
+                        break;
+                    }
                 }
                 if(isAccountExist){
                     do{
@@ -263,10 +275,7 @@ public class User implements Serializable {
             this.setIdUser(generateID_User(this.getLoaitaiKhoan()));
             //ĐANG LÀM TÀ ĐẠO YÊU CẦU KHÔNG BẮT CHƯỚC
             User u = new FreeUser();
-            u.setLoaitaiKhoan(this.getLoaitaiKhoan());
-            u.setIdUser(this.getIdUser());
-            u.setTaiKhoanNguoiDung(this.getTaiKhoanNguoiDung());
-//            u.setQldm(this.getQldm());
+            CopyGiaTri(u); // HÀM NÀY CÓ TÁC DỤNG GÁN GIÁ TRỊ CỦA THIS CHO U
             if(u instanceof FreeUser fu){
                 if(ghiUserDataLenFile(fu)){ // GHI THÔNG TIN CỦA 1 USER LÊN FILE
                     System.out.println("Ghi thong tin user thanh cong");
@@ -295,10 +304,7 @@ public class User implements Serializable {
                     this.setIdUser(generateID_User(this.getLoaitaiKhoan()));
                     //ĐANG LÀM TÀ ĐẠO YÊU CẦU KHÔNG BẮT CHƯỚC
                     User u = new ProUser();
-                    u.setLoaitaiKhoan(this.getLoaitaiKhoan());
-                    u.setIdUser(this.getIdUser());
-                    u.setTaiKhoanNguoiDung(this.getTaiKhoanNguoiDung());
-//                    u.setQldm(this.getQldm());
+                    CopyGiaTri(u); // HÀM NÀY CÓ TÁC DỤNG GÁN GIÁ TRỊ CỦA THIS CHO U
                     if(u instanceof ProUser pu){
                         if(ghiUserDataLenFile(pu)){ // GHI THÔNG TIN CỦA 1 USER LÊN FILE
                             System.out.println("Ghi thong tin user thanh cong");
@@ -319,10 +325,7 @@ public class User implements Serializable {
                     System.out.println(this.getIdUser());
                     //ĐANG LÀM TÀ ĐẠO YÊU CẦU KHÔNG BẮT CHƯỚC
                     User u = new FreeUser();
-                    u.setLoaitaiKhoan(this.getLoaitaiKhoan());
-                    u.setIdUser(this.getIdUser());
-                    u.setTaiKhoanNguoiDung(this.getTaiKhoanNguoiDung());
-//                    u.setQldm(this.getQldm());
+                    CopyGiaTri(u); // HÀM NÀY CÓ TÁC DỤNG GÁN GIÁ TRỊ CỦA THIS CHO U
                     if(u instanceof FreeUser fu){
                         if(ghiUserDataLenFile(fu)){ // GHI THÔNG TIN CỦA 1 USER LÊN FILE
                             System.out.println("Ghi thong tin user thanh cong");
@@ -341,8 +344,15 @@ public class User implements Serializable {
             }
         }
     }
-    private String generateID_User(String prefix){
-        Random random = new Random();
+    
+    private void CopyGiaTri(User sourceUser){
+        sourceUser.setLoaitaiKhoan(this.getLoaitaiKhoan());
+        sourceUser.setIdUser(this.getIdUser());
+        sourceUser.setTaiKhoanNguoiDung(this.getTaiKhoanNguoiDung());
+        sourceUser.setQldm(new QuanLyDanhMuc());
+    }
+    private String generateID_User(String prefix){ //HÀM RANDOM ID DỰA TRÊN MÃ ĐẦU VÀO
+        Random random = new Random();              //VD: giá trị truyền vào là "PRO" kết quả khi trả về sẽ là PRO + 1 dãy số ngẫu nhiên có 6 kí tự, vd PRO000001
         int randomNumber = random.nextInt((int) Math.pow(10, 6));
         
         String formatNumber = String.format("%0" + 6 + "d", randomNumber);

@@ -5,20 +5,21 @@
 package com.bt.quanlythuchicanhan;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.ObjectInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.Random;
 import java.util.ArrayList;
 /**
  *
  * @author aries
  */
-public class FreeUser extends User{
-    public void nangCapTaiKhoan(){
-        ProUser pu = new ProUser();
-        pu.setLoaitaiKhoan("PRO");
-        pu.setIdUser(generateID_User(pu.getLoaitaiKhoan()));
-        pu.setQldm(this.getQldm());
-        pu.setTaiKhoanNguoiDung(this.getTaiKhoanNguoiDung());
+public class FreeUser extends User implements Serializable, InterfaceClass.QuanLyGiaoDichDanhMuc_Interface, InterfaceClass.ManageCategory{
+    public boolean nangCapTaiKhoan() throws IOException{
+        ProUser proUser = nangcap();
         ArrayList<User> arraylist = docUserData();
         int dem = 0;
         for(User u: arraylist){
@@ -26,6 +27,29 @@ public class FreeUser extends User{
                 break;
             }
             dem++;
+        }
+        arraylist.set(dem, proUser);
+        ghiUserMoiNangCapLenFile(arraylist);
+        return true;
+    }
+    
+    private ProUser nangcap(){
+        ProUser pu = new ProUser();
+        pu.setLoaitaiKhoan("PRO");
+        pu.setIdUser(generateID_User(pu.getLoaitaiKhoan()));
+        pu.setQldm(this.getQldm());
+        pu.setTaiKhoanNguoiDung(this.getTaiKhoanNguoiDung());
+        return pu;
+    }
+    
+    private void ghiUserMoiNangCapLenFile(ArrayList<User> a) throws FileNotFoundException, IOException{
+        try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("userData.txt"))){
+            oos.writeObject(a);
+            System.out.println("NÂNG CẤP TÀI KHOẢN THÀNH CÔNG");
+            System.out.println("Mời bạn đăng nhập lại");
+        }catch(IOException e){
+            System.out.println("NÂNG CẤP TÀI KHOẢN THẤT BẠI");
+            e.printStackTrace();
         }
     }
     private ArrayList<User> docUserData(){
@@ -42,5 +66,35 @@ public class FreeUser extends User{
         
         String formatNumber = String.format("%0" + 6 + "d", randomNumber);
         return prefix + formatNumber;
+    }
+
+    @Override
+    public void tao1GiaoDichMoi() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void thongkeDanhMucTheoNgayThangNam() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void timKiemThongTinGiaoDich() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void taoDanhMuc() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void doiTenDanhMuc() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void xoaDanhMuc() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

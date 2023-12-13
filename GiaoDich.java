@@ -3,10 +3,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.bt.quanlythuchicanhan;
+import java.io.Serializable;
 import java.util.Random;
 import java.util.Scanner;
 
-public class GiaoDich {
+public class GiaoDich implements Serializable{
     private String idGiaodich;
     private NgayThangNam ngayGiaoDich;
     private String loaigiaodich;
@@ -14,7 +15,7 @@ public class GiaoDich {
     private long sotien;
     private DanhMuc tendanhmuc;
     private static int soLanGiaoDich = 0;
-    Scanner sc = new Scanner(System.in);
+    
     public void ChonLoaiGiaoDich(int n){
         switch(n){
             case 1:
@@ -49,7 +50,7 @@ public class GiaoDich {
         soLanGiaoDich++;
     }
     public void setInFoGiaoDich(DanhMuc danhmuc,int loaigd){
-
+        Scanner sc = new Scanner(System.in);
         this.idGiaodich = sc.nextLine();
         System.out.println("Nhập ngày");
         int ngay=sc.nextInt();

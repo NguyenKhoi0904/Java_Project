@@ -5,9 +5,10 @@
 package com.bt.quanlythuchicanhan;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class DanhMuc {
+public class DanhMuc implements Serializable{
     public String getName_danhmuccha() {
         return name_danhmuccha;
     }

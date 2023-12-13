@@ -1,10 +1,11 @@
 
 package com.bt.quanlythuchicanhan;
 
- import java.util.ArrayList;
- import java.util.Scanner;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Scanner;
 
-public class ListDanhMuc{
+public class ListDanhMuc implements Serializable{
     private ArrayList<DanhMuc> dsdanhmuc;
     private int tongsotien = 0;
 

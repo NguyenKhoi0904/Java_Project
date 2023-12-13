@@ -17,6 +17,7 @@ public class QuanLyDanhMuc {
     private ListDanhMuc danhmucthu;
     private ListGiaoDich dsgiaodich;
     private ArrayList<SoDanhMucMoiThang> DsDanhMuc; // chứa số danh mục mỗi tháng
+    Scanner sc = new Scanner(System.in);
     public QuanLyDanhMuc(){
         this.danhmucchi=new ListDanhMuc(new DanhMuc("TY1","Thiết yếu"),new DanhMuc("BT1","Biếu tặng"),new DanhMuc("SK1","Sức khỏe"),new DanhMuc("GT","Giải trí"));
         this.danhmucthu = new ListDanhMuc(new DanhMuc("L1","Lương"),new DanhMuc("T1","Thưởng"));
@@ -49,9 +50,8 @@ public class QuanLyDanhMuc {
 
     }
     private void ChonDanhMucDeThem(){
-        Scanner sc = new Scanner(System.in);
+        System.out.println("Số lần thêm danh mục của bạn còn "+getSoDanhMuc());
         if(getSoDanhMuc()>0) {
-
             System.out.println("Chọn loại danh mục ");
             System.out.println("Hãy nhập số ");
             System.out.println("1:CHI ");
@@ -110,100 +110,97 @@ public class QuanLyDanhMuc {
 
     }
     private void ThemDanhMuc(ListDanhMuc danhmuc,String idDanhMuc){
-        Scanner sc = new Scanner(System.in);
-        System.out.println("VUI LÒNG NHẬP DANH MỤC CẦN THÊM");
-        String id = generateID_DanhMuc(idDanhMuc);
-        System.out.println("|Tên danh mục cần thêm                                                                 |");
-        String name = sc.nextLine();
-        DanhMuc danhmuccanthem = new DanhMuc(id, name);
-        while(danhmucchi.timdanhmuctheoten(danhmucchi.getDsDanhMuc(),danhmuccanthem.gettendanhmuc())!=null || danhmucthu.timdanhmuctheoten(danhmucthu.getDsDanhMuc(),danhmuccanthem.gettendanhmuc())!=null){
-            System.out.println("Danh mục bị trùng , hãy nhập lại");
-            name = sc.nextLine();
-            danhmuccanthem.setTendanhmuc(name);
-        }
-        System.out.println("-Vai trò danh mục cấp 1 hay cấp 2                                                      |");
-        System.out.println("-Nhập 1 nếu danh mục cấp 1                                                             |");
-        System.out.println("-Nhập 2 nếu danh mục cấp 2                                                             |");
-        System.out.println("-Nhập các nút còn lại nếu thoát                                                        |");
-        int m ;
-        try {
-            m = Integer.parseInt(sc.nextLine());
-            switch (m) {
-                case 1:
-                    danhmuc.themdanhmuc(danhmuccanthem);
-                    setSoDanhMuc(getSoDanhMuc()-1);
-                    System.out.println("Bạn có muốn thêm danh mục nữa không ?");
-                    System.out.println("1:Có");
-                    System.out.println("Các nút còn lại:back về menu");
+            System.out.println("VUI LÒNG NHẬP DANH MỤC CẦN THÊM");
+            String id = generateID_DanhMuc(idDanhMuc);
+            System.out.println("|Tên danh mục cần thêm                                                                 |");
+            String name = sc.nextLine();
+            DanhMuc danhmuccanthem = new DanhMuc(id, name);
+            while (danhmucchi.timdanhmuctheoten(danhmucchi.getDsDanhMuc(), danhmuccanthem.gettendanhmuc()) != null || danhmucthu.timdanhmuctheoten(danhmucthu.getDsDanhMuc(), danhmuccanthem.gettendanhmuc()) != null) {
+                System.out.println("Danh mục bị trùng , hãy nhập lại");
+                name = sc.nextLine();
+                danhmuccanthem.setTendanhmuc(name);
+            }
+            System.out.println("-Vai trò danh mục cấp 1 hay cấp 2                                                      |");
+            System.out.println("-Nhập 1 nếu danh mục cấp 1                                                             |");
+            System.out.println("-Nhập 2 nếu danh mục cấp 2                                                             |");
+            System.out.println("-Nhập các nút còn lại nếu thoát                                                        |");
+            int m;
+            try {
+                m = Integer.parseInt(sc.nextLine());
+                switch (m) {
+                    case 1:
+                        danhmuc.themdanhmuc(danhmuccanthem);
+                        setSoDanhMuc(getSoDanhMuc() - 1);
+                        System.out.println("Bạn có muốn thêm danh mục nữa không ?");
+                        System.out.println("1:Có");
+                        System.out.println("Các nút còn lại:back về menu");
 
 
-                    try {
-                        int choice1 = Integer.parseInt(sc.nextLine());
-                        if (choice1 == 1) {
-                            ChonDanhMucDeThem();
-                        } else {
-                            menu();
-                        }
-                    }
-                    catch(NumberFormatException e){
-                        menu();
-                    }
-                    break;
-                case 2:
-                    int i = 1;
-                    for (DanhMuc list : danhmuc.getDsDanhMuc()) {
-                        System.out.println(i + ": " + list.gettendanhmuc());
-                        i++;
-                    }
-                    System.out.println("Chọn danh mục cha :");
-                    System.out.println("Hãy nhập số :");
-                    Boolean flat =true;
-                    while(flat) {
                         try {
-                            int type = Integer.parseInt(sc.nextLine());
-                            flat = false;
-                            DanhMuc DanhMucCha = danhmuc.getDsDanhMuc().get(type - 1);
-                            DanhMucCha.getdanhsachdanhmuccon().add(danhmuccanthem);
-                            danhmuccanthem.setName_danhmuccha(DanhMucCha.gettendanhmuc());
-                            System.out.println("Đã tạo danh mục " + danhmuccanthem.gettendanhmuc());
-                            setSoDanhMuc(getSoDanhMuc() - 1);
-                            System.out.println("Bạn có muốn tạo tiếp danh mục nào nữa không");
-                            System.out.println("1:YES ");
-                            System.out.println("Các nút còn lại:Về menu ");
-                            try {
-                                int choice1 = Integer.parseInt(sc.nextLine());
-                                if (choice1 == 1) {
-                                    ChonDanhMucDeThem();
-                                } else {
-                                    menu();
-                                }
-                            } catch (Exception e) {
+                            int choice1 = Integer.parseInt(sc.nextLine());
+                            if (choice1 == 1) {
+                                ChonDanhMucDeThem();
+                            } else {
                                 menu();
                             }
+                        } catch (NumberFormatException e) {
+                            menu();
                         }
-                        catch(IndexOutOfBoundsException x){
-                            System.out.println("Số bạn nhập không nằm trong vị trí cho phép.");
-                            flat = true;
-                        }
-                        catch (NumberFormatException e) {
-                            System.out.println("Bạn đã nhập không hợp lệ. Vui lòng nhập số.");
-                            flat = true;
-
-                        }
-                    }
                         break;
-                default:
-                    System.out.println("-----------------------------------------Bạn đã thoát-----------------------------------------");
-                    menu();
+                    case 2:
+                        int i = 1;
+                        for (DanhMuc list : danhmuc.getDsDanhMuc()) {
+                            System.out.println(i + ": " + list.gettendanhmuc());
+                            i++;
+                        }
+                        System.out.println("Chọn danh mục cha :");
+                        System.out.println("Hãy nhập số :");
+                        Boolean flat = true;
+                        while (flat) {
+                            try {
+                                int type = Integer.parseInt(sc.nextLine());
+                                flat = false;
+                                DanhMuc DanhMucCha = danhmuc.getDsDanhMuc().get(type - 1);
+                                DanhMucCha.getdanhsachdanhmuccon().add(danhmuccanthem);
+                                danhmuccanthem.setName_danhmuccha(DanhMucCha.gettendanhmuc());
+                                System.out.println("Đã tạo danh mục " + danhmuccanthem.gettendanhmuc());
+                                setSoDanhMuc(getSoDanhMuc() - 1);
+                                System.out.println("Bạn có muốn tạo tiếp danh mục nào nữa không");
+                                System.out.println("1:YES ");
+                                System.out.println("Các nút còn lại:Về menu ");
+                                try {
+                                    int choice1 = Integer.parseInt(sc.nextLine());
+                                    if (choice1 == 1) {
+                                        ChonDanhMucDeThem();
+                                    } else {
+                                        menu();
+                                    }
+                                } catch (Exception e) {
+                                    menu();
+                                }
+                            } catch (IndexOutOfBoundsException x) {
+                                System.out.println("Số bạn nhập không nằm trong vị trí cho phép.");
+                                flat = true;
+                            } catch (NumberFormatException e) {
+                                System.out.println("Bạn đã nhập không hợp lệ. Vui lòng nhập số.");
+                                flat = true;
 
+                            }
+                        }
+                        break;
+                    default:
+                        System.out.println("-----------------------------------------Bạn đã thoát-----------------------------------------");
+                        menu();
+
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("-----------------------------------------Bạn đã thoát------------------------------------------");
+                menu();
             }
-        } catch (NumberFormatException e) {
-            System.out.println("-----------------------------------------Bạn đã thoát------------------------------------------");
-            menu();
         }
-    }
+
+
     private void ChonDanhMucdexoa(){
-        Scanner sc = new Scanner(System.in);
         System.out.println("Bạn muốn xóa danh mục nào ");
         System.out.println("1:CHI ");
         System.out.println("2:THU ");
@@ -218,8 +215,9 @@ public class QuanLyDanhMuc {
                     System.out.println("Bạn có muốn xóa tiếp danh mục nào nữa không");
                     System.out.println("1:YES ");
                     System.out.println("Các nút còn lại:về menu ");
-                    int choice1 = Integer.parseInt(sc.nextLine());
+                    int choice1;
                     try {
+                        choice1 = Integer.parseInt(sc.nextLine());
                         if (choice1 == 1) {
                             ChonDanhMucdexoa();
                         } else {
@@ -234,26 +232,23 @@ public class QuanLyDanhMuc {
                     System.out.println("Bạn có muốn xóa tiếp danh mục nào nữa không");
                     System.out.println("1:YES ");
                     System.out.println("Các nút còn lại:về menu ");
-
+                    int choice2;
                     try {
-                        int choice2 = Integer.parseInt(sc.nextLine());
+                       choice2 = Integer.parseInt(sc.nextLine());
                         if (choice2 == 1) {
                             ChonDanhMucdexoa();
                         } else {
                             menu();
                         }
                     }
-                    catch(Exception e){
+                    catch(NumberFormatException e){
                         menu();
                     }
-                } else if(choice == 3){
-                    flat=true;
-                    menu();
                 }
                 else {
                     menu();
                 }
-            } catch (Exception x) {
+            } catch (NumberFormatException x) {
                 menu();
 
 
@@ -262,11 +257,149 @@ public class QuanLyDanhMuc {
 
     }
     private void xoaDanhMuc(ListDanhMuc dsdanhmuc){
-        Scanner sc = new Scanner(System.in);
-        dsdanhmuc.lietkedanhmuc();
-        System.out.println("Bạn muốn xóa danh mục nào trong các danh mục trên");
-        String nameDanhMuc = sc.nextLine();
-        dsdanhmuc.deleteDanhMuc(nameDanhMuc);
+        System.out.println("Bạn muốn xóa danh mục cấp 1 hay cấp 2");
+        String NameDanhMucCanXoa = null;
+        Boolean flat = true;
+            while(flat) {
+                int choice;
+                try {
+                    // lua chon danh muc cap 1 hoac 2 de xoa
+                    choice = Integer.parseInt(sc.nextLine());
+                    flat = false;
+                    if (choice == 1) {
+                        // thuc hien xoa danh muc cap 1 trong đây
+                        if (dsdanhmuc.getDsDanhMuc().size() == 0) {
+                            System.out.println("Không còn danh mục để xóa , nhấn phím bẩt kỳ để quay về menu ");
+                            sc.nextLine();
+                            menu();
+                        }
+                        else {
+                            int i = 1;
+                            for (DanhMuc list : dsdanhmuc.getDsDanhMuc()) {
+                                System.out.println(i + ": " + list.gettendanhmuc());
+                                i++;
+                            }
+                            System.out.println("Bạn muốn xóa danh mục nào theo thứ tự từ 1" + " đến " + (i - 1));
+                            int luachon;
+                            Boolean CoHieu = true;
+                            while (CoHieu) {
+                                try {
+                                    luachon = Integer.parseInt(sc.nextLine());
+                                    CoHieu = false;
+                                    DanhMuc DanhMucCanXoa = dsdanhmuc.getDsDanhMuc().get(luachon - 1);
+                                    NameDanhMucCanXoa = DanhMucCanXoa.gettendanhmuc();
+                                } catch (IndexOutOfBoundsException e) {
+                                    System.out.println("Số bạn nhập không nằm trong vị trí cho phép , vui lòng nhập lại !!!!!.");
+                                    CoHieu = true;
+                                } catch (NumberFormatException e) {
+                                    System.out.println("Bạn đã nhập không hợp lệ. Vui lòng nhập số.");
+                                    CoHieu = true;
+                                }
+
+                            }
+                        }
+                    }
+
+                     else if (choice == 2) {
+                        if(dsdanhmuc.getDsDanhMuc()==null){
+                            System.out.println("Không còn danh mục để xóa , bạn có muốn quay lại menu hay tạo danh mục ");
+                            System.out.println("1.tạo tiếp ");
+                            System.out.println("ấn phím bất kỳ để quay về menu ");
+                            String test = sc.nextLine();
+                            if(isInteger(test)){
+                                int luachon = Integer.parseInt(test);
+                                if(luachon==1){
+                                    ChonDanhMucDeThem();
+                                }
+                                else
+                                    menu();
+
+                            }
+                            else{
+                                menu();
+                            }
+                        }
+                       else{
+                        // thuc hien xoa danh muc cap 2 trong đây
+                        flat = false;
+                        int i = 1;
+                        for (DanhMuc list : dsdanhmuc.getDsDanhMuc()) {
+                            System.out.println("Nhóm :" + i + ": " + list.gettendanhmuc());
+                            int x = 1;
+                            for (DanhMuc danhmuccap2 : list.getdanhsachdanhmuccon()) {
+                                System.out.println(x + ": " + danhmuccap2.gettendanhmuc());
+                            }
+                            i++;
+                        }
+                        System.out.println("Bạn muốn xóa danh mục cấp 2 nào trong nhóm này");
+                        DanhMuc DanhMucCap1 = null;
+                        int type;
+                        Boolean flat1 = true; // dat bien co hieu de tim danh muc cap 1
+                        while (flat1) {
+                            try {
+                                flat1 = false;
+                                System.out.println("Chọn Nhóm :");
+                                type = Integer.parseInt(sc.nextLine());
+                                flat1 = false;
+                                DanhMucCap1 = dsdanhmuc.getDsDanhMuc().get(type - 1);
+                            } catch (IndexOutOfBoundsException x) {
+                                System.out.println("Số bạn nhập không nằm trong vị trí cho phép , vui lòng nhập lại !!!!!.");
+                                flat1 = true;
+                            } catch (NumberFormatException e) {
+                                System.out.println("Bạn đã nhập không hợp lệ. Vui lòng nhập số.");
+                                flat1 = true;
+
+                            }
+                        }
+
+                        Boolean flat2 = true;
+                        while (flat2) {
+                            int type_1;
+                            try {
+                                if (DanhMucCap1 != null && DanhMucCap1.getdanhsachdanhmuccon().size()>0) {
+                                    System.out.println("Trong nhóm bạn chọn bao gồm : ");
+                                    int temp = 1;
+                                    for (DanhMuc list : DanhMucCap1.getdanhsachdanhmuccon()) {
+                                        System.out.println(temp + ": " + list.gettendanhmuc());
+                                        temp++;
+                                    }
+
+                                    System.out.println("Vui lòng nhập vị trí danh mục trong nhóm này");
+                                    type_1 = Integer.parseInt(sc.nextLine());
+                                    flat2 = false;
+                                    DanhMuc DanhMucCanXoa = DanhMucCap1.getdanhsachdanhmuccon().get(type_1 - 1);
+                                    NameDanhMucCanXoa = DanhMucCanXoa.gettendanhmuc();
+                                }
+                                else{
+                                    System.out.println("Nhóm bạn chọn hiện đang không có danh mục");
+                                    System.out.println("Nhập 1 phím bất kỳ để quay trở về menu");
+                                    sc.nextLine();
+                                    menu();
+
+                                }
+                            } catch (IndexOutOfBoundsException x) {
+                                System.out.println("Số bạn nhập không nằm trong vị trí cho phép , vui lòng nhập lại !!!!!.");
+                                flat2 = true;
+                            } catch (NumberFormatException e) {
+                                System.out.println("Bạn đã nhập không hợp lệ. Vui lòng nhập số.");
+                                flat2 = true;
+
+                            }
+                        }
+
+                        }
+                    }
+                }
+                catch(IndexOutOfBoundsException e){
+                    System.out.println("Số bạn nhập không nằm trong vị trí cho phép , vui lòng nhập lại !!!!!.");
+                    flat = true;
+    }
+                 catch (NumberFormatException e) {
+                    System.out.println("Bạn đã nhập không hợp lệ. Vui lòng nhập số.");
+                     flat = true;
+                }
+}
+        dsdanhmuc.deleteDanhMuc(NameDanhMucCanXoa);
         setSoDanhMuc(getSoDanhMuc()+1);
     }
     private void xoaDanhMucCap2(ListDanhMuc listdanhmuc) {
@@ -280,7 +413,7 @@ public class QuanLyDanhMuc {
     }
     public void DatLaiDuLieu() {
         xoaDanhMucCap2(danhmucthu);
-       xoaDanhMucCap2(danhmucchi);
+        xoaDanhMucCap2(danhmucchi);
 
        for (DanhMuc example : danhmucchi.getDsDanhMuc())
         {
@@ -298,7 +431,6 @@ public class QuanLyDanhMuc {
         }
     }
     private void chonDanhMucDeSua(){
-        Scanner sc = new Scanner(System.in);
         System.out.println("NHẬP LOẠI DANH MỤC CẦN SỬA ");
         System.out.println("HÃY NHẬP SỐ");
         System.out.println("1:CHI ");
@@ -337,20 +469,21 @@ public class QuanLyDanhMuc {
             menu();
         }
     }
-    private void suaDanhMuc(ListDanhMuc danhmuc) {
-        Scanner sc = new Scanner(System.in);
+    private void suaDanhMuc(ListDanhMuc dsdanhmuc) {
+
         System.out.println("|BẠN MUỐN SỬA DANH MỤC CẤP 1 HAY CẤP 2       ");
         System.out.println("|1: nếu là cấp 1 ");
         System.out.println("|2: nếu là cấp 2 ");
         Boolean temp = true;// đặt biến cờ hiệu
         while (temp) {
+            int choice;
             try {
-                int choice = Integer.parseInt(sc.nextLine());
+                choice= Integer.parseInt(sc.nextLine());
                 switch (choice) {
                     case 1:
                         temp = false;
                         int i = 1;
-                        for (DanhMuc list : danhmuc.getDsDanhMuc()) {
+                        for (DanhMuc list : dsdanhmuc.getDsDanhMuc()) {
                             System.out.println(i + ": " + list.gettendanhmuc());
                             i++;
                         }
@@ -360,17 +493,21 @@ public class QuanLyDanhMuc {
                         while (flat) {
                             int so;
                             try {
-
                                 so = Integer.parseInt(sc.nextLine());
                                 flat = false;
-                                DanhMuc DanhMucCha = danhmuc.getDsDanhMuc().get(so - 1);
+                                DanhMuc DanhMucCha = dsdanhmuc.getDsDanhMuc().get(so - 1);
                                 System.out.println("NHẬP TÊN DANH MỤC MỚI");
                                 String name2 = sc.nextLine();
-                                danhmuc.EditDanhMucCha(DanhMucCha.gettendanhmuc(), name2);
+                                dsdanhmuc.EditDanhMucCha(DanhMucCha.gettendanhmuc(), name2);
                                 System.out.println("BẠN ĐÃ SỬA THÀNH CÔNG");
-                            } catch (Exception e) {
-                                System.out.println("BẠN NHẬP SAI VÌ NHẬP CHỮ , YÊU CẦU NHẬP SỐ ");
+                            } catch(IndexOutOfBoundsException x){
+                                System.out.println("Số bạn nhập không nằm trong vị trí cho phép , vui lòng nhập lại !!!!!.");
                                 flat = true;
+                            }
+                                catch (NumberFormatException e) {
+                                System.out.println("Bạn đã nhập không hợp lệ. Vui lòng nhập số.");
+                                flat = true;
+
                             }
                         }
                         break;
@@ -385,17 +522,17 @@ public class QuanLyDanhMuc {
                             int danhmuccanchon = Integer.parseInt(sc.nextLine());
                             switch (danhmuccanchon) {
                                 case 1:
-                                    danhmuc.lietkedanhmuc();
+                                    dsdanhmuc.lietkedanhmuc();
                                     System.out.println("Nhập tên danh mục cần sửa");
                                     String name1 = sc.nextLine();
                                     System.out.println("Nhập tên danh mục mới");
                                     String name2 = sc.nextLine();
-                                    danhmuc.EditDanhMucCon(name1, name2);
+                                    dsdanhmuc.EditDanhMucCon(name1, name2);
 
                                     break;
                                 case 2:
-                                    danhmuc.lietkedanhmuc();
-                                    System.out.println("Nhập tên danh mục muốn sửa số tiền");
+                                    dsdanhmuc.lietkedanhmuc();
+                                    System.out.println("Nhập tên danh mục muốn sửa số tiền");////////////////////////////////////////////////
                                     name1 = sc.nextLine();
                                     Boolean temp2 = true;
                                     while (temp2) {
@@ -403,8 +540,8 @@ public class QuanLyDanhMuc {
                                             System.out.println("Nhập số tiền mới");
                                             int newMoney = Integer.parseInt(sc.nextLine());
                                             temp = true;
-                                            danhmuc.changeMoneyDanhMuc(name1, newMoney);
-                                            danhmuc.setTongsotien();
+                                            dsdanhmuc.changeMoneyDanhMuc(name1, newMoney);
+                                            dsdanhmuc.setTongsotien();
                                         } catch (Exception e) {
                                             System.out.println("Bạn nhập không hợp lệ vì nhập chữ , vui lòng nhập lại");
                                         }
@@ -425,7 +562,6 @@ public class QuanLyDanhMuc {
         }
     }
     private void chonloaigiaodich(){
-        Scanner sc = new Scanner(System.in);
         System.out.println("Nhập loại danh mục cần giao dịch ");
         System.out.println("1 Chi                            ");
         System.out.println("2 Thu                            ");
@@ -511,7 +647,6 @@ public class QuanLyDanhMuc {
     }
 
     private void giaodich(ListDanhMuc danhmuc,int loaigd){
-        Scanner sc = new Scanner(System.in);
         {
             System.out.println("Nhập ngày giao dịch");
             String ngay =sc.nextLine();
@@ -542,6 +677,7 @@ public class QuanLyDanhMuc {
                 test = sc.nextLine();
             }
             int sotien = Integer.parseInt(test);
+            // tim thong tin danh muc cha
             System.out.println("Bạn muốn giao dịch danh mục cấp 1 với nhóm nào");
             int i = 1;
             DanhMuc DanhMucCha = null;
@@ -604,24 +740,6 @@ public class QuanLyDanhMuc {
                 }
             }
 
-          /*  System.out.println("Hãy nhập số :");
-            String tendanhmuc = sc.nextLine();
-            DanhMuc DanhMucCanGiaoDich = danhmuc.timdanhmuctheoten(danhmuc.getDsDanhMuc(), tendanhmuc);
-            while (DanhMucCanGiaoDich == null) {
-                System.out.println("tên danh mục không tồn tại, bạn muốn tiếp tục nhập hay quay về menu chính ");
-                System.out.println("Nhấn 0 nếu tiếp tục nhập");
-                System.out.println("Nhấn các nút còn lại để thoát");
-                int choices = sc.nextInt();
-                if (choices == 0) {
-                    sc.nextLine();
-                    System.out.println("Mời bạn nhập lại ");
-                    tendanhmuc = sc.nextLine();
-                    DanhMucCanGiaoDich = danhmuc.timdanhmuctheoten(danhmuc.getDsDanhMuc(), tendanhmuc);
-                } else {
-                    menu();
-                }
-            }
-            */
             GiaoDich Bill = new GiaoDich(date, noidung, sotien, DanhMucCanGiaoDich, loaigd);
             DanhMuc danhmuccha = danhmuc.timdanhmuctheoten(danhmuc.getDsDanhMuc(), DanhMucCanGiaoDich.getName_danhmuccha());
             if (danhmuccha != null) {
@@ -641,12 +759,6 @@ public class QuanLyDanhMuc {
                 menu();
         }
     }
-   /* public void setupSoTienMoiThang(){
-        System.out.println("Nhập Năm");
-        System.out.println("Nhập Tháng");
-
-
-    }*/
     private void resetToanbodulieuvebandau(){
 
     }
@@ -670,7 +782,6 @@ public class QuanLyDanhMuc {
         System.out.println("|-------------------------------------------------------------------------------------------------------------------------------------------|");
     }
     public void menu() {
-        Scanner sc = new Scanner(System.in);
         // chay menu;
         main_menu();
 
@@ -692,13 +803,13 @@ public class QuanLyDanhMuc {
 
                             case 4:
 
-                            System.out.println("-------------------------DANH MỤC CHI LÀ---------------------------");
+                            System.out.println("---------------------------------------------------------------DANH MỤC CHI LÀ---------------------------------------------------------------");
                             danhmucchi.lietkedanhmuc();
-                            System.out.println("Tổng số tiền của danh mục thu là " + danhmucchi.getTongsotien());
-                            System.out.println("-------------------------DANH MỤC THU LÀ---------------------------");
+                            System.out.println("Tổng số tiền của danh mục chi là " + danhmucchi.getTongsotien());
+                            System.out.println("---------------------------------------------------------------DANH MỤC THU LÀ---------------------------------------------------------------");
                             danhmucthu.lietkedanhmuc();
                             System.out.println("Tổng số tiền của danh mục thu là " + danhmucthu.getTongsotien());
-                            System.out.println("-------------------------------------------------------------------");
+                            System.out.println("---------------------------------------------------------------------------------------------------------------------------------------------");
                             System.out.println("NHẤN 1 NÚT BẤT KỲ ĐỂ BACK VỀ MENU");
                             sc.nextLine();
 

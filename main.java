@@ -126,12 +126,9 @@ private boolean ghiUserDataLenFile(User a) throws FileNotFoundException, ClassNo
             }
 //            System.out.println("System.in đã đóng chưa? " + System.in.markSupported());
             if(u instanceof FreeUser freeUser){
-                System.out.println("FREE USER HERE");
+                System.out.println("                FREE USER");
                 boolean cohieu = false;
-                System.out.println("QUAN LY DANH MUC DANG TRONG");
-                System.out.println(freeUser.getIdUser());
-                System.out.println(freeUser.getLoaitaiKhoan());
-                System.out.println(freeUser.getTaiKhoanNguoiDung().toString());
+                
                 System.out.println("1. Nang cap tai khoan");
                 System.out.print("Mời bạn lựa chọn: ");
                 int i = Integer.parseInt(scanner.nextLine());

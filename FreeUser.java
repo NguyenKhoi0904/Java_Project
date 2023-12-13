@@ -41,7 +41,7 @@ public class FreeUser extends User implements Serializable, InterfaceClass.QuanL
         pu.setTaiKhoanNguoiDung(this.getTaiKhoanNguoiDung());
         return pu;
     }
-    
+  
     private void ghiUserMoiNangCapLenFile(ArrayList<User> a) throws FileNotFoundException, IOException{
         try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("userData.txt"))){
             oos.writeObject(a);
@@ -88,6 +88,7 @@ public class FreeUser extends User implements Serializable, InterfaceClass.QuanL
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
+    
     @Override
     public void doiTenDanhMuc() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody

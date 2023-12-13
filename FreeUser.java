@@ -13,12 +13,13 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.Random;
 import java.util.ArrayList;
+import java.util.Scanner;
 /**
  *
  * @author aries
  */
 public class FreeUser extends User implements Serializable, InterfaceClass.QuanLyGiaoDichDanhMuc_Interface, InterfaceClass.ManageCategory{
-    public boolean nangCapTaiKhoan() throws IOException{
+    public void nangCapTaiKhoan() throws IOException{
         ProUser proUser = nangcap();
         ArrayList<User> arraylist = docUserData();
         int dem = 0;
@@ -30,7 +31,6 @@ public class FreeUser extends User implements Serializable, InterfaceClass.QuanL
         }
         arraylist.set(dem, proUser);
         ghiUserMoiNangCapLenFile(arraylist);
-        return true;
     }
     
     private ProUser nangcap(){
@@ -41,7 +41,6 @@ public class FreeUser extends User implements Serializable, InterfaceClass.QuanL
         pu.setTaiKhoanNguoiDung(this.getTaiKhoanNguoiDung());
         return pu;
     }
-  
     private void ghiUserMoiNangCapLenFile(ArrayList<User> a) throws FileNotFoundException, IOException{
         try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("userData.txt"))){
             oos.writeObject(a);
@@ -85,17 +84,16 @@ public class FreeUser extends User implements Serializable, InterfaceClass.QuanL
 
     @Override
     public void taoDanhMuc() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        this.getQldm().ChonDanhMucDeThem();
     }
-
     
     @Override
     public void doiTenDanhMuc() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        this.getQldm().chonDanhMucDeSua();
     }
 
     @Override
     public void xoaDanhMuc() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        this.getQldm().ChonDanhMucdexoa();
     }
 }

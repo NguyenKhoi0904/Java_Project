@@ -4,7 +4,9 @@
  */
 package com.bt.quanlythuchicanhan;
 
-public class NgayThangNam {
+import java.io.Serializable;
+
+public class NgayThangNam implements Serializable{
     private int ngay;
     private int thang;
     private int nam;

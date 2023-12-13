@@ -1,11 +1,21 @@
 
 package com.bt.quanlythuchicanhan;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Scanner;
+ import java.util.ArrayList;
+ import java.util.Scanner;
 
-public class ListDanhMuc implements Serializable{
+public class ListDanhMuc{
+    private String type;
+
+    public String getType() {
+        return type;
+    }
+
+    public  void setType(String type) {
+        this.type = type;
+
+    }
+
     private ArrayList<DanhMuc> dsdanhmuc;
     private int tongsotien = 0;
 
@@ -14,6 +24,7 @@ public class ListDanhMuc implements Serializable{
     }
 
     public ListDanhMuc(DanhMuc Danhmuc1, DanhMuc Danhmuc2, DanhMuc Danhmuc3, DanhMuc Danhmuc4) {
+        this.type="Chi";
         dsdanhmuc = new ArrayList<>();
         dsdanhmuc.add(Danhmuc1);
         dsdanhmuc.add(Danhmuc2);
@@ -23,6 +34,7 @@ public class ListDanhMuc implements Serializable{
     }
 
     public ListDanhMuc(DanhMuc Danhmuc1, DanhMuc Danhmuc2) {
+        this.type="Thu";
         dsdanhmuc = new ArrayList<>();
         dsdanhmuc.add(Danhmuc1);
         dsdanhmuc.add(Danhmuc2);
@@ -46,23 +58,6 @@ public class ListDanhMuc implements Serializable{
         setTongsotien();
     }
 
-    public void themdanhmuctheoten(String tendanhmuc, DanhMuc danhmuccanthem) {
-        boolean timThay = false;
-
-        for (DanhMuc danhMuc : dsdanhmuc) {
-            if (danhMuc.gettendanhmuc().equals(tendanhmuc)) {
-                danhMuc.themdanhmuccon(danhmuccanthem);
-                timThay = true;
-                System.out.println("Thêm danh mục thành công");
-                setTongsotien();
-                break;
-            }
-        }
-
-        if (!timThay) {
-            System.out.println("Không tìm thấy danh mục");
-        }
-    }
 
     public void lietkedanhmuc(){
         for (DanhMuc ds : dsdanhmuc) {

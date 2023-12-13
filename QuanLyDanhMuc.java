@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.bt.quanlythuchicanhan;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
@@ -10,7 +11,7 @@ import java.util.Random;
 import java.util.Scanner;
 import java.util.regex.*;
 
-public class QuanLyDanhMuc {
+public class QuanLyDanhMuc implements Serializable{
     private int sodanhmuc;
 
     private ListDanhMuc danhmucchi;
@@ -49,7 +50,7 @@ public class QuanLyDanhMuc {
 
 
     }
-    private void ChonDanhMucDeThem(){
+    public void ChonDanhMucDeThem(){
         Scanner sc = new Scanner(System.in);
         System.out.println("Số lần thêm danh mục của bạn còn "+getSoDanhMuc());
         if(getSoDanhMuc()>0) {
@@ -64,11 +65,11 @@ public class QuanLyDanhMuc {
                     switch (choice) {
                         case 1:
                             flat = false;
-                            ThemDanhMuc(danhmucchi, "DMC");
+                            ThemDanhMuc(this.getDanhMucChi(), "DMC");
                             break;
                         case 2:
                             flat = false;
-                            ThemDanhMuc(danhmucthu, "DMT");
+                            ThemDanhMuc(this.getDanhMucThu(), "DMT");
                         default:
                             menu();
                     }
@@ -203,7 +204,7 @@ public class QuanLyDanhMuc {
         }
 
 
-    private void ChonDanhMucdexoa(){
+    public void ChonDanhMucdexoa(){
         Scanner sc = new Scanner(System.in);
         System.out.println("Bạn muốn xóa danh mục nào ");
         System.out.println("1:CHI ");
@@ -429,7 +430,7 @@ public class QuanLyDanhMuc {
             }
         }
     }
-    private void chonDanhMucDeSua(){
+    public void chonDanhMucDeSua(){
         Scanner sc = new Scanner(System.in);
         System.out.println("NHẬP LOẠI DANH MỤC CẦN SỬA ");
         System.out.println("HÃY NHẬP SỐ");

@@ -127,20 +127,41 @@ private boolean ghiUserDataLenFile(User a) throws FileNotFoundException, ClassNo
 //            System.out.println("System.in đã đóng chưa? " + System.in.markSupported());
             if(u instanceof FreeUser freeUser){
                 System.out.println("                FREE USER");
-                boolean cohieu = false;
+                boolean cohieu = true;
                 
-                System.out.println("1. Nang cap tai khoan");
-                System.out.print("Mời bạn lựa chọn: ");
-                int i = Integer.parseInt(scanner.nextLine());
-                switch(i){
-                    case 1 -> {
-                        cohieu = freeUser.nangCapTaiKhoan();
-                        break;
+                do{
+                    System.out.println("1. Nang cap tai khoan");
+                    System.out.println("2. Tạo Danh Mục");
+                    System.out.println("3. Sửa Danh Mục");
+                    System.out.println("4. Xóa Danh Mục");
+                    System.out.println("5. Thoát");
+                    System.out.print("Mời bạn lựa chọn: ");
+                    int i = Integer.parseInt(scanner.nextLine());
+                    switch(i){
+                        case 1 -> {
+                            freeUser.nangCapTaiKhoan();
+                            cohieu = false;
+                            break;
+                        }
+                        case 2 -> {
+                            freeUser.taoDanhMuc();
+                            break;
+                        }
+                        case 3 -> {
+                            freeUser.doiTenDanhMuc();
+                            break;
+                        }
+                        case 4 -> {
+                            freeUser.xoaDanhMuc();
+                        }
+                        default -> {
+                            cohieu = false;
+                        }
                     }
-                }
-                if(cohieu){
-                    continue;
-                }
+//                    if(cohieu){
+//                        continue;
+//                    }
+                }while(cohieu);
             }
 
             if(u instanceof ProUser proUser){

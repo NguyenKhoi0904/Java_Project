@@ -17,7 +17,7 @@ public class QuanLyDanhMuc {
     private ListDanhMuc danhmucthu;
     private ListGiaoDich dsgiaodich;
     private ArrayList<SoDanhMucMoiThang> DsDanhMuc; // chứa số danh mục mỗi tháng
-    Scanner sc = new Scanner(System.in);
+    
     public QuanLyDanhMuc(){
         this.danhmucchi=new ListDanhMuc(new DanhMuc("TY1","Thiết yếu"),new DanhMuc("BT1","Biếu tặng"),new DanhMuc("SK1","Sức khỏe"),new DanhMuc("GT","Giải trí"));
         this.danhmucthu = new ListDanhMuc(new DanhMuc("L1","Lương"),new DanhMuc("T1","Thưởng"));
@@ -50,6 +50,7 @@ public class QuanLyDanhMuc {
 
     }
     private void ChonDanhMucDeThem(){
+        Scanner sc = new Scanner(System.in);
         System.out.println("Số lần thêm danh mục của bạn còn "+getSoDanhMuc());
         if(getSoDanhMuc()>0) {
             System.out.println("Chọn loại danh mục ");
@@ -110,6 +111,7 @@ public class QuanLyDanhMuc {
 
     }
     private void ThemDanhMuc(ListDanhMuc danhmuc,String idDanhMuc){
+        Scanner sc = new Scanner(System.in);
             System.out.println("VUI LÒNG NHẬP DANH MỤC CẦN THÊM");
             String id = generateID_DanhMuc(idDanhMuc);
             System.out.println("|Tên danh mục cần thêm                                                                 |");
@@ -202,6 +204,7 @@ public class QuanLyDanhMuc {
 
 
     private void ChonDanhMucdexoa(){
+        Scanner sc = new Scanner(System.in);
         System.out.println("Bạn muốn xóa danh mục nào ");
         System.out.println("1:CHI ");
         System.out.println("2:THU ");
@@ -258,6 +261,7 @@ public class QuanLyDanhMuc {
 
 
     private void xoaDanhMuc(ListDanhMuc dsdanhmuc){
+        Scanner sc = new Scanner(System.in);
         System.out.println("Bạn muốn xóa danh mục cấp 1 hay cấp 2");
         System.out.println("1: cấp 1");
         System.out.println("2: cấp 2");
@@ -426,6 +430,7 @@ public class QuanLyDanhMuc {
         }
     }
     private void chonDanhMucDeSua(){
+        Scanner sc = new Scanner(System.in);
         System.out.println("NHẬP LOẠI DANH MỤC CẦN SỬA ");
         System.out.println("HÃY NHẬP SỐ");
         System.out.println("1:CHI ");
@@ -465,7 +470,7 @@ public class QuanLyDanhMuc {
         }
     }
     private void suaDanhMuc(ListDanhMuc dsdanhmuc) {
-
+        Scanner sc = new Scanner(System.in);
         System.out.println("|BẠN MUỐN SỬA DANH MỤC CẤP 1 HAY CẤP 2       ");
         System.out.println("|1: nếu là cấp 1 ");
         System.out.println("|2: nếu là cấp 2 ");
@@ -729,6 +734,7 @@ public class QuanLyDanhMuc {
         }
     }
     private void chonloaigiaodich(){
+        Scanner sc = new Scanner(System.in);
         System.out.println("Nhập loại danh mục cần giao dịch ");
         System.out.println("1 Chi                            ");
         System.out.println("2 Thu                            ");
@@ -814,6 +820,7 @@ public class QuanLyDanhMuc {
     }
 
     private void giaodich(ListDanhMuc danhmuc,int loaigd){
+        Scanner sc = new Scanner(System.in);
         {
             System.out.println("Nhập ngày giao dịch");
             String ngay =sc.nextLine();
@@ -949,6 +956,7 @@ public class QuanLyDanhMuc {
         System.out.println("|-------------------------------------------------------------------------------------------------------------------------------------------|");
     }
     public void menu() {
+        Scanner sc = new Scanner(System.in);
         // chay menu;
         main_menu();
 

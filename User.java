@@ -104,7 +104,7 @@ public class User implements Serializable {
                 password = input_User.nextLine();
                 for(AccountUser au : tmpDN){
                     if(au.getMatkhau().equals(password)){
-                        System.out.println("    ĐĂNG NHẬP THÀNH CÔNG");
+                        System.out.println("    Đăng nhập thành công");
                         return pxm.get(index);
                     }else{
                         flag = false;
@@ -139,7 +139,7 @@ public class User implements Serializable {
                 for(AccountUser au : tmpDN){
                     if(au.getTendangnhap().equals(username)){
                         if(au.getTendangnhap().equals(password)){
-                            System.out.println("    ĐĂNG NHẬP THÀNH CÔNG");
+                            System.out.println("    Đăng nhập thành công");
                             return pxm.get(chiso);
                         }
                         else{
@@ -160,7 +160,7 @@ public class User implements Serializable {
                         password = input_User.nextLine();
                         for(AccountUser au : tmpDN){
                             if(au.getMatkhau().equals(password)){
-                                System.out.println("    ĐĂNG NHẬP THÀNH CÔNG");
+                                System.out.println("    Đăng nhập thành công");
                                 return pxm.get(chiso);
                             }else{
                                 isCorrectPassword = false;
@@ -235,7 +235,7 @@ public class User implements Serializable {
             if(!arrayListAU.isEmpty()){
                 for(AccountUser tmp: arrayListAU){
                     if(tmp.getTendangnhap().equals(a.getTendangnhap())){        
-                        System.out.println("Tai khoan da ton tai");
+                        System.out.println("Tài khoản đã tồn tại");
                         isAccountExist = true;
                         break;
                     }
@@ -244,11 +244,10 @@ public class User implements Serializable {
                     do{
                         System.out.print("Mời bạn nhập lại tài khoản: ");
                         a.setTendangnhap(input_User.nextLine());
-                        System.out.println("tai khoan moi nhap: " +  a.getTendangnhap());
                         for(AccountUser temporary : arrayListAU){
                             System.out.println(temporary.getTendangnhap());
                             if(temporary.getTendangnhap().equals(a.getTendangnhap())){
-                                System.out.println("Tai khoan da ton tai");
+                                System.out.println("Tài khoản đã tồn tại");
                                 flag = true;
                                 break;
                             }else{
@@ -256,7 +255,7 @@ public class User implements Serializable {
                             }
                         }
                         if(!flag){
-                            System.out.println("Tai khoan hop le");
+                            System.out.println("Tài khoản hợp lệ");
                             break;
                         }
                     }while(true);
@@ -265,7 +264,7 @@ public class User implements Serializable {
         this.setTaiKhoanNguoiDung(a);
         
         System.out.println("   ^___^   ");
-        System.out.println("Chon loai tai khoan ma ban muon dang ky");
+        System.out.println("Chọn loại tài khoản mà bạn muốn đăng ký");
         System.out.println("0.Free User");
         System.out.println("1.Pro User");
         
@@ -278,21 +277,21 @@ public class User implements Serializable {
             CopyGiaTri(u); // HÀM NÀY CÓ TÁC DỤNG GÁN GIÁ TRỊ CỦA THIS CHO U
             if(u instanceof FreeUser fu){
                 if(ghiUserDataLenFile(fu)){ // GHI THÔNG TIN CỦA 1 USER LÊN FILE
-                    System.out.println("Ghi thong tin user thanh cong");
+                    System.out.println("Ghi thông tin user thành công");
                 }else{
-                    System.out.println("Ghi thong tin user that bai");
+                    System.out.println("Ghi thông tin user thất bại");
                 }
             }
             
             if (writeAccountUserDateToFile(a)) { //GHI ACCOUNT USER LÊN FILE
-                System.out.println("Dang ky thanh cong");
+                System.out.println("Đăng ký thành công");
             } else {
-                System.out.println("Dang ky that bai");
+                System.out.println("Đăng ký thất bại");
             }
             
         } else {
-            System.out.println("Ban phai tra 100USD de tro thanh Pro User!!!!");
-            System.out.println("Ban co dong y khong?");
+            System.out.println("Bạn phải trả 100USD để trở thành Pro User!!!!");
+            System.out.println("Bạn có đồng ý không?");
             System.out.println("Nhap 0 la khong dong y va ban se tro thanh Free User");
             System.out.println("Nhap 1 la dong y");
             System.out.print("Ban chon di: ");
@@ -307,9 +306,9 @@ public class User implements Serializable {
                     CopyGiaTri(u); // HÀM NÀY CÓ TÁC DỤNG GÁN GIÁ TRỊ CỦA THIS CHO U
                     if(u instanceof ProUser pu){
                         if(ghiUserDataLenFile(pu)){ // GHI THÔNG TIN CỦA 1 USER LÊN FILE
-                            System.out.println("Ghi thong tin user thanh cong");
+                            System.out.println("Ghi thông tin user thành công");
                         }else{
-                            System.out.println("Ghi thong tin user that bai");
+                            System.out.println("Ghi thông tin user thất bại");
                         }
                     }
                     

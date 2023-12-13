@@ -12,18 +12,18 @@ import java.util.regex.*;
 
 public class QuanLyDanhMuc {
     private int sodanhmuc;
+    private int Sodu;
 
     private ListDanhMuc danhmucchi;
     private ListDanhMuc danhmucthu;
     private ListGiaoDich dsgiaodich;
-    private ArrayList<SoDanhMucMoiThang> DsDanhMuc; // chứa số danh mục mỗi tháng
     Scanner sc = new Scanner(System.in);
     public QuanLyDanhMuc(){
+        this.Sodu=0;
         this.danhmucchi=new ListDanhMuc(new DanhMuc("TY1","Thiết yếu"),new DanhMuc("BT1","Biếu tặng"),new DanhMuc("SK1","Sức khỏe"),new DanhMuc("GT","Giải trí"));
         this.danhmucthu = new ListDanhMuc(new DanhMuc("L1","Lương"),new DanhMuc("T1","Thưởng"));
         this.dsgiaodich = new ListGiaoDich();
         this.sodanhmuc=20;
-        DsDanhMuc=new ArrayList<>();
     }
     private String generateID_DanhMuc(String prefix){
         Random random = new Random();
@@ -32,7 +32,7 @@ public class QuanLyDanhMuc {
         String formatNumber = String.format("%0" + 9 + "d", randomNumber);
         return prefix + formatNumber;
     }
-    public void taoDanhMucmoithang(int thang,int nam){
+    /*public void taoDanhMucmoithang(int thang,int nam){
             SoDanhMucMoiThang gioihandanhmuc = new SoDanhMucMoiThang(2,thang,nam);
             DsDanhMuc.add(gioihandanhmuc);
     }
@@ -48,7 +48,7 @@ public class QuanLyDanhMuc {
         return null;
 
 
-    }
+    }*/
     private void ChonDanhMucDeThem(){
         System.out.println("Số lần thêm danh mục của bạn còn "+getSoDanhMuc());
         if(getSoDanhMuc()>0) {
@@ -123,7 +123,7 @@ public class QuanLyDanhMuc {
             System.out.println("-Vai trò danh mục cấp 1 hay cấp 2                                                      |");
             System.out.println("-Nhập 1 nếu danh mục cấp 1                                                             |");
             System.out.println("-Nhập 2 nếu danh mục cấp 2                                                             |");
-            System.out.println("-Nhập các nút còn lại nếu thoát                                                        |");
+            System.out.println("-Nhập các nút còn lại về menu                                                          |");
             int m;
             try {
                 m = Integer.parseInt(sc.nextLine());
@@ -195,7 +195,6 @@ public class QuanLyDanhMuc {
 
                 }
             } catch (NumberFormatException e) {
-                System.out.println("-----------------------------------------Bạn đã thoát------------------------------------------");
                 menu();
             }
         }
@@ -1325,6 +1324,14 @@ public class QuanLyDanhMuc {
     }
     public void setDsgiaodich(ListGiaoDich dsgiaodich) {
         this.dsgiaodich = dsgiaodich;
+    }
+    public int getSodu() {
+        return Sodu;
+    }
+
+    public void setSodu(int sodu) {
+        Sodu = sodu;
+
     }
 
     public static void main(String [] args){

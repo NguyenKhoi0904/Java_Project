@@ -978,7 +978,6 @@ public class QuanLyDanhMuc implements Serializable{
                 }
                 System.out.println("NHẬP MỘT PHÍM BẤT KỲ ĐỂ BACK VỀ MENU");
                 sc.nextLine();
-                menu(); // xoa bo menu
             }
             //2.1 hien thi theo loai danh muc
             else if (choice == 2) {
@@ -1003,7 +1002,6 @@ public class QuanLyDanhMuc implements Serializable{
                     }
                     System.out.println("NHẬP MỘT PHÍM BẤT KỲ ĐỂ BACK VỀ MENU");
                     sc.nextLine();
-                    menu(); // xoa bo menu
                 } else if (luachon == 2) {
                     //1.hien thi lich su giao dich thu
                     System.out.println("---------------------------------------------------------Lịch sử giao dịch của bạn-----------------------------------------------------------");
@@ -1015,7 +1013,6 @@ public class QuanLyDanhMuc implements Serializable{
                     }
                     System.out.println("NHẬP MỘT PHÍM BẤT KỲ ĐỂ BACK VỀ MENU");
                     sc.nextLine();
-                    menu(); // xoa bo menu
                 }
             } else if (choice == 3) { //Hien thi theo ten danh muc
 
@@ -1069,7 +1066,7 @@ public class QuanLyDanhMuc implements Serializable{
                                 }
                                 System.out.println("NHẬP MỘT PHÍM BẤT KỲ ĐỂ BACK VỀ MENU");
                                 sc.nextLine();
-                                menu(); // xoa bo menu
+                                return;
                             } else {
                                 System.out.println("Nhóm bạn chọn hiện đang rỗng");
                                 System.out.println("Nhập số nếu tiếp tục ,Hãy nhập chữ để về menu");
@@ -1080,7 +1077,7 @@ public class QuanLyDanhMuc implements Serializable{
                             System.out.println("Nhập số nếu tiếp tục ,Hãy nhập chữ để về menu");
                             flat = true;
                         } catch (NumberFormatException e) {
-                            menu();
+                            return;
                         }
                     }
                 } else if (luachon == 2) {
@@ -1123,7 +1120,7 @@ public class QuanLyDanhMuc implements Serializable{
                                     }
                                     System.out.println("NHẬP MỘT PHÍM BẤT KỲ ĐỂ BACK VỀ MENU");
                                     sc.nextLine();
-                                    menu(); // xoa bo menu
+                                    return;
                                 } else {
                                     System.out.println("Nhóm bạn chọn hiện đang rỗng");
                                     System.out.println("Nhập số nếu tiếp tục ,Hãy nhập chữ để về menu");
@@ -1136,7 +1133,7 @@ public class QuanLyDanhMuc implements Serializable{
                                 System.out.println("Nhập số nếu tiếp tục , nhập chữ để về menu");
                                 flat = true;
                             } catch (NumberFormatException e) {
-                                menu();
+                                return;
                             }
                         }
                     }
@@ -1254,7 +1251,7 @@ public class QuanLyDanhMuc implements Serializable{
             }
             else
             {
-                menu();
+                return;
             }
 
             //2.2.1 hien thi theo ngày tháng năm
@@ -1265,7 +1262,7 @@ public class QuanLyDanhMuc implements Serializable{
         }
         catch(NumberFormatException e){
             // back ve menu o day
-            menu();
+            return;
         }
 
     }

@@ -23,17 +23,45 @@ public class FreeUser extends User implements Serializable, InterfaceClass.QuanL
     public void nangCapTaiKhoan() throws IOException{
         ProUser proUser = nangcap();
         ArrayList<User> arraylist = docUserData();
+        System.out.println("Bạn phải trả 100USD để nâng cấp tài khoản thành Pro User (Nâng cấp 1 lần, sử dụng mãi mãi)");
+        System.out.println("Bạn sẽ được sử dụng thêm các chức năng đặc quyền của Pro User và vô vàn những ưu đãi đặc biệt");
+        System.out.println("Bạn có đồng ý nâng cấp không?");
+        System.out.println("0. Không đồng ý");
+        System.out.println("1. Đồng ý");
         int dem = 0;
-        for(User u: arraylist){
-            if(u.getIdUser().equals(this.getIdUser())){
-                break;
+        int luachon = nhap();
+        if(luachon == 1){
+            for(User u: arraylist){
+                if(u.getIdUser().equals(this.getIdUser())){
+                    break;
+                }
+                dem++;
             }
-            dem++;
+            arraylist.set(dem, proUser);
+            ghiUserMoiNangCapLenFile(arraylist);
         }
-        arraylist.set(dem, proUser);
-        ghiUserMoiNangCapLenFile(arraylist);
     }
     
+    private int nhap(){
+        Scanner scanner = new Scanner(System.in);
+        String s;
+        do{
+            System.out.print("Mời bạn lựa chọn: ");
+            s = scanner.nextLine();
+            switch(s){
+                case "1" -> {
+                    return 1;
+                }
+                case "0" -> {
+                    return 0;
+                }
+                default -> {
+                    System.out.println("Bạn nhập sai rồi");
+                }
+            }
+        }while(true);
+                
+    }
     private ProUser nangcap(){
         ProUser pu = new ProUser();
         pu.setLoaitaiKhoan("PRO");
@@ -81,7 +109,7 @@ public class FreeUser extends User implements Serializable, InterfaceClass.QuanL
 
     @Override
     public void timKiemThongTinGiaoDich() {
-        
+        this.getQldm().timkiemthongtingiaodich();
     }
 
     @Override

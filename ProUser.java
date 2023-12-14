@@ -4,6 +4,9 @@
  */
 package com.bt.quanlythuchicanhan;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.Scanner;
 
@@ -34,10 +37,19 @@ public class ProUser extends User implements Serializable, InterfaceClass.QuanLy
         
     }
     
-    public void xuatBaoCaoRaFile(){
-        
+    public void xuatBaoCaoRaFile(String s){
+        ghiBaoCaoLenFile(s);
     }
-
+    
+    private void ghiBaoCaoLenFile(String s){
+        try(BufferedWriter bw = new BufferedWriter(new FileWriter("BaoCaoChiTiet.txt"))){
+            bw.write(s);
+            System.out.println("Xuất báo cáo thành công");
+        }catch(IOException e){
+            System.out.println("Xuất báo cáo thất bại");
+            e.printStackTrace();
+        }
+    }
     
     @Override
     public void tao1GiaoDichMoi() {
@@ -46,17 +58,17 @@ public class ProUser extends User implements Serializable, InterfaceClass.QuanLy
 
     @Override
     public void thongkeDanhMucTheoNgayThangNam() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        //this.getQldm().
     }
 
     @Override
     public void timKiemThongTinGiaoDich() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        this.getQldm().timkiemthongtingiaodich();
     }
 
     @Override
     public void taoDanhMuc() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        this.getQldm().ChonDanhMucDeThem();
     }
 
     @Override

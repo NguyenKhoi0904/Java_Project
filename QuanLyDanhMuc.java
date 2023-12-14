@@ -118,9 +118,9 @@ public class QuanLyDanhMuc implements Serializable{
     }
     private void ThemDanhMuc(ListDanhMuc danhmuc,String idDanhMuc){
         Scanner sc = new Scanner(System.in);
-            System.out.println("VUI LÒNG NHẬP DANH MỤC CẦN THÊM");
+            System.out.println("VUI LÒNG NHẬP CÁC THÔNG TIN CÁC DANH MỤC CẦN THÊM");
             String id = generateID_DanhMuc(idDanhMuc);
-            System.out.println("|Tên danh mục cần thêm                                                                 |");
+            System.out.println("Tên danh mục cần thêm:                                                                 ");
             String name = sc.nextLine();
             DanhMuc danhmuccanthem = new DanhMuc(id, name);
             while (getDanhMucChi().timdanhmuctheoten(getDanhMucChi().getDsDanhMuc(), danhmuccanthem.gettendanhmuc()) != null || getDanhMucThu().timdanhmuctheoten(getDanhMucThu().getDsDanhMuc(), danhmuccanthem.gettendanhmuc()) != null) {
@@ -1041,6 +1041,14 @@ public class QuanLyDanhMuc implements Serializable{
             case 6:
                 System.out.println("Bạn hãy nhập nội dung tìm kiếm ");
                 String find = sc.nextLine();
+                find = find.replaceAll("[^a-zA-Z0-9\\s]", "");
+                for(GiaoDich giaodich:this.getDsgiaodich().getDsGD()){
+                    String thongtingiaodich = giaodich.getThongtingiaodich();
+                    thongtingiaodich = thongtingiaodich.replaceAll("[^a-zA-Z0-9\\s]", "");
+                    if(thongtingiaodich.contains(find)){
+
+                    }
+                }
 
                 break;
             default:hienThiLichSuGiaoDich();
@@ -1109,7 +1117,6 @@ public class QuanLyDanhMuc implements Serializable{
                         case 8:
                             System.out.println("HẸN GẶP LẠI!");
                         break;
-                        case 9:
 
 
                     }
@@ -1317,8 +1324,14 @@ public class QuanLyDanhMuc implements Serializable{
         System.out.println(" Dữ liệu trong năm "+year +" :");
         System.out.println("|Tháng chi nhiều nhất là Tháng " + (Nhieunhat(danhmucchi) + 1)+" với số tiền là "+danhmucchi[Nhieunhat(danhmucchi)]);
         System.out.println("|Tháng thu nhiều nhất là Tháng " + (Nhieunhat(danhmucthu) + 1)+" với số tiền là "+danhmucthu[Nhieunhat(danhmucthu)]);
-        System.out.println("|Tháng chi ít nhất là Tháng " + (Itnhat(danhmucchi) + 1)+" với số tiền là "+danhmucchi[Itnhat(danhmucchi)]);
-        System.out.println("|Tháng thu ít nhất là Tháng " + (Itnhat(danhmucthu) + 1)+" với số tiền là "+danhmucthu[Itnhat(danhmucthu)]);
+        for(int i=0;i<danhmucchi.length;i++){
+            if(danhmucchi[i]==danhmucchi[Itnhat(danhmucchi)]);
+            System.out.println("|Tháng chi ít nhất là Tháng " + (i + 1)+" với số tiền là "+danhmucchi[Itnhat(danhmucchi)]);
+        }
+        for(int i=0;i<danhmucthu.length;i++){
+            if(danhmucchi[i]==danhmucchi[Itnhat(danhmucchi)]);
+            System.out.println("|Tháng thu ít nhất là Tháng " + (i + 1)+" với số tiền là "+danhmucthu[Itnhat(danhmucthu)]);
+        }
     }
 
 

@@ -316,7 +316,6 @@ public class QuanLyDanhMuc implements Serializable{
                         if(dsdanhmuc.getDsDanhMuc().size()==0)//nếu danh mục cap 1 rỗng phần tử thì back ve menu
                         {
                             System.out.println("Không còn danh mục để xóa , bạn có muốn quay lại menu hay tạo danh mục ");
-                            System.out.println("1.tạo tiếp ");
                             System.out.println("ấn phím bất kỳ để quay về menu ");
                             String test = sc.nextLine();
                             {
@@ -794,12 +793,12 @@ public class QuanLyDanhMuc implements Serializable{
             menu();
         }
     }
-    private Boolean isInteger(String s){
+    public static Boolean isInteger(String s){
         String regex = "^?\\d+$";
         Boolean flat = s.matches(regex);
         return flat;
     }
-    private Boolean Kiemtrangayhople(String s){
+    public static Boolean Kiemtrangayhople(String s){
             if(isInteger(s)){
                 int ngay = Integer.parseInt(s);
                 while(ngay < 31 && ngay > 1 ){
@@ -808,7 +807,7 @@ public class QuanLyDanhMuc implements Serializable{
             }
             return false;
     }
-    private Boolean Kiemtrathanghople(String s){
+    public static Boolean Kiemtrathanghople(String s){
         if(isInteger(s)){
             int thang = Integer.parseInt(s);
             while(thang <= 12&& thang >= 1 ){
@@ -817,7 +816,7 @@ public class QuanLyDanhMuc implements Serializable{
         }
         return false;
     }
-    private Boolean Kiemtranamhople(String s){
+    public static Boolean Kiemtranamhople(String s){
         if(isInteger(s)){
             int nam = Integer.parseInt(s);
             while(nam <= LocalDate.now().getYear() && nam >= 2000 ){
@@ -959,7 +958,8 @@ public class QuanLyDanhMuc implements Serializable{
         menu();
 
     }
-    public ArrayList<GiaoDich> timkiemthongtingiaodich(){
+
+   public ArrayList<GiaoDich> timkiemthongtingiaodich(){
         Scanner sc = new Scanner(System.in);
         ArrayList<GiaoDich> ketquatimkiem= new ArrayList<>();
         System.out.println("Bạn muốn tìm kiếm giao dịch theo :");
@@ -980,10 +980,15 @@ public class QuanLyDanhMuc implements Serializable{
             case 3:break;
             case 4:break;
             case 5:break;
+            case 6:
+                System.out.println("Bạn hãy nhập nội dung tìm kiếm ")
+                break;
             default:hienThiLichSuGiaoDich();
 
         }
+        return null;
     }
+
     private void resetToanbodulieuvebandau(){
 
     }
@@ -1049,78 +1054,10 @@ public class QuanLyDanhMuc implements Serializable{
                             hienThiLichSuGiaoDich();
                             break;
                         case 7:
-                            System.out.println("--------------------------------------------------------------THỐNG KÊ-----------------------------------------------------------------------*");
-                            System.out.println("1.THỐNG KÊ THEO TUẦN                                                                                                                         *");
-                            System.out.println("2.THỐNG KÊ THEO THÁNG                                                                                                                        *");
-                            System.out.println("3.THỐNG KÊ THEO NĂM                                                                                                                          *");
-                            System.out.println("NHẬP MỘT NÚT BẤT KỲ ĐỂ TRỞ LẠI MENU                                                                                                          *");
-                            System.out.println("_____________________________________________________________________________________________________________________________________________*");
-                            int choose ;
-                            Boolean flat = true;// đặt biến cờ hiệu này để nhập hợp lệ , nếu nhập quá giới hạn index hoặc nhập chuỗi thì cờ hiệu vẫn bằng true
-                                try {
-                                    choose = Integer.parseInt(sc.nextLine());
-                                    switch (choose) {
-
-                                        case 1:
-                                            System.out.println("Nhập năm:");
-                                            String year_1 = sc.nextLine();
-                                            while (!Kiemtranamhople(year_1)) {
-                                                System.out.println("Năm không hợp lệ, mời nhập lại");
-                                                year_1 = sc.nextLine();
-                                            }
-                                            System.out.println("Nhập tháng ");//thieu rang buoc
-                                            String month_1 = sc.nextLine();
-                                            while (!Kiemtrathanghople(month_1)) {
-                                                System.out.println("Tháng không hợp lệ, mời nhập lại");
-                                                month_1 = sc.nextLine();
-                                            }
-
-                                            thongke(Integer.parseInt(month_1), Integer.parseInt(year_1));
-                                            System.out.println("NHẬP MỘT PHÍM BẤT KỲ ĐỂ BACK VỀ MENU");
-
-                                            sc.nextLine();
-                                            menu();
-                                            break;
-
-                                        case 2:
-                                            System.out.println("Nhập năm:");
-                                            String year_2 = sc.nextLine();
-                                            while (!Kiemtranamhople(year_2)) {
-                                                System.out.println("Năm không hợp lệ, mời nhập lại");
-                                                year_2 = sc.nextLine();
-                                            }
-                                            thongke(Integer.parseInt(year_2));
-                                            System.out.println("NHẬP MỘT PHÍM BẤT KỲ ĐỂ BACK VỀ MENU");
-
-                                            sc.nextLine();
-                                            menu();
-                                            break;
-
-                                        case 3:
-                                            int currentYear = LocalDate.now().getYear();
-                                            System.out.println("Số năm hiện tại là " + currentYear);
-                                            System.out.println("Nhập số năm gần đây nhất mà bạn muốn xem dữ liệu từ trước năm " + currentYear);
-                                            int year = Integer.parseInt(sc.nextLine());
-                                            thongketheonam(year);
-                                            System.out.println("NHẬP MỘT PHÍM BẤT KỲ ĐỂ BACK VỀ MENU");
-                                            sc.nextLine();
-
-                                            menu();
-                                            break;
-                                        default:
-                                            menu();
-
-
-                                    }
-                                } catch (Exception E) {
-
-                                    menu();
-                                }
-
+                            ThongKe();
                             break;
 
                         case 8:
-                            DatLaiDuLieu();
                             menu();
                         break;
                         case 9:
@@ -1136,6 +1073,77 @@ public class QuanLyDanhMuc implements Serializable{
             }
         }
 
+        public void ThongKe(){
+            Scanner sc = new Scanner(System.in);
+            System.out.println("--------------------------------------------------------------THỐNG KÊ-----------------------------------------------------------------------*");
+            System.out.println("1.THỐNG KÊ THEO TUẦN                                                                                                                         *");
+            System.out.println("2.THỐNG KÊ THEO THÁNG                                                                                                                        *");
+            System.out.println("3.THỐNG KÊ THEO NĂM                                                                                                                          *");
+            System.out.println("NHẬP MỘT NÚT BẤT KỲ ĐỂ TRỞ LẠI MENU                                                                                                          *");
+            System.out.println("_____________________________________________________________________________________________________________________________________________*");
+            int choose ;
+            Boolean flat = true;// đặt biến cờ hiệu này để nhập hợp lệ , nếu nhập quá giới hạn index hoặc nhập chuỗi thì cờ hiệu vẫn bằng true
+            try {
+                choose = Integer.parseInt(sc.nextLine());
+                switch (choose) {
+
+                    case 1:
+                        System.out.println("Nhập năm:");
+                        String year_1 = sc.nextLine();
+                        while (!Kiemtranamhople(year_1)) {
+                            System.out.println("Năm không hợp lệ, mời nhập lại");
+                            year_1 = sc.nextLine();
+                        }
+                        System.out.println("Nhập tháng ");//thieu rang buoc
+                        String month_1 = sc.nextLine();
+                        while (!Kiemtrathanghople(month_1)) {
+                            System.out.println("Tháng không hợp lệ, mời nhập lại");
+                            month_1 = sc.nextLine();
+                        }
+
+                        thongke(Integer.parseInt(month_1), Integer.parseInt(year_1));
+                        System.out.println("NHẬP MỘT PHÍM BẤT KỲ ĐỂ BACK VỀ MENU");
+
+                        sc.nextLine();
+                        menu();
+                        break;
+
+                    case 2:
+                        System.out.println("Nhập năm:");
+                        String year_2 = sc.nextLine();
+                        while (!Kiemtranamhople(year_2)) {
+                            System.out.println("Năm không hợp lệ, mời nhập lại");
+                            year_2 = sc.nextLine();
+                        }
+                        thongke(Integer.parseInt(year_2));
+                        System.out.println("NHẬP MỘT PHÍM BẤT KỲ ĐỂ BACK VỀ MENU");
+
+                        sc.nextLine();
+                        menu();
+                        break;
+
+                    case 3:
+                        int currentYear = LocalDate.now().getYear();
+                        System.out.println("Số năm hiện tại là " + currentYear);
+                        System.out.println("Nhập số năm gần đây nhất mà bạn muốn xem dữ liệu từ trước năm " + currentYear);
+                        int year = Integer.parseInt(sc.nextLine());
+                        thongketheonam(year);
+                        System.out.println("NHẬP MỘT PHÍM BẤT KỲ ĐỂ BACK VỀ MENU");
+                        sc.nextLine();
+
+                        menu();
+                        break;
+                    default:
+                        menu();
+
+
+                }
+            } catch (Exception E) {
+
+                menu();
+            }
+
+        }
     public void setdanhmucchi(ListDanhMuc danhmucchi){
         this.danhmucchi=danhmucchi;
     }

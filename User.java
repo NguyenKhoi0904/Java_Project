@@ -304,6 +304,7 @@ public class User implements Serializable {
                     //ĐANG LÀM TÀ ĐẠO YÊU CẦU KHÔNG BẮT CHƯỚC
                     User u = new ProUser();
                     CopyGiaTri(u); // HÀM NÀY CÓ TÁC DỤNG GÁN GIÁ TRỊ CỦA THIS CHO U
+                    u.getQldm().setSoDanhMuc(10); //SỐ DANH MỤC MẶC ĐỊNH CHO PROUSER
                     if(u instanceof ProUser pu){
                         if(ghiUserDataLenFile(pu)){ // GHI THÔNG TIN CỦA 1 USER LÊN FILE
                             System.out.println("Ghi thông tin user thành công");

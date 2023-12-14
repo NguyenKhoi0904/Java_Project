@@ -52,7 +52,6 @@ public class QuanLyDanhMuc implements Serializable{
         return null;
 
 
-<<<<<<< HEAD
     }*/
 
     public void ChonDanhMucDeThem(){
@@ -76,7 +75,7 @@ public class QuanLyDanhMuc implements Serializable{
                             flat = false;
                             ThemDanhMuc(this.getDanhMucThu(), "DMT");
                         default:
-                            menu();
+                            return;
                     }
                 } catch (Exception e) {
                     System.out.println("Xin vui lòng nhập lại");
@@ -176,6 +175,7 @@ public class QuanLyDanhMuc implements Serializable{
                                         ChonDanhMucDeThem();
                                     }
                                 } catch (Exception e) {
+                                    return;
                                     //KHÔNG CẦN XỬ LÝ Ở ĐÂY
                                 }
                             } catch (IndexOutOfBoundsException x) {

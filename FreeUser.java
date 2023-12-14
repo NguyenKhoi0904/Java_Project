@@ -38,7 +38,7 @@ public class FreeUser extends User implements Serializable, InterfaceClass.QuanL
         pu.setLoaitaiKhoan("PRO");
         pu.setIdUser(generateID_User(pu.getLoaitaiKhoan()));
         pu.setQldm(this.getQldm());
-        pu.getQldm().setSoDanhMuc(100);
+        pu.getQldm().setSoDanhMuc(10);
         pu.setTaiKhoanNguoiDung(this.getTaiKhoanNguoiDung());
         return pu;
     }

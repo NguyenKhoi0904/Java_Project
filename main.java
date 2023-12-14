@@ -25,10 +25,10 @@ public class main {
 private static void CapNhatUserDateFile(ArrayList<User> a) throws FileNotFoundException, IOException{
         try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("userData.txt"))){
             oos.writeObject(a);
-            System.out.println("NÂNG CẤP TÀI KHOẢN THÀNH CÔNG");
+            System.out.println("CẬP NHẬT TÀI KHOẢN THÀNH CÔNG");
             System.out.println("Mời bạn đăng nhập lại");
         }catch(IOException e){
-            System.out.println("NÂNG CẤP TÀI KHOẢN THẤT BẠI");
+            System.out.println("CẬP NHẬT TÀI KHOẢN THẤT BẠI");
             e.printStackTrace();
         }
     }
@@ -92,6 +92,7 @@ private static ArrayList<User> UserData(){
             if(u instanceof FreeUser freeUser){
                 System.out.println("                FREE USER");
                 boolean cohieu = true;
+                System.out.println("Số danh mục: " + u.getQldm().getSoDanhMuc());
                 do{ 
                     System.out.println("__________________________________________________________________XIN NHẬP LỰA CHỌN__________________________________________________________");
                     System.out.println("|1.THÊM DANH MỤC                                                                                                                            |");
@@ -151,6 +152,7 @@ private static ArrayList<User> UserData(){
             else if(u instanceof ProUser proUser){
                 System.out.println("PRO USER");
                 boolean cohieu = true;
+                System.out.println("Số danh mục: " + u.getQldm().getSoDanhMuc());
                 do{
                     System.out.println("__________________________________________________________________XIN NHẬP LỰA CHỌN__________________________________________________________");
                     System.out.println("|1.THÊM DANH MỤC                                                                                                                            |");

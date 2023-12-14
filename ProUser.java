@@ -38,7 +38,7 @@ public class ProUser extends User implements Serializable, InterfaceClass.QuanLy
         
     }
 
-
+    
     @Override
     public void tao1GiaoDichMoi() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody

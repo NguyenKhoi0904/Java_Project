@@ -819,8 +819,7 @@ public class QuanLyDanhMuc implements Serializable{
                         year = LocalDate.now().getYear();
                         date = new NgayThangNam(day, month, year);
 
-                    }
-                    if (choice == 2) {//Hôm qua
+                    } else if (choice == 2) {//Hôm qua
                         flat = false;
                         day = LocalDate.now().getDayOfMonth();
                         month = LocalDate.now().getMonthValue();
@@ -859,11 +858,13 @@ public class QuanLyDanhMuc implements Serializable{
                         month = Integer.parseInt(thang);
                         year = Integer.parseInt(nam);
                         date = new NgayThangNam(day, month, year);
-                    }
-                    else{
+                    } else {
                         menu();
                     }
-
+                }
+                catch(NumberFormatException e){
+                    menu();
+            }
                     System.out.println("Nhập nội dung giao dịch");
                     String noidung = sc.nextLine();
                     System.out.println("Nhập số tiền cần giao dịch");
@@ -933,32 +934,30 @@ public class QuanLyDanhMuc implements Serializable{
 
                             }
                         }
+                        GiaoDich Bill = new GiaoDich(date, noidung, sotien, DanhMucCanGiaoDich, loaigd);
+                        DanhMuc danhmuccha = danhmuc.timdanhmuctheoten(danhmuc.getDsDanhMuc(), DanhMucCanGiaoDich.getName_danhmuccha());
+                        if (danhmuccha != null) {
+                            Bill.Chuyentienvaodanhmuc();
+                            danhmuccha.setMoney();
+                            danhmuc.setTongsotien();
+                            getDsgiaodich().addGD(Bill);
+                            System.out.println("Đã thêm vào danh mục " + DanhMucCanGiaoDich.gettendanhmuc());
+                            System.out.println("Giao dịch thành công");
+                            this.getSolanGiaoDich().setSolangiaodich(this.getSolanGiaoDich().getsolangiaodich() - 1);
+                            System.out.println("Nhập 1 nút bất kỳ để back trở về menu");
+                            sc.nextLine();
+                            menu();
+                        }
                     }
-
-                    GiaoDich Bill = new GiaoDich(date, noidung, sotien, DanhMucCanGiaoDich, loaigd);
-                    DanhMuc danhmuccha = danhmuc.timdanhmuctheoten(danhmuc.getDsDanhMuc(), DanhMucCanGiaoDich.getName_danhmuccha());
-                    if (danhmuccha != null) {
-                        Bill.Chuyentienvaodanhmuc();
-                        danhmuccha.setMoney();
-                        danhmuc.setTongsotien();
-                        getDsgiaodich().addGD(Bill);
-                        System.out.println("Đã thêm vào danh mục " + DanhMucCanGiaoDich.gettendanhmuc());
-                        System.out.println("Giao dịch thành công");
-                        this.getSolanGiaoDich().setSolangiaodich(this.getSolanGiaoDich().getsolangiaodich() - 1);
-                        System.out.println("Nhập 1 nút bất kỳ để back trở về menu");
+                    else{
+                        System.out.println("Danh mục bạn chọn đang rỗng");
+                        System.out.println("Nhấn nút bất kỳ để về menu!!");
                         sc.nextLine();
                         menu();
-                    } else
-                        System.out.println("Không thể giao dịch với danh mục cấp 1!!");
-                    System.out.println("Nhập 1 nút bất kỳ để back trở về menu");
-                    sc.nextLine();
-                    menu();
-
-                } catch (NumberFormatException e) {
-                    menu();
+                    }
                 }
             }
-        }
+
 
 
     public void hienThiLichSuGiaoDich(){

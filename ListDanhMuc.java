@@ -62,9 +62,9 @@ public class ListDanhMuc implements Serializable{
 
     public void lietkedanhmuc(){
         for (DanhMuc ds : dsdanhmuc) {
-            System.out.println("-" + ds.gettendanhmuc() + ":" + ds.getMoney());
+            System.out.println("-" + ds.gettendanhmuc() + ":" + ds.getMoney()+"đ");
             for (DanhMuc ds2 : ds.getdanhsachdanhmuccon()) {
-                System.out.println(" +" + ds2.gettendanhmuc() + ":" + ds2.getMoney());
+                System.out.println(" +" + ds2.gettendanhmuc() + ":" + ds2.getMoney()+"đ");
             }
         }
     }
@@ -156,7 +156,8 @@ public class ListDanhMuc implements Serializable{
                 for (DanhMuc danhMuc : dsdanhmuc) {
                     if (danhMuc.getdanhsachdanhmuccon().contains(danhMucCanXoa)) {
                         danhMuc.getdanhsachdanhmuccon().remove(danhMucCanXoa);
-                        setTongsotien(getTongsotien() - danhMucCanXoa.getMoney());
+                        danhMuc.setMoney();
+                        this.setTongsotien(getTongsotien() - danhMucCanXoa.getMoney());
                         System.out.println("Bạn đã xóa danh mục thành công");
                         break;
                     } else if (danhMuc == danhMucCanXoa) {

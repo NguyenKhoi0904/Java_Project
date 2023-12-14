@@ -73,4 +73,24 @@ public class ProUser extends User implements Serializable, InterfaceClass.QuanLy
     public void BaoCaoChiTietTheoTungDanhMucVaThoiGian() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+    /* public Boolean LapNganSachVaNhacNho(){// viet them regrex de kiem tra;
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Nhập Năm ");
+        String test1  = sc.nextLine();
+        int nam;
+        while(QuanLyDanhMuc.isInteger(test1)){
+            nam = Integer.parseInt(test1);
+        }
+        System.out.println("Nhập Tháng ");
+        String test2  = sc.nextLine();
+        int thang;
+        while(QuanLyDanhMuc.isInteger(test2)){
+            thang = Integer.parseInt(test1);
+        }
+       for( GiaoDich gd:getQldm().getDsgiaodich().getDsGD()){
+           if(gd.getNgayGiaoDich().getthang()==thang )
+       }
+
+
+    }*/
 }

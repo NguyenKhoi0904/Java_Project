@@ -21,61 +21,25 @@ import java.util.Scanner;
 public class main {
     private static ArrayList<User> dsUser = new ArrayList<>();
     private static User u = new User();
-private boolean ghiUserDataLenFile(User a) throws FileNotFoundException, ClassNotFoundException{
-        ArrayList<User> b = new ArrayList<>(); 
-        try(ObjectInputStream oos = new ObjectInputStream(new FileInputStream("userData.txt"))){
-            b = (ArrayList<User>)oos.readObject();
-            oos.close();
-        }catch(EOFException e){
-            b = new ArrayList<>();
-        }catch (IOException e) {
-            e.printStackTrace();
-        }
-        b.add(a);
-        
-        try(ObjectOutputStream ois = new ObjectOutputStream(new FileOutputStream("userData.txt"))) {
-            ois.writeObject(b);
-            return true;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return false;
-}
     
-    public static void ChoUserDangNhap() throws FileNotFoundException, ClassNotFoundException{
-        boolean flag = true;
-        User a = new User();
-        int n;
-        try(Scanner scanner = new Scanner(System.in)){
-            do{
-                System.out.println("------------------");
-                System.out.println("0.Đăng ký");
-                System.out.println("1.Đăng Nhập");
-                System.out.println("2.Thoát");
-                System.out.print("Mời bạn lựa chọn: ");
-                n = Integer.parseInt(scanner.nextLine());
-                switch(n){
-                    case 0 -> {
-                        a.DangKy();
-                        break;
-                    }
-                    case 1 -> {
-                        u = a.DangNhap();
-                        flag = false;
-                        break;
-                    }
-                    default ->{
-                        return;
-                    }
-                }
-          }while(flag);
+private static void CapNhatUserDateFile(ArrayList<User> a) throws FileNotFoundException, IOException{
+        try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("userData.txt"))){
+            oos.writeObject(a);
+            System.out.println("NÂNG CẤP TÀI KHOẢN THÀNH CÔNG");
+            System.out.println("Mời bạn đăng nhập lại");
         }catch(IOException e){
+            System.out.println("NÂNG CẤP TÀI KHOẢN THẤT BẠI");
             e.printStackTrace();
         }
-        
     }
-    
+private static ArrayList<User> UserData(){
+        ArrayList<User> a = new ArrayList<>();
+        try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream("userData.txt"))) {
+            a = (ArrayList<User>)ois.readObject();
+        } catch (Exception e) {
+        }
+        return a;
+}
 //    public static void ChoUserDangKy() throws FileNotFoundException, ClassNotFoundException{
 //        User u = new User();
 //        boolean flag = true;
@@ -128,49 +92,137 @@ private boolean ghiUserDataLenFile(User a) throws FileNotFoundException, ClassNo
             if(u instanceof FreeUser freeUser){
                 System.out.println("                FREE USER");
                 boolean cohieu = true;
-                
-                do{
-                    System.out.println("1. Nang cap tai khoan");
-                    System.out.println("2. Tạo Danh Mục");
-                    System.out.println("3. Sửa Danh Mục");
-                    System.out.println("4. Xóa Danh Mục");
-                    System.out.println("5. Thoát");
-                    System.out.print("Mời bạn lựa chọn: ");
+                do{ 
+                    System.out.println("__________________________________________________________________XIN NHẬP LỰA CHỌN__________________________________________________________");
+                    System.out.println("|1.THÊM DANH MỤC                                                                                                                            |");
+                    System.out.println("|-------------------------------------------------------------------------------------------------------------------------------------------|");
+                    System.out.println("|2.XÓA DANH MỤC                                                                                                                             |");
+                    System.out.println("|-------------------------------------------------------------------------------------------------------------------------------------------|");
+                    System.out.println("|3.SỬA DANH MỤC                                                                                                                             |");
+                    System.out.println("|-------------------------------------------------------------------------------------------------------------------------------------------|");
+                    System.out.println("|4.HIỂN THỊ DANH MỤC                                                                                                                        |");
+                    System.out.println("|-------------------------------------------------------------------------------------------------------------------------------------------|");
+                    System.out.println("|5.GIAO DỊCH                                                                                                                                |");
+                    System.out.println("|-------------------------------------------------------------------------------------------------------------------------------------------|");
+                    System.out.println("|6.XEM LỊCH SỬ GIAO DỊCH                                                                                                                    |");
+                    System.out.println("|-------------------------------------------------------------------------------------------------------------------------------------------|");
+                    System.out.println("|7.THỐNG KÊ GIAO DỊCH                                                                                                                       |");
+                    System.out.println("|-------------------------------------------------------------------------------------------------------------------------------------------|");
+                    System.out.println("|8.NÂNG CẤP TÀI KHOẢN                                                                                                                       |");
+                    System.out.println("|-------------------------------------------------------------------------------------------------------------------------------------------|");
+                    System.out.println("|9.THOÁT                                                                                                                                    |");
+                    System.out.println("|-------------------------------------------------------------------------------------------------------------------------------------------|");
+                    System.out.print(" -Mời bạn lựa chọn: ");
                     int i = Integer.parseInt(scanner.nextLine());
                     switch(i){
                         case 1 -> {
-                            freeUser.nangCapTaiKhoan();
-                            cohieu = false;
-                            break;
+                            freeUser.taoDanhMuc();
                         }
                         case 2 -> {
-                            freeUser.taoDanhMuc();
-                            break;
-                        }
-                        case 3 -> {
                             freeUser.doiTenDanhMuc();
-                            break;
+                        }
+                        case 3-> {
+                            freeUser.xoaDanhMuc();
                         }
                         case 4 -> {
-                            freeUser.xoaDanhMuc();
-                            break;
+                            
+                        }
+                        case 8 -> {
+                            freeUser.nangCapTaiKhoan();
+                            cohieu = false;
                         }
                         default -> {
+                            dsUser = main.UserData();
+                            int index = 0;
+                            for(User user: dsUser){
+                                if(user.getIdUser().equals(u.getIdUser())){
+                                    break;
+                                }
+                                index++;
+                            }
+                            dsUser.set(index, u);
+                            main.CapNhatUserDateFile(dsUser);
                             cohieu = false;
                         }
                     }
-//                    if(cohieu){
-//                        continue;
-//                    }
                 }while(cohieu);
             }
 
-            if(u instanceof ProUser proUser){
-                System.out.println("PRO USER HERE");
-                System.out.println("QUAN LY DANH MUC DANG TRONG");
-                System.out.println(proUser.getIdUser());
-                System.out.println(proUser.getLoaitaiKhoan());
-                System.out.println(proUser.getTaiKhoanNguoiDung().toString());
+            else if(u instanceof ProUser proUser){
+                System.out.println("PRO USER");
+                boolean cohieu = true;
+                do{
+                    System.out.println("__________________________________________________________________XIN NHẬP LỰA CHỌN__________________________________________________________");
+                    System.out.println("|1.THÊM DANH MỤC                                                                                                                            |");
+                    System.out.println("|-------------------------------------------------------------------------------------------------------------------------------------------|");
+                    System.out.println("|2.XÓA DANH MỤC                                                                                                                             |");
+                    System.out.println("|-------------------------------------------------------------------------------------------------------------------------------------------|");
+                    System.out.println("|3.SỬA DANH MỤC                                                                                                                             |");
+                    System.out.println("|-------------------------------------------------------------------------------------------------------------------------------------------|");
+                    System.out.println("|4.HIỂN THỊ DANH MỤC                                                                                                                        |");
+                    System.out.println("|-------------------------------------------------------------------------------------------------------------------------------------------|");
+                    System.out.println("|5.GIAO DỊCH                                                                                                                                |");
+                    System.out.println("|-------------------------------------------------------------------------------------------------------------------------------------------|");
+                    System.out.println("|6.XEM LỊCH SỬ GIAO DỊCH                                                                                                                    |");
+                    System.out.println("|-------------------------------------------------------------------------------------------------------------------------------------------|");
+                    System.out.println("|7.THỐNG KÊ GIAO DỊCH                                                                                                                       |");
+                    System.out.println("|-------------------------------------------------------------------------------------------------------------------------------------------|");
+                    System.out.println("|8.ĐỐI SÁNH CÁC KHOẢN THU CHI THEO THỜI GIAN CỦA CÁC THÁNG HOẶC NĂM                                                                         |");
+                    System.out.println("|-------------------------------------------------------------------------------------------------------------------------------------------|");
+                    System.out.println("|9.XUẤT BÁO CÁO RA FILE                                                                                                                     |");
+                    System.out.println("|-------------------------------------------------------------------------------------------------------------------------------------------|");
+                    System.out.println("|10.LẬP NGÂN SÁCH VÀ NHẮC NHỞ                                                                                                               |");
+                    System.out.println("|-------------------------------------------------------------------------------------------------------------------------------------------|");
+                    System.out.println("|11.THOÁT                                                                                                                                    |");
+                    System.out.println("|-------------------------------------------------------------------------------------------------------------------------------------------|");
+                    System.out.print(" -Mời bạn lựa chọn: ");
+                    int i = Integer.parseInt(scanner.nextLine());
+                    switch(i){
+                        case 1 ->{
+                           
+                        }
+                        case 2 ->{
+                            proUser.xoaDanhMuc();
+                        }
+                        case 3 ->{
+                            proUser.doiTenDanhMuc();
+                        }
+                        case 4 ->{
+                            
+                        }
+                        case 5 ->{
+                            
+                        }
+                        case 6 ->{
+                            
+                        }
+                        case 7 ->{
+                            
+                        }
+                        case 8 ->{
+                            
+                        }
+                        case 9 ->{
+                            
+                        }
+                        case 10 ->{
+                            
+                        }
+                        default ->{
+                            dsUser = main.UserData();
+                            int index = 0;
+                            for(User user: dsUser){
+                                if(user.getIdUser().equals(u.getIdUser())){
+                                    break;
+                                }
+                                index++;
+                            }
+                            dsUser.set(index, u);
+                            main.CapNhatUserDateFile(dsUser);
+                            cohieu = false;
+                        }
+                    }
+                }while(cohieu);
             }
         }while(true);
         // Neu co tra ve User 

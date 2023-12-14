@@ -38,6 +38,7 @@ public class FreeUser extends User implements Serializable, InterfaceClass.QuanL
         pu.setLoaitaiKhoan("PRO");
         pu.setIdUser(generateID_User(pu.getLoaitaiKhoan()));
         pu.setQldm(this.getQldm());
+        pu.getQldm().setSoDanhMuc(100);
         pu.setTaiKhoanNguoiDung(this.getTaiKhoanNguoiDung());
         return pu;
     }
@@ -74,12 +75,12 @@ public class FreeUser extends User implements Serializable, InterfaceClass.QuanL
 
     @Override
     public void thongkeDanhMucTheoNgayThangNam() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        //this.getQldm().t
     }
 
     @Override
     public void timKiemThongTinGiaoDich() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        
     }
 
     @Override
@@ -95,5 +96,10 @@ public class FreeUser extends User implements Serializable, InterfaceClass.QuanL
     @Override
     public void xoaDanhMuc() {
         this.getQldm().ChonDanhMucdexoa();
+    }
+
+    @Override
+    public void BaoCaoChiTietTheoTungDanhMucVaThoiGian() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

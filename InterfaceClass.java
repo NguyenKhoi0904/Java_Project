@@ -13,6 +13,7 @@ public class InterfaceClass {
         void tao1GiaoDichMoi();
         void thongkeDanhMucTheoNgayThangNam();
         void timKiemThongTinGiaoDich();
+        void BaoCaoChiTietTheoTungDanhMucVaThoiGian();
     }
     
     public interface ManageCategory{

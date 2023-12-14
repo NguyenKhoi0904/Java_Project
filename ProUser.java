@@ -61,11 +61,16 @@ public class ProUser extends User implements Serializable, InterfaceClass.QuanLy
 
     @Override
     public void doiTenDanhMuc() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        this.getQldm().chonDanhMucDeSua();
     }
 
     @Override
     public void xoaDanhMuc() {
+        this.getQldm().ChonDanhMucdexoa();
+    }
+
+    @Override
+    public void BaoCaoChiTietTheoTungDanhMucVaThoiGian() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

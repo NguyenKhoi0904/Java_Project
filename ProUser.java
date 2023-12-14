@@ -5,6 +5,7 @@
 package com.bt.quanlythuchicanhan;
 
 import java.io.Serializable;
+import java.util.Scanner;
 
 /**
  *
@@ -12,6 +13,7 @@ import java.io.Serializable;
  */
 public class ProUser extends User implements Serializable, InterfaceClass.QuanLyGiaoDichDanhMuc_Interface, InterfaceClass.ManageCategory{
     int gioiHanNganSach;
+   /*  private ArrayList<NganSach>;*/
 
     public ProUser() {
     }
@@ -35,10 +37,7 @@ public class ProUser extends User implements Serializable, InterfaceClass.QuanLy
     public void xuatBaoCaoRaFile(){
         
     }
-    
-    public void LapNganSachVaNhacNho(){
-        
-    }
+
 
     @Override
     public void tao1GiaoDichMoi() {

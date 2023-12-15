@@ -1347,6 +1347,9 @@ public class QuanLyDanhMuc implements Serializable{
         System.out.println("|8.TÌM KIẾM THÔNG TIN GIAO DỊCH                                                                                                             |");
         System.out.println("|-------------------------------------------------------------------------------------------------------------------------------------------|");
     }
+    public void BaoCao(){
+        System.out.println
+    }
     public void menu() {
         Scanner sc = new Scanner(System.in);
         // chay menu;
@@ -1526,15 +1529,12 @@ public class QuanLyDanhMuc implements Serializable{
             System.out.println(" Chiếm " + percent + " %");
         }
         System.out.println("- Tuần chi nhiều nhất là Tuần " + (Nhieunhat(danhmucchi) + 1)+" với số tiền là "+danhmucchi[Nhieunhat(danhmucchi)]);
-        System.out.println("- Tuần thu nhiều nhất là Tuần " + (Nhieunhat(danhmucthu) + 1)+" với số tiền là "+danhmucthu[Nhieunhat(danhmucthu)]);
+
         for(int i=0;i<danhmucchi.length;i++){
             if(danhmucchi[i]==danhmucchi[Itnhat(danhmucchi)]);
             System.out.println("|Tuần chi ít nhất là Tuần " + (i + 1)+" với số tiền là "+danhmucchi[Itnhat(danhmucchi)]);
         }
-        for(int i=0;i<danhmucthu.length;i++){
-            if(danhmucchi[i]==danhmucchi[Itnhat(danhmucchi)]);
-            System.out.println("|Tuần thu ít nhất là Tuần " + (i + 1)+" với số tiền là "+danhmucthu[Itnhat(danhmucthu)]);
-        }
+
 
 
 
@@ -1596,18 +1596,11 @@ public class QuanLyDanhMuc implements Serializable{
         }
         System.out.println(" Dữ liệu trong năm "+year +" :");
         System.out.println("|Tháng chi nhiều nhất là Tháng " + (Nhieunhat(danhmucchi) + 1)+" với số tiền là "+danhmucchi[Nhieunhat(danhmucchi)]);
-        System.out.println("|Tháng thu nhiều nhất là Tháng " + (Nhieunhat(danhmucthu) + 1)+" với số tiền là "+danhmucthu[Nhieunhat(danhmucthu)]);
         for(int i=0;i<danhmucchi.length;i++){
             if(danhmucchi[i]==danhmucchi[Itnhat(danhmucchi)]);
             System.out.println("|Tháng chi ít nhất là Tháng " + (i + 1)+" với số tiền là "+danhmucchi[Itnhat(danhmucchi)]);
         }
-        for(int i=0;i<danhmucthu.length;i++){
-            if(danhmucchi[i]==danhmucchi[Itnhat(danhmucchi)]);
-            System.out.println("|Tháng thu ít nhất là Tháng " + (i + 1)+" với số tiền là "+danhmucthu[Itnhat(danhmucthu)]);
-        }
     }
-
-
     public void thongketheonam(int soNamGanDay){
         int[] danhmucthu = new int[soNamGanDay];
         int[] danhmucchi = new int[soNamGanDay];
@@ -1662,15 +1655,12 @@ public class QuanLyDanhMuc implements Serializable{
         }
         System.out.println(" Dữ liệu từ "+soNamGanDay+" gần đây nhất ");
         System.out.println("-Năm chi nhiều nhất trong những năm gần đây là " + (Nhieunhat(danhmucchi) + 1)+" với số tiền là "+danhmucchi[Nhieunhat(danhmucchi)]);
-        System.out.println("-Năm thu nhiều trong những năm gần đây là " + (Nhieunhat(danhmucthu) + 1)+" với số tiền là "+danhmucchi[Nhieunhat(danhmucthu)]);
+
         for(int i=0;i<danhmucchi.length;i++){
             if(danhmucchi[i]==danhmucchi[Itnhat(danhmucchi)]);
             System.out.println("|Năm sử dụng ít nhất là năm " + (i + 1)+" với số tiền là "+danhmucchi[Itnhat(danhmucchi)]);
         }
-        for(int i=0;i<danhmucthu.length;i++){
-            if(danhmucchi[i]==danhmucchi[Itnhat(danhmucchi)]);
-            System.out.println("|Năm thu ít nhất là năm " + (i + 1)+" với số tiền là "+danhmucthu[Itnhat(danhmucthu)]);
-        }
+
     }
     public double TongSoTientrongdanhmuc(int [] array){
         int sum=0;

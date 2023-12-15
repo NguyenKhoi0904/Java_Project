@@ -75,7 +75,7 @@ public class QuanLyDanhMuc implements Serializable {
                         default:
                             return;
                     }
-                } catch (Exception e) {
+                } catch (NumberFormatException e) {
                     System.out.println("Xin vui lòng nhập lại");
                 }
             }
@@ -407,7 +407,7 @@ public class QuanLyDanhMuc implements Serializable {
                     chonDanhMucDeSua();
                 }
             }
-        } catch (Exception e) {
+        } catch (NumberFormatException e) {
             //KHÔNG CẦN XỬ LÝ GÌ Ở CHỖ NÀY
         }
     }
@@ -665,7 +665,7 @@ public class QuanLyDanhMuc implements Serializable {
                             }
                         }
                 }
-            } catch (Exception e) {
+            } catch (NumberFormatException e) {
                 System.out.println("Bạn chỉ được nhâp 1 hoặc 2");
             }
         }
@@ -752,11 +752,9 @@ public class QuanLyDanhMuc implements Serializable {
                         int choice1 = Integer.parseInt(sc.nextLine());
                         if (choice1 == 1) {
                             chonloaigiaodich();
-                        } else {
-                            menu();
-                        }
-                    } catch (Exception e) {
-                        menu();
+                        } 
+                    } catch (NumberFormatException e) {
+                        //KHÔNG CẦN XỬ LÝ Ở ĐÂY
                     }
                 } else if (type == 2) {
                     giaodich(getDanhMucThu(), 2);
@@ -767,23 +765,18 @@ public class QuanLyDanhMuc implements Serializable {
                         int choice1 = Integer.parseInt(sc.nextLine());
                         if (choice1 == 1) {
                             chonloaigiaodich();
-                        } else {
-                            menu();
                         }
-                    } catch (Exception e) {
-                        menu();
+                    } catch (NumberFormatException e) {
+                        //KHÔNG CẦN XỬ LÝ Ở ĐÂY
                     }
-                } else {
-                    menu();
                 }
-            } catch (Exception e) {
-                menu();
+            } catch (NumberFormatException e) {
+                //KHÔNG CẦN XỬ LÝ Ở ĐÂY
             }
         } else {
             System.out.println("Số lần giao dịch của bạn trong tháng này đã hết !!");
             System.out.println("Nhấn 1 phím bất kỳ để back về menu");
             sc.nextLine();
-            menu();
         }
     }
 
@@ -849,10 +842,10 @@ public class QuanLyDanhMuc implements Serializable {
                     year = Integer.parseInt(nam);
                     date = new NgayThangNam(day, month, year);
                 } else {
-                    menu();
+                    return;
                 }
             } catch (NumberFormatException e) {
-                menu();
+                return;
             }
             System.out.println("Nhập nội dung giao dịch");
             String noidung = sc.nextLine();
@@ -935,13 +928,13 @@ public class QuanLyDanhMuc implements Serializable {
                     this.getSolanGiaoDich().setSolangiaodich(this.getSolanGiaoDich().getsolangiaodich() - 1);
                     System.out.println("Nhập 1 nút bất kỳ để back trở về menu");
                     sc.nextLine();
-                    menu();
+                    return;
                 }
             } else {
                 System.out.println("Danh mục bạn chọn đang rỗng");
                 System.out.println("Nhấn nút bất kỳ để về menu!!");
                 sc.nextLine();
-                menu();
+                return;
             }
         }
     }
@@ -1236,8 +1229,6 @@ public class QuanLyDanhMuc implements Serializable {
                             break;
                     }
                 }
-            } else {
-                return;
             }
 
             //2.2.1 hien thi theo ngày tháng năm
@@ -1247,7 +1238,7 @@ public class QuanLyDanhMuc implements Serializable {
 
         } catch (NumberFormatException e) {
             // back ve menu o day
-            return;
+            //KHÔNG CẦN XỬ LÝ Ở ĐÂY
         }
 
     }
@@ -1519,73 +1510,6 @@ public class QuanLyDanhMuc implements Serializable {
         }
     }
 
-    public static void main_menu() {
-        System.out.println("__________________________________________________________________XIN NHẬP LỰA CHỌN__________________________________________________________");
-        System.out.println("|1.THÊM DANH MỤC                                                                                                                            |");
-        System.out.println("|-------------------------------------------------------------------------------------------------------------------------------------------|");
-        System.out.println("|2.XÓA DANH MỤC                                                                                                                             |");
-        System.out.println("|-------------------------------------------------------------------------------------------------------------------------------------------|");
-        System.out.println("|3.SỬA DANH MỤC                                                                                                                             |");
-        System.out.println("|-------------------------------------------------------------------------------------------------------------------------------------------|");
-        System.out.println("|4.HIỂN THỊ DANH MỤC                                                                                                                        |");
-        System.out.println("|-------------------------------------------------------------------------------------------------------------------------------------------|");
-        System.out.println("|5.GIAO DỊCH                                                                                                                                |");
-        System.out.println("|-------------------------------------------------------------------------------------------------------------------------------------------|");
-        System.out.println("|6.XEM LỊCH SỬ GIAO DỊCH                                                                                                                    |");
-        System.out.println("|-------------------------------------------------------------------------------------------------------------------------------------------|");
-        System.out.println("|7.THỐNG KÊ GIAO DỊCH                                                                                                                       |");
-        System.out.println("|-------------------------------------------------------------------------------------------------------------------------------------------|");
-        System.out.println("|8.TÌM KIẾM THÔNG TIN GIAO DỊCH                                                                                                             |");
-        System.out.println("|-------------------------------------------------------------------------------------------------------------------------------------------|");
-    }
-
-    public void menu() {
-        Scanner sc = new Scanner(System.in);
-        // chay menu;
-        main_menu();
-
-        System.out.println("-Hãy nhập lựa chọn của bạn :");
-        try {
-            int choice = Integer.parseInt(sc.nextLine());
-            switch (choice) {
-                case 1:
-                    ChonDanhMucDeThem();
-                    break;
-
-                case 2:
-                    ChonDanhMucdexoa();
-                    break;
-
-                case 3:
-                    chonDanhMucDeSua();
-                    break;
-
-                case 4:
-                    HienThiDanhMuc();
-                    break;
-
-                case 5:
-                    chonloaigiaodich();
-                    break;
-                case 6:
-                    hienThiLichSuGiaoDich();
-                    break;
-                case 7:
-                    ThongKe();
-                    break;
-
-                case 8:
-                    timkiemthongtingiaodich();
-                    break;
-
-
-            }
-        } catch (Exception e) {
-            System.out.println("VUI LÒNG NHẬP SỐ");
-            menu();
-
-        }
-    }
 
     public void ThongKe() {
         Scanner sc = new Scanner(System.in);
@@ -1619,8 +1543,8 @@ public class QuanLyDanhMuc implements Serializable {
                     System.out.println("NHẬP MỘT PHÍM BẤT KỲ ĐỂ BACK VỀ MENU");
 
                     sc.nextLine();
-                    menu();
-                    break;
+                    return;
+                    
 
                 case 2:
                     System.out.println("Nhập năm:");
@@ -1632,8 +1556,7 @@ public class QuanLyDanhMuc implements Serializable {
                     thongke(Integer.parseInt(year_2));
                     System.out.println("NHẬP MỘT PHÍM BẤT KỲ ĐỂ BACK VỀ MENU");
                     sc.nextLine();
-                    menu();
-                    break;
+                    return;
 
                 case 3:
                     int currentYear = LocalDate.now().getYear();
@@ -1643,17 +1566,12 @@ public class QuanLyDanhMuc implements Serializable {
                     thongketheonam(year);
                     System.out.println("NHẬP MỘT PHÍM BẤT KỲ ĐỂ BACK VỀ MENU");
                     sc.nextLine();
-
-                    menu();
-                    break;
                 default:
-                    menu();
-
+                    return;
 
             }
-        } catch (Exception E) {
-
-            menu();
+        } catch (NumberFormatException E) {
+            //KHÔNG CẦN XỬ LÝ Ở ĐÂY
         }
 
     }
@@ -2022,8 +1940,5 @@ public class QuanLyDanhMuc implements Serializable {
     }
 
 
-    public static void main(String [] args){
-        QuanLyDanhMuc user = new QuanLyDanhMuc();
-        user.menu();
-    }
+
 }

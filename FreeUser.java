@@ -19,7 +19,7 @@ import java.util.Scanner;
  * @author aries
  */
 public class FreeUser extends User implements Serializable, InterfaceClass.QuanLyGiaoDichDanhMuc_Interface, InterfaceClass.ManageCategory{
-
+//    private GioiHanGiaoDich solangiaodich;
     public void nangCapTaiKhoan() throws IOException{
         ProUser proUser = nangcap();
         ArrayList<User> arraylist = docUserData();

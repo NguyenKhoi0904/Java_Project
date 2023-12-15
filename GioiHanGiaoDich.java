@@ -12,10 +12,6 @@ public class GioiHanGiaoDich implements Serializable{
         this.ThangHienTai= LocalDate.now().getMonthValue();
 
     }
-    public GioiHanGiaoDich(){//Pro
-        this.solangiaodich= Integer.MAX_VALUE;
-        this.ThangHienTai= LocalDate.now().getMonthValue();
-    }
 
     public int getsolangiaodich() {
         return solangiaodich;

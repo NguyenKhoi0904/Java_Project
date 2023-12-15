@@ -40,6 +40,12 @@ private static ArrayList<User> UserData(){
         }
         return a;
 }
+
+private static boolean isInteger(String s){
+    String regex = "^?\\d+$";
+    Boolean flat = s.matches(regex);
+    return flat;
+}
 //    public static void ChoUserDangKy() throws FileNotFoundException, ClassNotFoundException{
 //        User u = new User();
 //        boolean flag = true;
@@ -118,7 +124,7 @@ private static ArrayList<User> UserData(){
                     System.out.println("|-------------------------------------------------------------------------------------------------------------------------------------------|");
                     System.out.print(" -Mời bạn lựa chọn: ");
                     String test = scanner.nextLine();
-                    while(!QuanLyDanhMuc.isInteger(test)){
+                    while(!isInteger(test)){
                         System.out.println("Mời bạn nhập lại");
                         test = scanner.nextLine();
                     }
@@ -155,7 +161,7 @@ private static ArrayList<User> UserData(){
                             freeUser.nangCapTaiKhoan();
                             cohieu = false;
                         }
-                        default -> {
+                        case 11 -> {
                             dsUser = main.UserData();
                             int index = 0;
                             for(User user: dsUser){
@@ -167,6 +173,9 @@ private static ArrayList<User> UserData(){
                             dsUser.set(index, u);
                             main.CapNhatUserDateFile(dsUser);
                             cohieu = false;
+                        }
+                        default -> {
+                            
                         }
                     }
                 }while(cohieu);
@@ -205,7 +214,12 @@ private static ArrayList<User> UserData(){
                     System.out.println("|13.ĐĂNG XUẤT                                                                                                                               |");
                     System.out.println("|-------------------------------------------------------------------------------------------------------------------------------------------|");
                     System.out.print(" -Mời bạn lựa chọn: ");
-                    int i = Integer.parseInt(scanner.nextLine());
+                    String s = scanner.nextLine();
+                    while(!isInteger(s)){
+                        System.out.println("Mời bạn nhập lại");
+                        s = scanner.nextLine();
+                    }
+                    int i = Integer.parseInt(s);
                     switch(i){
                         case 1 ->{
                            proUser.taoDanhMuc();

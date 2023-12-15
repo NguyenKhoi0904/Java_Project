@@ -18,12 +18,19 @@ public class QuanLyDanhMuc implements Serializable {
     private ListGiaoDich dsgiaodich;
 
 
-    public QuanLyDanhMuc() {
+    public QuanLyDanhMuc(int soLanGiaoDich) {
         this.danhmucchi = new ListDanhMuc(new DanhMuc("TY1", "Thiết yếu"), new DanhMuc("BT1", "Biếu tặng"), new DanhMuc("SK1", "Sức khỏe"), new DanhMuc("GT", "Giải trí"));
         this.danhmucthu = new ListDanhMuc(new DanhMuc("L1", "Lương"), new DanhMuc("T1", "Thưởng"));
         this.dsgiaodich = new ListGiaoDich();
-        this.sodanhmuc = 20;
-        this.solangiaodich = new GioiHanGiaoDich(50);
+        this.sodanhmuc = 2;
+        this.solangiaodich = new GioiHanGiaoDich(soLanGiaoDich);
+    }
+    public QuanLyDanhMuc() { // Prouser
+        this.danhmucchi = new ListDanhMuc(new DanhMuc("TY1", "Thiết yếu"), new DanhMuc("BT1", "Biếu tặng"), new DanhMuc("SK1", "Sức khỏe"), new DanhMuc("GT", "Giải trí"));
+        this.danhmucthu = new ListDanhMuc(new DanhMuc("L1", "Lương"), new DanhMuc("T1", "Thưởng"));
+        this.dsgiaodich = new ListGiaoDich();
+        this.sodanhmuc = 10;
+        this.solangiaodich = new GioiHanGiaoDich();
     }
 
     private String generateID_DanhMuc(String prefix) {
@@ -279,7 +286,7 @@ public class QuanLyDanhMuc implements Serializable {
                                 NameDanhMucCanXoa = DanhMucCanXoa.gettendanhmuc();
                             } catch (IndexOutOfBoundsException e) {
                                 System.out.println("Số bạn nhập không nằm trong vị trí cho phép , vui lòng nhập lại !!!!!.");
-                                CoHieu = true;
+                                   CoHieu = true;
                             } catch (NumberFormatException e) {
                                 System.out.println("Bạn đã nhập không hợp lệ. Vui lòng nhập số.");
                                 CoHieu = true;

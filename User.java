@@ -349,7 +349,7 @@ public class User implements Serializable {
         sourceUser.setLoaitaiKhoan(this.getLoaitaiKhoan());
         sourceUser.setIdUser(this.getIdUser());
         sourceUser.setTaiKhoanNguoiDung(this.getTaiKhoanNguoiDung());
-        sourceUser.setQldm(new QuanLyDanhMuc());
+        sourceUser.setQldm(new QuanLyDanhMuc(50));
     }
     private String generateID_User(String prefix){ //HÀM RANDOM ID DỰA TRÊN MÃ ĐẦU VÀO
         Random random = new Random();              //VD: giá trị truyền vào là "PRO" kết quả khi trả về sẽ là PRO + 1 dãy số ngẫu nhiên có 6 kí tự, vd PRO000001

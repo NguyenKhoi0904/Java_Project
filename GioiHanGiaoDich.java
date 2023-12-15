@@ -33,11 +33,12 @@ public class GioiHanGiaoDich {
        this.ThangHienTai = ThangHienTai;
 
     }
-    public void kiemTraThayDoiThang(){
+    public void kiemTraThayDoiThang(){// Dùng để tạo gd cho free user
         int Thang=LocalDate.now().getMonthValue();
         if(getThang()!=Thang){
             this.setThang(Thang);
             solangiaodich=50;
         }
     }
+
 }

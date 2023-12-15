@@ -1273,7 +1273,7 @@ public class QuanLyDanhMuc implements Serializable {
                 }
     }
 
-    public void BaoCaoChiTietTungDanhMuc() {
+    public String BaoCaoChiTietTungDanhMuc() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Bạn muốn xem báo cáo chi tiết theo loại danh mục nào ");
         System.out.println("1.Chi ");
@@ -1348,7 +1348,7 @@ public class QuanLyDanhMuc implements Serializable {
                                     }
                                     int Month = Integer.parseInt(test);
                                     thongkedanhmuctheotuan(Month, Year, DanhMucCanXem, loaigd); // ghi file trong hàm này dòng 1644
-                                    return;
+                                    return null;
 
                                 } else if (choice == 2) {// xem dữ liệu danh mục theo tháng
                                     Cohieu = false;
@@ -1359,7 +1359,7 @@ public class QuanLyDanhMuc implements Serializable {
                                     }
                                     int Year = Integer.parseInt(test);
                                     thongkedanhmuctheothang(Year, DanhMucCanXem, loaigd);
-                                    return;
+                                    return null;
 
                                 } else if (choice == 3) {// xem dữ liệu danh mục theo năm
                                     Cohieu = false;
@@ -1385,7 +1385,7 @@ public class QuanLyDanhMuc implements Serializable {
 
                         System.out.println("NHẬP MỘT PHÍM BẤT KỲ ĐỂ BACK VỀ MENU");
                         sc.nextLine();
-                        return;
+                        return null;
                     } else {
                         System.out.println("Nhóm bạn chọn hiện đang rỗng");
                         System.out.println("Nhập số nếu tiếp tục ,Hãy nhập chữ để về menu");
@@ -1396,7 +1396,7 @@ public class QuanLyDanhMuc implements Serializable {
                     System.out.println("Nhập số nếu tiếp tục ,Hãy nhập chữ để về menu");
                     flat = true;
                 } catch (NumberFormatException e) {
-                    return;
+                    return null;
                 }
             }
         } else if (luachon == 2) {
@@ -1462,7 +1462,7 @@ public class QuanLyDanhMuc implements Serializable {
                                         }
                                         int Month = Integer.parseInt(test);
                                         thongkedanhmuctheotuan(Month, Year, DanhMucCanXem, loaigd); // ghi file trong hàm này dòng 1644
-                                        return;
+                                        return null;
 
                                     } else if (choice == 2) {// xem dữ liệu danh mục theo tháng
                                         Cohieu = false;
@@ -1473,7 +1473,7 @@ public class QuanLyDanhMuc implements Serializable {
                                         }
                                         int Year = Integer.parseInt(test);
                                         thongkedanhmuctheothang(Year, DanhMucCanXem, loaigd);
-                                        return;
+                                        return null;
 
                                     } else if (choice == 3) {// xem dữ liệu danh mục theo năm
                                         Cohieu = false;
@@ -1499,7 +1499,7 @@ public class QuanLyDanhMuc implements Serializable {
 
                             System.out.println("NHẬP MỘT PHÍM BẤT KỲ ĐỂ BACK VỀ MENU");
                             sc.nextLine();
-                            return;
+                            return null;
                         } else {
                             System.out.println("Nhóm bạn chọn hiện đang rỗng");
                             System.out.println("Nhập số nếu tiếp tục ,Hãy nhập chữ để về menu");
@@ -1510,11 +1510,12 @@ public class QuanLyDanhMuc implements Serializable {
                         System.out.println("Nhập số nếu tiếp tục ,Hãy nhập chữ để về menu");
                         flat = true;
                     } catch (NumberFormatException e) {
-                        return;
+                        return null;
                     }
                 }
             }
         }
+        return null;
     }
 
 

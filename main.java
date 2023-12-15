@@ -105,29 +105,24 @@ private static ArrayList<User> UserData(){
                 do{ 
                     System.out.println("__________________________________________________________________XIN NHẬP LỰA CHỌN__________________________________________________________");
                     System.out.println("|1.THÊM DANH MỤC                                                                                                                            |");
-                    System.out.println("|-------------------------------------------------------------------------------------------------------------------------------------------|");
                     System.out.println("|2.XÓA DANH MỤC                                                                                                                             |");
-                    System.out.println("|-------------------------------------------------------------------------------------------------------------------------------------------|");
                     System.out.println("|3.SỬA DANH MỤC                                                                                                                             |");
-                    System.out.println("|-------------------------------------------------------------------------------------------------------------------------------------------|");
                     System.out.println("|4.HIỂN THỊ DANH MỤC                                                                                                                        |");
-                    System.out.println("|-------------------------------------------------------------------------------------------------------------------------------------------|");
                     System.out.println("|5.TẠO GIAO DỊCH MỚI                                                                                                                        |");
-                    System.out.println("|-------------------------------------------------------------------------------------------------------------------------------------------|");
                     System.out.println("|6.XEM LỊCH SỬ GIAO DỊCH                                                                                                                    |");
-                    System.out.println("|-------------------------------------------------------------------------------------------------------------------------------------------|");
                     System.out.println("|7.TÌM KIẾM THÔNG TIN GIAO DỊCH                                                                                                             |");
-                    System.out.println("|-------------------------------------------------------------------------------------------------------------------------------------------|");
                     System.out.println("|8.THỐNG KÊ GIAO DỊCH                                                                                                                       |");
-                    System.out.println("|-------------------------------------------------------------------------------------------------------------------------------------------|");
                     System.out.println("|9.XEM BÁO CÁO CHI TIẾT                                                                                                                     |");
-                    System.out.println("|-------------------------------------------------------------------------------------------------------------------------------------------|");
                     System.out.println("|10.NÂNG CẤP TÀI KHOẢN                                                                                                                      |");
-                    System.out.println("|-------------------------------------------------------------------------------------------------------------------------------------------|");
                     System.out.println("|11.ĐĂNG XUẤT                                                                                                                               |");
                     System.out.println("|-------------------------------------------------------------------------------------------------------------------------------------------|");
                     System.out.print(" -Mời bạn lựa chọn: ");
-                    int i = Integer.parseInt(scanner.nextLine());
+                    String test = scanner.nextLine();
+                    while(!QuanLyDanhMuc.isInteger(test)){
+                        System.out.println("Mời bạn nhập lại");
+                        test = scanner.nextLine();
+                    }
+                    int i = Integer.parseInt(test);
                     switch(i){
                         case 1 -> {
                             freeUser.taoDanhMuc();
@@ -142,7 +137,7 @@ private static ArrayList<User> UserData(){
                             freeUser.getQldm().HienThiDanhMuc();
                         }
                         case 5 -> {
-
+                            freeUser.tao1GiaoDichMoi();
                         }
                         case 6 -> {
                             freeUser.getQldm().hienThiLichSuGiaoDich();
@@ -154,7 +149,7 @@ private static ArrayList<User> UserData(){
                             freeUser.thongkeDanhMucTheoNgayThangNam();
                         }
                         case 9 -> {
-                            
+
                         }
                         case 10 -> {
                             freeUser.nangCapTaiKhoan();

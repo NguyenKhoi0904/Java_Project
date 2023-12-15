@@ -67,6 +67,7 @@ public class QuanLyDanhMuc implements Serializable {
             System.out.println("Hãy nhập số ");
             System.out.println("1:CHI ");
             System.out.println("2:THU ");
+
             Boolean flat = true;// đặt biến cờ hiệu này để nhập hợp lệ , nếu nhập quá giới hạn index hoặc nhập chuỗi thì cờ hiệu vẫn bằng true
             while (flat) {
                 try {
@@ -80,10 +81,18 @@ public class QuanLyDanhMuc implements Serializable {
                             flat = false;
                             ThemDanhMuc(this.getDanhMucThu(), "DMT");
                         default:
-                            return;
+                            flat=true;
+                            System.out.println("Lựa chọn không hợp lệ");
+                            System.out.println("Hãy nhập số ");
+                            System.out.println("1:CHI ");
+                            System.out.println("2:THU ");
+
                     }
                 } catch (NumberFormatException e) {
                     System.out.println("Xin vui lòng nhập lại");
+                    System.out.println("Hãy nhập số ");
+                    System.out.println("1:CHI ");
+                    System.out.println("2:THU ");
                 }
             }
         } else {
@@ -731,7 +740,7 @@ public class QuanLyDanhMuc implements Serializable {
         this.getSolanGiaoDich().kiemTraThayDoiThang();
     }
 
-    private void chonloaigiaodich() {
+    public void chonloaigiaodich() {
         Scanner sc = new Scanner(System.in);
         TuDongTaoGiaoDichMoiThang();
         int soluonggiaodich = this.getSolanGiaoDich().getsolangiaodich();
@@ -924,7 +933,7 @@ public class QuanLyDanhMuc implements Serializable {
                     }
                 }
                 GiaoDich Bill = new GiaoDich(date, noidung, sotien, DanhMucCanGiaoDich, loaigd);
-                DanhMuc danhmuccha = danhmuc.timdanhmuctheoten(danhmuc.getDsDanhMuc(), DanhMucCanGiaoDich.getName_danhmuccha());
+                DanhMuc danhmuccha = danhmuc.timdanhmuctheoten(danhmuc.getDsDanhMuc(), DanhMucCanGiaoDich.getName_danhmuccha());//Giao Dich chi thuc hien voi danh muc cap 2
                 if (danhmuccha != null) {
                     Bill.Chuyentienvaodanhmuc();
                     danhmuccha.setMoney();
@@ -933,14 +942,10 @@ public class QuanLyDanhMuc implements Serializable {
                     System.out.println("Đã thêm vào danh mục " + DanhMucCanGiaoDich.gettendanhmuc());
                     System.out.println("Giao dịch thành công");
                     this.getSolanGiaoDich().setSolangiaodich(this.getSolanGiaoDich().getsolangiaodich() - 1);
-                    System.out.println("Nhập 1 nút bất kỳ để back trở về menu");
-                    sc.nextLine();
                     return;
                 }
             } else {
                 System.out.println("Danh mục bạn chọn đang rỗng");
-                System.out.println("Nhấn nút bất kỳ để về menu!!");
-                sc.nextLine();
                 return;
             }
         }
@@ -950,7 +955,6 @@ public class QuanLyDanhMuc implements Serializable {
     public void hienThiLichSuGiaoDich() {
         Scanner sc = new Scanner(System.in);
         try {
-
             System.out.println("Bạn muốn hiển thị lịch sử giao dịch theo thời gian hay danh mục ");
             System.out.println("1.Hien thị toàn bộ lịch sử giao dịch");
             System.out.println("2.Hiển thị theo loaị danh mục");
@@ -1759,7 +1763,7 @@ public class QuanLyDanhMuc implements Serializable {
 }
 
 
-    public void thongke(int month, int year) {
+    public void thongke(int month, int year) {//Thong ke theo tuan
         int[] danhmucthu = new int[4];
         int[] danhmucchi = new int[4];
 
@@ -1818,7 +1822,7 @@ public class QuanLyDanhMuc implements Serializable {
         System.out.println("- Tuần chi nhiều nhất là Tuần " + (Nhieunhat(danhmucchi) + 1)+" với số tiền là "+danhmucchi[Nhieunhat(danhmucchi)]);
 
         for(int i=0;i<danhmucchi.length;i++){
-            if(danhmucchi[i]==danhmucchi[Itnhat(danhmucchi)]);
+            if(danhmucchi[i]==danhmucchi[Itnhat(danhmucchi)] && danhmucchi[i]!=danhmucchi[Nhieunhat(danhmucchi)]);
             System.out.println("|Tuần chi ít nhất là Tuần " + (i + 1)+" với số tiền là "+danhmucchi[Itnhat(danhmucchi)]);
         }
 
@@ -1828,7 +1832,7 @@ public class QuanLyDanhMuc implements Serializable {
     }
 
 
-    public void thongke(int year) {
+    public void thongke(int year) {//Thong ke theo thang
         int[] danhmucthu = new int[12];
         int[] danhmucchi = new int[12];
 
@@ -2015,8 +2019,5 @@ public class QuanLyDanhMuc implements Serializable {
     }
 
 
-    public static void main(String [] args){
-        QuanLyDanhMuc user = new QuanLyDanhMuc();
-        user.menu();
-    }
+
 }

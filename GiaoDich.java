@@ -12,7 +12,7 @@ public class GiaoDich implements Serializable{
     private NgayThangNam ngayGiaoDich;
     private String loaigiaodich;
     private String thongtingiaodich;
-    private long sotien;
+    private int sotien;
     private DanhMuc tendanhmuc;
     private static int soLanGiaoDich = 0;
     
@@ -39,7 +39,7 @@ public class GiaoDich implements Serializable{
         return prefix + formatNumber;
     }
     
-    public GiaoDich( NgayThangNam ngayGiaoDich, String thongtingiaodich,long sotien, DanhMuc tendanhmuc,int loaigd){
+    public GiaoDich( NgayThangNam ngayGiaoDich, String thongtingiaodich,int sotien, DanhMuc tendanhmuc,int loaigd){
         this.ngayGiaoDich = ngayGiaoDich;
         ChonLoaiGiaoDich(loaigd);
         this.thongtingiaodich = thongtingiaodich;
@@ -61,7 +61,7 @@ public class GiaoDich implements Serializable{
         ChonLoaiGiaoDich(loaigd);
         this.thongtingiaodich=sc.nextLine();
         System.out.println("Nhập số tiền");
-        this.sotien=sc.nextLong();
+        this.sotien=sc.nextInt();
         System.out.println("nhập tên danh muc");
         this.tendanhmuc=danhmuc;
     }
@@ -115,11 +115,11 @@ public class GiaoDich implements Serializable{
         return soLanGiaoDich;
     }
 
-    public long getsotien() {
+    public int getsotien() {
         return sotien;
     }
 
-    public void setSotien(long sotien) {
+    public void setSotien(int sotien) {
         this.sotien = sotien;
 
     }
@@ -129,7 +129,7 @@ public class GiaoDich implements Serializable{
     }
 
     public void Chuyentienvaodanhmuc(){
-        this.getTendanhmuc().setMoney((int) ((getTendanhmuc().getMoney())+this.getsotien()));
+        this.getTendanhmuc().setMoney(((getTendanhmuc().getMoney())+this.getsotien()));
     }
     public String toStringGiaoDich(){
         return "|ID giao dịch: " +this.getidGiaodich()+", DATE: "+this.getNgayGiaoDich().toStringdate()+", THÔNG TIN GIAO DỊCH "+this.getThongtingiaodich()+":, SỐ TIỀN: "+this.getsotien()+"đ ,TÊN DANH MỤC: "+tendanhmuc.gettendanhmuc() +", TYPE : "+this.getLoaigiaodich()+"|";

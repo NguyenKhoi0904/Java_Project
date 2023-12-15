@@ -104,7 +104,7 @@ public class FreeUser extends User implements Serializable, InterfaceClass.QuanL
 
     @Override
     public void thongkeDanhMucTheoNgayThangNam() {
-        //this.getQldm().t
+        this.getQldm().ThongKe();
     }
 
     @Override
@@ -129,6 +129,7 @@ public class FreeUser extends User implements Serializable, InterfaceClass.QuanL
 
     @Override
     public void BaoCaoChiTietTheoTungDanhMucVaThoiGian() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        this.getQldm().BaoCaoChiTietTungDanhMuc() ;// Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+
 }

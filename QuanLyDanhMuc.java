@@ -1510,6 +1510,73 @@ public class QuanLyDanhMuc implements Serializable {
         }
     }
 
+    public static void main_menu() {
+        System.out.println("__________________________________________________________________XIN NHẬP LỰA CHỌN__________________________________________________________");
+        System.out.println("|1.THÊM DANH MỤC                                                                                                                            |");
+        System.out.println("|-------------------------------------------------------------------------------------------------------------------------------------------|");
+        System.out.println("|2.XÓA DANH MỤC                                                                                                                             |");
+        System.out.println("|-------------------------------------------------------------------------------------------------------------------------------------------|");
+        System.out.println("|3.SỬA DANH MỤC                                                                                                                             |");
+        System.out.println("|-------------------------------------------------------------------------------------------------------------------------------------------|");
+        System.out.println("|4.HIỂN THỊ DANH MỤC                                                                                                                        |");
+        System.out.println("|-------------------------------------------------------------------------------------------------------------------------------------------|");
+        System.out.println("|5.GIAO DỊCH                                                                                                                                |");
+        System.out.println("|-------------------------------------------------------------------------------------------------------------------------------------------|");
+        System.out.println("|6.XEM LỊCH SỬ GIAO DỊCH                                                                                                                    |");
+        System.out.println("|-------------------------------------------------------------------------------------------------------------------------------------------|");
+        System.out.println("|7.THỐNG KÊ GIAO DỊCH                                                                                                                       |");
+        System.out.println("|-------------------------------------------------------------------------------------------------------------------------------------------|");
+        System.out.println("|8.TÌM KIẾM THÔNG TIN GIAO DỊCH                                                                                                             |");
+        System.out.println("|-------------------------------------------------------------------------------------------------------------------------------------------|");
+    }
+
+    public void menu() {
+        Scanner sc = new Scanner(System.in);
+        // chay menu;
+        main_menu();
+
+        System.out.println("-Hãy nhập lựa chọn của bạn :");
+        try {
+            int choice = Integer.parseInt(sc.nextLine());
+            switch (choice) {
+                case 1:
+                    ChonDanhMucDeThem();
+                    break;
+
+                case 2:
+                    ChonDanhMucdexoa();
+                    break;
+
+                case 3:
+                    chonDanhMucDeSua();
+                    break;
+
+                case 4:
+                    HienThiDanhMuc();
+                    break;
+
+                case 5:
+                    chonloaigiaodich();
+                    break;
+                case 6:
+                    hienThiLichSuGiaoDich();
+                    break;
+                case 7:
+                    ThongKe();
+                    break;
+
+                case 8:
+                    timkiemthongtingiaodich();
+                    break;
+
+
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("VUI LÒNG NHẬP SỐ");
+            return;
+
+        }
+    }
 
     public void ThongKe() {
         Scanner sc = new Scanner(System.in);
@@ -1940,5 +2007,8 @@ public class QuanLyDanhMuc implements Serializable {
     }
 
 
-
+    public static void main(String [] args){
+        QuanLyDanhMuc user = new QuanLyDanhMuc();
+        user.menu();
+    }
 }

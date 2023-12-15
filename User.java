@@ -76,9 +76,9 @@ public class User implements Serializable {
         boolean isAccountValid = false;
         Scanner input_User = new Scanner(System.in);
         System.out.println("++++++++++++++++++++++++++++++++++++++++++  ĐĂNG NHẬP  +++++++++++++++++++++++++++++++++++++");
-        System.out.print("  Tai khoan: ");
+        System.out.print("  Tài khoản: ");
         String username = input_User.nextLine();
-        System.out.print("  Mat khau: ");
+        System.out.print("  Mật khẩu: ");
         String password = input_User.nextLine();
         int index = 0;
         for(AccountUser au: tmpDN){
@@ -104,7 +104,7 @@ public class User implements Serializable {
                 password = input_User.nextLine();
                 for(AccountUser au : tmpDN){
                     if(au.getMatkhau().equals(password)){
-                        System.out.println("    Đăng nhập thành công");
+                        System.out.println(" Đăng nhập thành công");
                         return pxm.get(index);
                     }else{
                         flag = false;
@@ -139,7 +139,7 @@ public class User implements Serializable {
                 for(AccountUser au : tmpDN){
                     if(au.getTendangnhap().equals(username)){
                         if(au.getTendangnhap().equals(password)){
-                            System.out.println("    Đăng nhập thành công");
+                            System.out.println(" Đăng nhập thành công");
                             return pxm.get(chiso);
                         }
                         else{
@@ -208,6 +208,7 @@ public class User implements Serializable {
         try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream("userData.txt"))) {
             a = (ArrayList<User>)ois.readObject();
         } catch (Exception e) {
+            e.printStackTrace();
         }
         return a;
     }
@@ -235,19 +236,19 @@ public class User implements Serializable {
             if(!arrayListAU.isEmpty()){
                 for(AccountUser tmp: arrayListAU){
                     if(tmp.getTendangnhap().equals(a.getTendangnhap())){        
-                        System.out.println("Tài khoản đã tồn tại");
+                        System.out.println("- Tài khoản đã tồn tại");
                         isAccountExist = true;
                         break;
                     }
                 }
                 if(isAccountExist){
                     do{
-                        System.out.print("Mời bạn nhập lại tài khoản: ");
+                        System.out.print("- Mời bạn nhập lại tài khoản: ");
                         a.setTendangnhap(input_User.nextLine());
                         for(AccountUser temporary : arrayListAU){
                             System.out.println(temporary.getTendangnhap());
                             if(temporary.getTendangnhap().equals(a.getTendangnhap())){
-                                System.out.println("Tài khoản đã tồn tại");
+                                System.out.println("- Tài khoản đã tồn tại");
                                 flag = true;
                                 break;
                             }else{
@@ -255,7 +256,7 @@ public class User implements Serializable {
                             }
                         }
                         if(!flag){
-                            System.out.println("Tài khoản hợp lệ");
+                            System.out.println("- Tài khoản hợp lệ");
                             break;
                         }
                     }while(true);
@@ -263,11 +264,11 @@ public class User implements Serializable {
             }
         this.setTaiKhoanNguoiDung(a);
         
-        System.out.println("   ^___^   ");
-        System.out.println("Chọn loại tài khoản mà bạn muốn đăng ký");
-        System.out.println("0.Free User");
-        System.out.println("1.Pro User");
-        
+        System.out.println("^___^___^___^___^___^___^___^___^___^___^___^___^___^___^___^___^___^___^___^___^___^");
+        System.out.println("- Chọn loại tài khoản mà bạn muốn đăng ký");
+        System.out.println("0. Free User");
+        System.out.println("1. Pro User");
+        System.out.println("_____________________________________________________________________________________");
         int temporary = Integer.parseInt(input_User.nextLine());
         if (temporary == 0) {
             this.setLoaitaiKhoan("FREE");
@@ -277,28 +278,28 @@ public class User implements Serializable {
             CopyGiaTri(u); // HÀM NÀY CÓ TÁC DỤNG GÁN GIÁ TRỊ CỦA THIS CHO U
             if(u instanceof FreeUser fu){
                 if(ghiUserDataLenFile(fu)){ // GHI THÔNG TIN CỦA 1 USER LÊN FILE
-                    System.out.println("Ghi thông tin user thành công");
+                    System.out.println(" Ghi thông tin user thành công");
                 }else{
-                    System.out.println("Ghi thông tin user thất bại");
+                    System.out.println(" Ghi thông tin user thất bại");
                 }
             }
             
             if (writeAccountUserDateToFile(a)) { //GHI ACCOUNT USER LÊN FILE
-                System.out.println("Đăng ký thành công");
+                System.out.println(" Đăng ký thành công");
             } else {
-                System.out.println("Đăng ký thất bại");
+                System.out.println(" Đăng ký thất bại");
             }
             
         } else {
-            System.out.println("Bạn phải trả 100USD để trở thành Pro User!!!!");
-            System.out.println("Bạn có đồng ý không?");
-            System.out.println("Nhap 0 la khong dong y va ban se tro thanh Free User");
-            System.out.println("Nhap 1 la dong y");
-            System.out.print("Ban chon di: ");
+            System.out.println(" Bạn phải trả 100USD để trở thành Pro User!!!!");
+            System.out.println(" Bạn có đồng ý không?");
+            System.out.println("Nhập 0 là không đồng ý và bạn sẽ trở thành Free User");
+            System.out.println("Nhập 1 là đồng ý");
+            System.out.print("Mời bạn lựa chọn: ");
             int tmp = Integer.parseInt(input_User.nextLine());
             switch (tmp) {
                 case 1 -> {
-                    System.out.println("Xac nhan thanh toan");
+                    System.out.println("Xác nhận thanh toán");
                     this.setLoaitaiKhoan("PRO");
                     this.setIdUser(generateID_User(this.getLoaitaiKhoan()));
                     //ĐANG LÀM TÀ ĐẠO YÊU CẦU KHÔNG BẮT CHƯỚC
@@ -314,9 +315,9 @@ public class User implements Serializable {
                     }
                     
                     if (writeAccountUserDateToFile(a)) { //GHI ACCOUNT USER LÊN FILE
-                        System.out.println("Dang ky thanh cong");
+                        System.out.println(" Đăng ký thành công");
                     } else {
-                        System.out.println("Dang ky that bai");
+                        System.out.println(" Đăng ký thất bại");
                     }
                 }
                 case 0 -> {
@@ -328,17 +329,17 @@ public class User implements Serializable {
                     CopyGiaTri(u); // HÀM NÀY CÓ TÁC DỤNG GÁN GIÁ TRỊ CỦA THIS CHO U
                     if(u instanceof FreeUser fu){
                         if(ghiUserDataLenFile(fu)){ // GHI THÔNG TIN CỦA 1 USER LÊN FILE
-                            System.out.println("Ghi thong tin user thanh cong");
+                            System.out.println("Ghi thông tin user thành công");
                         }else{
-                            System.out.println("Ghi thong tin user that bai");
+                            System.out.println("Ghi thông tin user thất bại");
                         }
             }
                     
                     if (writeAccountUserDateToFile(a)) { //GHI ACCOUNT USER LÊN FILE
-                        System.out.println("Dang ky thanh cong");
+                        System.out.println(" Đăng ký thành công");
                         
                     } else {
-                        System.out.println("Dang ky that bai");
+                        System.out.println(" Đăng ký thất bại");
                     }
                 }
             }
@@ -400,10 +401,10 @@ public class User implements Serializable {
         auTmp.add(au);
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("accountUser.txt"))) { 
             oos.writeObject(auTmp);
-            System.out.println("Ghi vao file thanh cong");
+            System.out.println("GHI THÔNG TIN USER VÀO FILE THÀNH CÔNG");
             return true;
         } catch (IOException e) {
-            System.out.println("GHI THONG TIN USER VAO FILE THAT BAI " + e.getMessage());
+            System.out.println("GHI THÔNG TIN USER VÀO FILE THẤT BẠI " + e.getMessage());
             e.printStackTrace();
         }
         return false;

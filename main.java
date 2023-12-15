@@ -50,12 +50,12 @@ private static ArrayList<User> UserData(){
         // Dang nhap
         // kiem tra tai khoan mat khau trong file
 //        ArrayList<User> a = new ArrayList<>();
-//        try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream("userData.txt"))) {
+//        try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream("~/d/duserData.txt"))) {
 //            a = (ArrayList<User>)ois.readObject();
 //        } catch (Exception e) {
 //        }
 //        System.out.println(a);
-        System.out.println("\tCHÀO MỪNG BẠN ĐẾN VỚI HỆ THỐNG QUẢN LÝ THU CHI CÁ NHÂN NHỮNG CON BÁO");
+        System.out.println("\tCHÀO MỪNG BẠN ĐẾN VỚI HỆ THỐNG QUẢN LÝ THU CHI CÁ NHÂN");
         boolean flag = true;
         User a = new User();
         int n;
@@ -99,7 +99,7 @@ private static ArrayList<User> UserData(){
             }
 //            System.out.println("System.in đã đóng chưa? " + System.in.markSupported());
             if(u instanceof FreeUser freeUser){
-                System.out.println("                FREE USER");
+                System.out.println("\t\tFREE USER");
                 boolean cohieu = true;
                 System.out.println("Số danh mục: " + u.getQldm().getSoDanhMuc());
                 do{ 
@@ -178,7 +178,7 @@ private static ArrayList<User> UserData(){
             }
 
             else if(u instanceof ProUser proUser){
-                System.out.println("PRO USER");
+                System.out.println("\t\tPRO USER");
                 boolean cohieu = true;
                 System.out.println("Số danh mục: " + u.getQldm().getSoDanhMuc());
                 do{

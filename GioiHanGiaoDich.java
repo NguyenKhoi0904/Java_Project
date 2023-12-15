@@ -1,9 +1,10 @@
 package com.bt.quanlythuchicanhan;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.YearMonth;
 
-public class GioiHanGiaoDich {
+public class GioiHanGiaoDich implements Serializable{
     private int solangiaodich;
     private int ThangHienTai;
     public GioiHanGiaoDich(int solangiaodich){//free

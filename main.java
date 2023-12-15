@@ -80,13 +80,22 @@ private static ArrayList<User> UserData(){
                             flag = false;
                             break;
                         }
-                        default ->{
+                        case 2->{
                             return;
+                        }
+                        default ->{
+
+                            System.out.println("Vui lòng nhập lại");
+                            flag=true;
                         }
                     }
                 }while(flag);
             }catch(IOException e){
                 e.printStackTrace();
+            }
+            catch(NumberFormatException e){
+                System.out.println("vui lòng nhập lại!");
+                flag=true;
             }
 //            System.out.println("System.in đã đóng chưa? " + System.in.markSupported());
             if(u instanceof FreeUser freeUser){
@@ -133,7 +142,7 @@ private static ArrayList<User> UserData(){
                             freeUser.getQldm().HienThiDanhMuc();
                         }
                         case 5 -> {
-                            //freeUser.getQldm().
+
                         }
                         case 6 -> {
                             freeUser.getQldm().hienThiLichSuGiaoDich();
@@ -142,7 +151,7 @@ private static ArrayList<User> UserData(){
                             freeUser.timKiemThongTinGiaoDich();
                         }
                         case 8 -> {
-                            
+                            freeUser.thongkeDanhMucTheoNgayThangNam();
                         }
                         case 9 -> {
                             

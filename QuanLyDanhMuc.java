@@ -16,7 +16,7 @@ public class QuanLyDanhMuc implements Serializable {
     private ListDanhMuc danhmucchi;
     private ListDanhMuc danhmucthu;
     private ListGiaoDich dsgiaodich;
-
+    private static final long serialVersionUID = 1L;
 
     public QuanLyDanhMuc(int soLanGiaoDich) {
         this.danhmucchi = new ListDanhMuc(new DanhMuc("TY1", "Thiết yếu"), new DanhMuc("BT1", "Biếu tặng"), new DanhMuc("SK1", "Sức khỏe"), new DanhMuc("GT", "Giải trí"));

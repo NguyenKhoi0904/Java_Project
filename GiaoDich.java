@@ -40,7 +40,6 @@ public class GiaoDich implements Serializable{
     }
     
     public GiaoDich( NgayThangNam ngayGiaoDich, String thongtingiaodich,long sotien, DanhMuc tendanhmuc,int loaigd){
-
         this.ngayGiaoDich = ngayGiaoDich;
         ChonLoaiGiaoDich(loaigd);
         this.thongtingiaodich = thongtingiaodich;

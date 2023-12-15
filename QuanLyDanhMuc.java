@@ -718,10 +718,10 @@ public class QuanLyDanhMuc implements Serializable {
         Scanner sc = new Scanner(System.in);
         System.out.println("---------------------------------------------------------------DANH MỤC CHI LÀ---------------------------------------------------------------");
         this.getDanhMucChi().lietkedanhmuc();
-        System.out.println("Tổng số tiền của danh mục chi là " + this.getDanhMucChi().getTongsotien() + "đ");
+        //System.out.println("Tổng số tiền của danh mục chi là " + this.getDanhMucChi().getTongsotien() + "đ");
         System.out.println("---------------------------------------------------------------DANH MỤC THU LÀ---------------------------------------------------------------");
         this.getDanhMucThu().lietkedanhmuc();
-        System.out.println("Tổng số tiền của danh mục thu là " + this.getDanhMucThu().getTongsotien() + "đ");
+        //System.out.println("Tổng số tiền của danh mục thu là " + this.getDanhMucThu().getTongsotien() + "đ");
         System.out.println("---------------------------------------------------------------------------------------------------------------------------------------------");
         System.out.println("NHẤN 1 NÚT BẤT KỲ ĐỂ BACK VỀ MENU");
         sc.nextLine();
@@ -1154,7 +1154,7 @@ public class QuanLyDanhMuc implements Serializable {
                     System.out.println("2.Hiển thị theo tháng");
                     System.out.println("3.Hiển thị theo năm ");
                     String input = sc.nextLine();
-                    while (!isInteger(input) && Integer.parseInt(input) > 3 || Integer.parseInt(input) < 0) {
+                    while (!isInteger(input) && Integer.parseInt(input) > 3 || Integer.parseInt(input) < 1) {
                         input = sc.nextLine();
                     }
                     int luachon2 = Integer.parseInt(input);

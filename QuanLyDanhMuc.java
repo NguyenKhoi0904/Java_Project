@@ -18,7 +18,7 @@ public class QuanLyDanhMuc implements Serializable {
     private ListGiaoDich dsgiaodich;
     private static final long serialVersionUID = 1L;
 
-    public QuanLyDanhMuc(int soLanGiaoDich) {
+    public QuanLyDanhMuc(int soLanGiaoDich) {//freeuser
         this.danhmucchi = new ListDanhMuc(new DanhMuc("TY1", "Thiết yếu"), new DanhMuc("BT1", "Biếu tặng"), new DanhMuc("SK1", "Sức khỏe"), new DanhMuc("GT", "Giải trí"));
         this.danhmucthu = new ListDanhMuc(new DanhMuc("L1", "Lương"), new DanhMuc("T1", "Thưởng"));
         this.dsgiaodich = new ListGiaoDich();
@@ -873,7 +873,7 @@ public class QuanLyDanhMuc implements Serializable {
             }
             int sotien = Integer.parseInt(test);
             // tim thong tin danh muc cha
-            System.out.println("Bạn muốn giao dịch danh mục cấp 1 với nhóm nào");
+            System.out.println("Bạn muốn giao dịch với nhóm nào");
             int i = 1;
             DanhMuc DanhMucCha = null;
             for (DanhMuc list : danhmuc.getDsDanhMuc()) {
@@ -882,7 +882,7 @@ public class QuanLyDanhMuc implements Serializable {
                 int x = 1;
                 for (DanhMuc danhmuccon : list.getdanhsachdanhmuccon()) {
 
-                    System.out.println("     " + x + ". " + danhmuccon.gettendanhmuc());
+                    System.out.println("     " +i+"."+ x + " " + danhmuccon.gettendanhmuc());
                     x++;
                 }
                 i++;
@@ -945,7 +945,7 @@ public class QuanLyDanhMuc implements Serializable {
                     return;
                 }
             } else {
-                System.out.println("Danh mục bạn chọn đang rỗng");
+                System.out.println("Danh mục bạn chọn đang rỗng!!!!!( không tồn tại danh mục cấp 1 )");
                 return;
             }
         }
@@ -960,7 +960,7 @@ public class QuanLyDanhMuc implements Serializable {
             System.out.println("2.Hiển thị theo loaị danh mục");
             System.out.println("3.Hiển thị theo tên danh mục");
             System.out.println("4.Hiển thị theo ngày tháng năm");
-            System.out.println("5.Trở về menu!");
+            System.out.println("Ấn 1 nút bất kỳ để trở về menu");
             int choice = Integer.parseInt(sc.nextLine());
             if (choice == 1) {
                 //1.hien thi toan bo lich su giao dich

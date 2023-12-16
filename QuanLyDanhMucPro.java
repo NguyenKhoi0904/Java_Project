@@ -21,13 +21,9 @@ public class QuanLyDanhMucPro extends QuanLyDanhMuc implements Serializable {
 
     public QuanLyDanhMucPro() { // tự đăng ký
         super();
+        this.setSoDanhMuc(10);// so lan tao danh muc cua user
         GioiHanNganSach=new NganSach();
-    }
-
-    public void ThayDoiThangHienTai() {
-
-    }
-
+}
     @Override
     public void ChonDanhMucDeThem() { // abstract
         Scanner sc = new Scanner(System.in);
@@ -118,7 +114,7 @@ public class QuanLyDanhMucPro extends QuanLyDanhMuc implements Serializable {
                         chonloaigiaodich();
                     }
                 } catch (NumberFormatException e) {
-                    //KHÔNG CẦN XỬ LÝ Ở ĐÂY
+                    menu();
                 }
             } else if (type == 2) {
                 giaodich(getDanhMucThu(), 2);
@@ -131,18 +127,18 @@ public class QuanLyDanhMucPro extends QuanLyDanhMuc implements Serializable {
                         chonloaigiaodich();
                     }
                 } catch (NumberFormatException e) {
-                    return;
+                    menu();
                 }
             }
         } catch (NumberFormatException e) {
-            return;
+            menu();
         }
     }
 
     @Override
     public void giaodich(ListDanhMuc danhmuc, int loaigd) {// abstract
         // dat lai ngay hom nay
-        setDateToDay(new NgayThangNam(LocalDate.now().getDayOfMonth(), LocalDate.now().getMonthValue(), LocalDate.now().getYear()));
+        setDateToDay(new NgayThangNam(getdateToDay().getngay(),getdateToDay().getthang(),getdateToDay().getnam()));
         Scanner sc = new Scanner(System.in);
         System.out.println("Bạn muốn giao dịch hôm nay hay hôm qua hay tùy chỉnh");
         System.out.println("1.Hôm nay");
@@ -150,9 +146,9 @@ public class QuanLyDanhMucPro extends QuanLyDanhMuc implements Serializable {
         System.out.println("3.Tùy chỉnh");
         System.out.println("Nhập phím bất kỳ để trở về menu;");
         Boolean flat = true;
-        int day;
-        int month;
-        int year;
+        int day=getdateToDay().getngay();
+        int month=getdateToDay().getthang();
+        int year=getdateToDay().getnam();
         NgayThangNam date = null;
         while (flat) {
             try {
@@ -203,11 +199,12 @@ public class QuanLyDanhMucPro extends QuanLyDanhMuc implements Serializable {
                     year = Integer.parseInt(nam);
                     date = new NgayThangNam(day, month, year);
                 } else {
-                    return;
+                    menu();
                 }
             } catch (NumberFormatException e) {
-                return;
+                menu();
             }
+
             boolean flag = true;
             while (!GioiHanNganSach.Kiemtrangansachcoduoctaochua(year, month) && flag) {
                 System.out.println("Tháng hiện tại của bạn đang không có giới hạn ngân sách,bạn có muốn tạo ngân sách mới không?");
@@ -222,6 +219,10 @@ public class QuanLyDanhMucPro extends QuanLyDanhMuc implements Serializable {
                 int choice = Integer.parseInt(test);
                 if (choice == 1) {
                     TaoGioiHanNganSach();
+                    if(!GioiHanNganSach.Kiemtrangansachcoduoctaochua(year, month)){
+                        flag=true;
+                    }
+                    flag=false;
                 }
                 if (choice == 2) {
                     flag = false;
@@ -239,6 +240,7 @@ public class QuanLyDanhMucPro extends QuanLyDanhMuc implements Serializable {
             }
 
             int sotien = Integer.parseInt(test);
+            System.out.println("chức năng đang được bật đúng không ?"+GioiHanNganSach.getbatTat());
             if (GioiHanNganSach.getbatTat()) { // Chuc nang gioi han dang duoc su dung
                 int sotiencuathang = 0;
                 for (GiaoDich gd : getDsgiaodich().getDsGD()) {
@@ -247,20 +249,20 @@ public class QuanLyDanhMucPro extends QuanLyDanhMuc implements Serializable {
                     }
                 }
                 double sophantramneugiaodich = getGioiHan().phantramsudung(sotien, sotiencuathang);
-                System.out.println("Bạn đã sử dụng " + sophantramneugiaodich);
-                if (sophantramneugiaodich > getGioiHan().getPhanTram()) {
-                    System.out.print("Bạn có muốn giao dịch tiếp không ?");
-                    System.out.print("1.Có");
-                    System.out.print("Các nút còn lại:thoát");
+                System.out.println("Nếu giao dịch thì vượt quá " + sophantramneugiaodich *100);
+                if (sophantramneugiaodich*100 > getGioiHan().getPhanTram()) {
+                    System.out.println("Bạn có muốn giao dịch tiếp không ?");
+                    System.out.println("1.Có");
+                    System.out.println("Các nút còn lại:thoát");
                     try {
                         int choice = Integer.parseInt(sc.nextLine());
                         if (choice != 1) {
-                            return;
+                            menu();
                         }
                     } catch (Exception e) {
-                        return;
+                        menu();
                     }
-                }
+                }}
                 // tim thong tin danh muc cha
                 System.out.println("Bạn muốn giao dịch với nhóm nào");
                 int i = 1;
@@ -327,15 +329,15 @@ public class QuanLyDanhMucPro extends QuanLyDanhMuc implements Serializable {
                         getDsgiaodich().addGD(Bill);
                         System.out.println("Đã thêm vào danh mục " + DanhMucCanGiaoDich.gettendanhmuc());
                         System.out.println("Giao dịch thành công");
-                        return;
+                        menu();
                     }
                 } else {
                     System.out.println("Danh mục bạn chọn đang rỗng!!!!!( không tồn tại danh mục cấp 1 )");
-                    return;
+                    menu();
                 }
             }
         }
-    }
+
     public void LapNganSachVaNhacNho() {// Chuc nang ngan sach
         Scanner sc=new Scanner(System.in);
         System.out.println("__________________________________________________________________XIN NHẬP LỰA CHỌN__________________________________________________________");
@@ -352,11 +354,11 @@ public class QuanLyDanhMucPro extends QuanLyDanhMuc implements Serializable {
                 SuaGioiHanNganSach();
             }
             else{
-                return;
+                menu();
             }
         }
         catch(NumberFormatException e){
-            return;
+            menu();
         }
     }
 
@@ -372,7 +374,7 @@ public class QuanLyDanhMucPro extends QuanLyDanhMuc implements Serializable {
         System.out.println("|___________________________________________________________________________________________________________________________________________|");
             String test = sc.nextLine();
             if (!isInteger(test) || Integer.parseInt(test) > 3 || Integer.parseInt(test) < 1) {
-               return;
+               menu();
             }
             int luachon = Integer.parseInt(test);
             if (luachon == 1) {
@@ -411,7 +413,7 @@ public class QuanLyDanhMucPro extends QuanLyDanhMuc implements Serializable {
                     System.out.println("ấn các phím còn lại để thoát");
                     test = sc.nextLine();
                     if (!isInteger(test) || Integer.parseInt(test)>1 ||Integer.parseInt(test)<1) {
-                       return;
+                       menu();
                     }
                     int Chon = Integer.parseInt(test);
                     if(Chon==1){
@@ -425,7 +427,7 @@ public class QuanLyDanhMucPro extends QuanLyDanhMuc implements Serializable {
                     System.out.println("ấn các phím còn lại để thoát");
                     test = sc.nextLine();
                     if (!isInteger(test) || Integer.parseInt(test)>1 ||Integer.parseInt(test)<1) {
-                        return;
+                        menu();
                     }
                     int Chon = Integer.parseInt(test);
                     if(Chon==1){
@@ -435,7 +437,7 @@ public class QuanLyDanhMucPro extends QuanLyDanhMuc implements Serializable {
 
             }
             else{
-                return;
+                menu();
             }
         }
 
@@ -454,6 +456,7 @@ public class QuanLyDanhMucPro extends QuanLyDanhMuc implements Serializable {
         System.out.println("|___________________________________________________________________________________________________________________________________________|");
         int month = 12;
         int year = 2023;
+        System.out.println("Hãy nhập lựa chọn của bạn:");
         int choice = Integer.parseInt(sc.nextLine());
         try {
             if (choice == 1) {//thang hien tai
@@ -475,7 +478,7 @@ public class QuanLyDanhMucPro extends QuanLyDanhMuc implements Serializable {
                 month = Integer.parseInt(thang);
                 year = Integer.parseInt(nam);
             } else {
-                return;
+                menu();
             }
             System.out.println("Nhập số tiền");
             String test = sc.nextLine();
@@ -483,15 +486,16 @@ public class QuanLyDanhMucPro extends QuanLyDanhMuc implements Serializable {
                 sc.nextLine();
             }
             int sotien = Integer.parseInt(test);
-            System.out.println("Nhập phần trăm để dễ quản lý hơn: ( lưu ý: phần trăm phải trên 0 và dưới 100");
+            System.out.println("Nhập phần trăm để dễ quản lý hơn: ( lưu ý: phần trăm phải trên 0 và dưới 100  ");
             test = sc.nextLine();
             while (!isInteger(test) || Integer.parseInt(test)> 100 || Integer.parseInt(test)<0)  {
                 test = sc.nextLine();
             }
             double percent = Double.parseDouble(test);
-            NganSach GioiHanNganSach = new NganSach(month, year, sotien, percent);
+            this.GioiHanNganSach= new NganSach(month, year, sotien, percent);
+            System.out.println("Bạn đã tạo ngân sách giới hạn thành công");
         } catch (NumberFormatException e) {
-            return;
+            menu();
         }
     }
         

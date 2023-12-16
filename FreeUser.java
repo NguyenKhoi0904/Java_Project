@@ -19,7 +19,29 @@ import java.util.Scanner;
  * @author aries
  */
 public class FreeUser extends User implements Serializable, InterfaceClass.QuanLyGiaoDichDanhMuc_Interface, InterfaceClass.ManageCategory{
-//    private GioiHanGiaoDich solangiaodich;
+    private QuanLyDanhMucFree qldmFree;
+
+    public FreeUser() {
+    }
+
+    public FreeUser(QuanLyDanhMucFree qldmFree) {
+        this.qldmFree = qldmFree;
+    }
+
+    public FreeUser(QuanLyDanhMucFree qldmFree, AccountUser TaiKhoanNguoiDung, String loaitaiKhoan, String idUser) {
+        super(TaiKhoanNguoiDung, loaitaiKhoan, idUser);
+        this.qldmFree = qldmFree;
+    }
+
+    public QuanLyDanhMucFree getQldmFree() {
+        return qldmFree;
+    }
+
+    public void setQldmFree(QuanLyDanhMucFree qldmFree) {
+        this.qldmFree = qldmFree;
+    }
+    
+    
     public void nangCapTaiKhoan() throws IOException{
         ProUser proUser = nangcap();
         ArrayList<User> arraylist = docUserData();
@@ -66,8 +88,7 @@ public class FreeUser extends User implements Serializable, InterfaceClass.QuanL
         ProUser pu = new ProUser();
         pu.setLoaitaiKhoan("PRO");
         pu.setIdUser(generateID_User(pu.getLoaitaiKhoan()));
-        pu.setQldm(this.getQldm());
-        pu.getQldm().setSoDanhMuc(10);
+        
         pu.setTaiKhoanNguoiDung(this.getTaiKhoanNguoiDung());
         return pu;
     }
@@ -99,37 +120,37 @@ public class FreeUser extends User implements Serializable, InterfaceClass.QuanL
 
     @Override
     public void tao1GiaoDichMoi() {
-        this.getQldm().chonloaigiaodich();
+        
     }
 
     @Override
     public void thongkeDanhMucTheoNgayThangNam() {
-        this.getQldm().ThongKe();
+        
     }
 
     @Override
     public void timKiemThongTinGiaoDich() {
-        this.getQldm().timkiemthongtingiaodich();
+        
     }
 
     @Override
     public void taoDanhMuc() {
-        this.getQldm().ChonDanhMucDeThem();
+        
     }
     
     @Override
     public void doiTenDanhMuc() {
-        this.getQldm().chonDanhMucDeSua();
+        
     }
 
     @Override
     public void xoaDanhMuc() {
-        this.getQldm().ChonDanhMucdexoa();
+        
     }
 
     @Override
     public void BaoCaoChiTietTheoTungDanhMucVaThoiGian() {
-        this.getQldm().BaoCaoChiTietTungDanhMuc() ;// Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        
     }
 
 }

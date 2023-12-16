@@ -8,8 +8,11 @@ public class QuanLyDanhMucFree extends QuanLyDanhMuc implements Serializable {
     private GioiHanGiaoDich solangiaodich;
     public QuanLyDanhMucFree() {
         super();
+        this.setSoDanhMuc(3);
         solangiaodich=new GioiHanGiaoDich(5,getdateToDay().getthang());
     }
+    
+    
     @Override
     public void ChonDanhMucDeThem() { // abstract
         Scanner sc = new Scanner(System.in);

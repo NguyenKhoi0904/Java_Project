@@ -12,11 +12,11 @@ import java.util.Scanner;
 
 public abstract class QuanLyDanhMuc implements Serializable {
     private int sodanhmuc;
-
     private ListDanhMuc danhmucchi;// danh sach danh muc chi
     private ListDanhMuc danhmucthu; // danh sach danh muc thu
     private ListGiaoDich dsgiaodich; // Lich su giao dich
     private NgayThangNam dateToDay;
+    private static final long serialVersionUID = 1L;
 
     public NgayThangNam getdateToDay() {
         return dateToDay;
@@ -26,7 +26,7 @@ public abstract class QuanLyDanhMuc implements Serializable {
         this.dateToDay = dateToDay;
     }
 
-    private static final long serialVersionUID = 1L;
+    
     public abstract void giaodich(ListDanhMuc danhmuc, int loaigd);
     public abstract void chonloaigiaodich();
 
@@ -44,7 +44,6 @@ public abstract class QuanLyDanhMuc implements Serializable {
         this.danhmucchi = new ListDanhMuc(new DanhMuc("TY1", "Thiết yếu"), new DanhMuc("BT1", "Biếu tặng"), new DanhMuc("SK1", "Sức khỏe"), new DanhMuc("GT", "Giải trí"));
         this.danhmucthu = new ListDanhMuc(new DanhMuc("L1", "Lương"), new DanhMuc("T1", "Thưởng"));
         this.dsgiaodich = new ListGiaoDich();
-        this.sodanhmuc=3;// nho fix lai
         this.dateToDay=new NgayThangNam(LocalDate.now().getDayOfMonth(),LocalDate.now().getMonthValue(),LocalDate.now().getYear());
     }
 

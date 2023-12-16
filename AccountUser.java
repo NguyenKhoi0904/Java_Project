@@ -6,6 +6,8 @@ package com.bt.quanlythuchicanhan;
 
 import java.io.Serializable;
 import java.util.Scanner;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 
 /**
  *
@@ -52,7 +54,7 @@ public class AccountUser implements Serializable{
         this.matkhau = matkhau;
         this.email = email;
     }
-
+    
     public void setInfor_AccountUser(){
         Scanner input_AccountUser = new Scanner(System.in);
         System.out.println("*** Dang ky tai khoan ***");
@@ -63,7 +65,7 @@ public class AccountUser implements Serializable{
         System.out.print("Email: ");
         this.setEmail(input_AccountUser.nextLine());
     }
-    
+
     @Override
     public String toString(){
         return """

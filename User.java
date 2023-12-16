@@ -16,6 +16,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.util.Random;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -24,26 +26,16 @@ import java.util.Random;
 public class User implements Serializable {
     private AccountUser TaiKhoanNguoiDung;
     private String loaitaiKhoan;
-    private QuanLyDanhMuc qldm;
     private String idUser;
     private static final long serialVersionUID = 1L;
 
     public User() {
     }
 
-    public User(AccountUser TaiKhoanNguoiDung, String loaitaiKhoan, QuanLyDanhMuc qldm, String idUser) {
+    public User(AccountUser TaiKhoanNguoiDung, String loaitaiKhoan, String idUser) {
         this.TaiKhoanNguoiDung = TaiKhoanNguoiDung;
         this.loaitaiKhoan = loaitaiKhoan;
-        this.qldm = qldm;
         this.idUser = idUser;
-    }
-
-    public QuanLyDanhMuc getQldm() {
-        return qldm;
-    }
-
-    public void setQldm(QuanLyDanhMuc qldm) {
-        this.qldm = qldm;
     }
 
     public AccountUser getTaiKhoanNguoiDung() {
@@ -70,8 +62,13 @@ public class User implements Serializable {
         this.idUser = idUser;
     }
     
+    public void QuenMatKhau(){
+        Scanner input_User = new Scanner(System.in);
+        System.out.println("Mời bạn nhập tài khoản và email");
+        System.out.print("");
+    }
+    
     public User DangNhap() throws ClassNotFoundException, FileNotFoundException {
-        ArrayList<AccountUser> tmpDN = readAccountUserDataFromFileAndCheck();
         ArrayList<User> pxm = docUserData();
         boolean isAccountValid = false;
         Scanner input_User = new Scanner(System.in);
@@ -80,134 +77,66 @@ public class User implements Serializable {
         String username = input_User.nextLine();
         System.out.print("  Mật khẩu: ");
         String password = input_User.nextLine();
-        int index = 0;
-        for(AccountUser au: tmpDN){
-            if(au.getTendangnhap().equals(username)&&au.getMatkhau().equals(password)){
-                System.out.println("    ĐĂNG NHẬP THÀNH CÔNG");
-                System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-                return pxm.get(index);
-            }
-            if(au.getTendangnhap().equals(username)){
-                isAccountValid = true;
-                break;
-            }
-            index++;
-        }
-        if(isAccountValid){
-            int count = 0;
-            boolean flag = true;
-            System.out.println("&&&&&& 404 &&&&&&");
-            System.out.println("Sai mật khẩu");
-            do{
-                index = 0;
-                System.out.print("Mời bạn nhập lại mật khẩu: ");
-                password = input_User.nextLine();
-                for(AccountUser au : tmpDN){
-                    if(au.getMatkhau().equals(password)){
-                        System.out.println(" Đăng nhập thành công");
-                        return pxm.get(index);
-                    }else{
-                        flag = false;
-                    }
-                    index++;
+        if(!pxm.isEmpty()){
+            for(User user: pxm){
+                if(user.getTaiKhoanNguoiDung().getTendangnhap().equals(username)
+                   && user.getTaiKhoanNguoiDung().getMatkhau().equals(password)){
+                    System.out.println("Đăng nhập thành công");
+                    return user;
                 }
-                
-                if(!flag){
-                    System.out.println("Sai mật khẩu");
-                    count++;
-                    if(count >= 3){
-                        System.out.println("Bạn có muốn thoát ra không?"); // CẦN XỬ LÝ LẠI CHỖ NÀY
-                        System.out.println("0.Không");
-                        System.out.println("1.Có");
-                        System.out.print("Mời bạn lựa chọn: ");
-                        int temp = Integer.parseInt(input_User.nextLine());
-                        if(temp == 1){
-                            return null;
-                        }
-                    }
-                }   
-            }while(true);
-        }else{ //KIỂM TRA TRUÒNG HỢP TÀI KHOẢN KHÔNG TỒN TẠI
-            int chiso = 0;
-            int dem = 0; //BIẾN NÀY DÙNG ĐỂ ĐẾM SỐ VÒNG CHẠY CỦA DO WHILE
-            boolean cohieu = true;
-            System.out.println("---------- 404 ----------");
-            System.out.println("  Sai tài khoản hoặc tài khoản không tồn tại");
+            }
+            int index = 0;
             do{
-                System.out.print("  Mời bạn nhập lại tài khoản: ");
+                System.out.println("Sai tài khoản hoặc mật khẩu");
+                System.out.println("Mời bạn nhập lại tài khoản và mật khẩu");
+                System.out.print("  Tài khoản: ");
                 username = input_User.nextLine();
-                for(AccountUser au : tmpDN){
-                    if(au.getTendangnhap().equals(username)){
-                        if(au.getTendangnhap().equals(password)){
-                            System.out.println(" Đăng nhập thành công");
-                            return pxm.get(chiso);
-                        }
-                        else{
-                            cohieu = false;
-                        }
+                System.out.print("  Mật khẩu: ");
+                password = input_User.nextLine();
+                for(User user: pxm){
+                    if(user.getTaiKhoanNguoiDung().getTendangnhap().equals(username)
+                       && user.getTaiKhoanNguoiDung().getMatkhau().equals(password)){
+                        System.out.println("Đăng nhập thành công");
+                        return user;
                     }
-                    chiso++;
                 }
-                
-                if(!cohieu){ //TRƯỜNG HỢP SAU KHI NHẬP ĐÚNG TÀI KHOẢN NHƯNG LẠI NHẬP SAI MẬT KHẨU
-                    boolean isCorrectPassword = true;
-                    int count = 0;
-                    System.out.println("---------- 404 ----------");
-                    System.out.println("  Mật khẩu ở trên của bạn bị sai");
-                    do{
-                        chiso=0;
-                        System.out.print("  Mời bạn nhập lại mật khẩu: ");
-                        password = input_User.nextLine();
-                        for(AccountUser au : tmpDN){
-                            if(au.getMatkhau().equals(password)){
-                                System.out.println("    Đăng nhập thành công");
-                                return pxm.get(chiso);
-                            }else{
-                                isCorrectPassword = false;
-                            }
-                            chiso++;
-                        }
-                        if(!isCorrectPassword){
-                            System.out.println(" Sai mật khẩu");
-                            count++;
-                        }
-                        if(count >= 3){
-                            System.out.println(" Bạn có muốn thoát ra không?");
-                            System.out.println(" 0.Không");
-                            System.out.println(" 1.Có");
-                            System.out.print(" Mời bạn lựa chọn: ");
-                            int temp = Integer.parseInt(input_User.nextLine());
-                            if(temp == 1){
-                                return null;
-                            }
-                        }
+                index++;
+                if(index >= 3){
+                    System.out.println("Đăng nhập không thành công. Có thể do:");
+                    System.out.println("1. Bạn chưa đăng ký tài khoản.");
+                    System.out.println("2. Bạn đã quên mật khẩu.");
+                    System.out.println("3. Tài khoản hoặc mật khẩu không đúng.");
                         
-                    }while(true);
-                }
-                System.out.println("---------- 404 ----------");
-                System.out.println("Sai tài khoản hoặc tài khoản không tồn tại");
-                dem++;
-                if(dem >= 3){
-                    System.out.println(" Bạn có muốn thoát ra không?");
-                    System.out.println(" 0.Không");
-                    System.out.println(" 1.Có");
-                    System.out.print(" Mời bạn lựa chọn: ");
-                    int i = Integer.parseInt(input_User.nextLine());
+                    System.out.println("Bạn có muốn thoát ra menu để đăng ký tài khoản mới hoặc lấy lại mật khẩu không?");
+                    System.out.println("0. Không");
+                    System.out.println("1. Có");
+                    System.out.print("Mời bạn lựa chọn: ");
+                    String s = input_User.nextLine();
+                    while(!isIntegerValueValid(s)){
+                        System.out.println("Bạn nhập giá trị không hợp lệ");
+                        System.out.print("Mời bạn nhập lại: ");
+                        s = input_User.nextLine();
+                    }
+                    int i = Integer.parseInt(s);
                     if(i == 1){
                         return null;
                     }
                 }
             }while(true);
-            
+        }else{
+            System.out.println("Bạn hãy đăng ký tài khoản rồi đăng nhập");
+            return null;
         }
-//            input_User.close();
     }
 
-    private ArrayList<User> docUserData(){
+    private ArrayList<User> docUserData() throws ClassNotFoundException, FileNotFoundException{
         ArrayList<User> a = new ArrayList<>();
-        try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream("userData.txt"))) {
-            a = (ArrayList<User>)ois.readObject();
-        } catch (Exception e) {
+        try(FileInputStream fis = new FileInputStream("userData.txt");
+            ObjectInputStream ois = new ObjectInputStream(fis)) {
+            a = (ArrayList<User>) ois.readObject();
+        } catch (EOFException e) {
+            e.printStackTrace();
+        } catch (IOException e){
             e.printStackTrace();
         }
         return a;
@@ -227,41 +156,103 @@ public class User implements Serializable {
     }
 
     public void DangKy() throws FileNotFoundException, ClassNotFoundException {
+        System.out.println("*** Dang ky tai khoan ***");
         Scanner input_User = new Scanner(System.in);
         boolean isAccountExist = false;
-        boolean flag = true;
-        AccountUser a = new AccountUser();
-        a.setInfor_AccountUser();
-            ArrayList<AccountUser> arrayListAU = readAccountUserDataFromFileAndCheck();
-            if(!arrayListAU.isEmpty()){
-                for(AccountUser tmp: arrayListAU){
-                    if(tmp.getTendangnhap().equals(a.getTendangnhap())){        
-                        System.out.println("- Tài khoản đã tồn tại");
-                        isAccountExist = true;
-                        break;
-                    }
-                }
-                if(isAccountExist){
-                    do{
-                        System.out.print("- Mời bạn nhập lại tài khoản: ");
-                        a.setTendangnhap(input_User.nextLine());
-                        for(AccountUser temporary : arrayListAU){
-                            System.out.println(temporary.getTendangnhap());
-                            if(temporary.getTendangnhap().equals(a.getTendangnhap())){
-                                System.out.println("- Tài khoản đã tồn tại");
-                                flag = true;
-                                break;
-                            }else{
-                                flag = false;
-                            }
-                        }
-                        if(!flag){
-                            System.out.println("- Tài khoản hợp lệ");
-                            break;
-                        }
-                    }while(true);
+        boolean isEmailExist = false;
+        
+        ArrayList<User> user_array = docUserData();
+        String taikhoan = null, matkhau = null,email = null;
+        if(!user_array.isEmpty()){
+            //XỬ LÝ TÀI KHOẢN
+            System.out.print("- Tài khoản: ");
+            taikhoan = input_User.nextLine(); //ĐOẠN CODE TỪ DÒNG 246 ĐẾN 281 CHỈ ĐỂ XỬ LÝ TÀI KHOẢN
+            while(!isAccountRegexValid(taikhoan)){
+                System.out.println("Tài khoản phải có ít nhất 6 kí tự và không được có kí tự đặc biệt");
+                System.out.print("Mời bạn nhập lại tài khoản: ");
+                taikhoan = input_User.nextLine();
+            }
+            for(User user: user_array){
+                if(user.getTaiKhoanNguoiDung().getTendangnhap().equals(taikhoan)){
+                    System.out.println("---Tài khoản đã tồn tại");
+                    isAccountExist = true;
+                    break;
                 }
             }
+            if(isAccountExist){
+                boolean flag = true;
+                do{
+                    System.out.print("Mời bạn nhập lại tài khoản: ");
+                    taikhoan = input_User.nextLine();
+                    while(!isAccountRegexValid(taikhoan)){
+                        System.out.println("Tài khoản phải có ít nhất 6 kí tự và không được có kí tự đặc biệt");
+                        System.out.print("Mời bạn nhập lại tài khoản: ");
+                        taikhoan = input_User.nextLine();
+                    }
+                    for(User user : user_array){
+                        if(user.getTaiKhoanNguoiDung().getTendangnhap().equals(taikhoan)){
+                            System.out.println("---Tài khoản đã tồn tại");
+                            flag = true;
+                            break;
+                        }else{
+                            flag = false;
+                        }
+                    }
+                    if(!flag){
+                        System.out.println("Tài khoản hợp lệ");
+                    }
+                }while(true);
+            }
+            //XỬ LÝ MẬT KHẨU
+            System.out.print("- Mật khẩu: ");
+            matkhau = input_User.nextLine();
+            while(!isPasswordRegexValid(matkhau)){
+                System.out.println("Mật khẩu phải có ít nhất 6 kí tự và không được có khoảng trắng");
+                System.out.print("Mời bạn nhập lại mật khẩu");
+                matkhau = input_User.nextLine();
+            }
+            
+            //XỬ LÝ EMAIL
+            System.out.println("- Email: ");
+            email = input_User.nextLine();
+            while(!isGmailAddressRegexValid(email)){
+                System.out.println("Đây không phải là email hợp lệ");
+                System.out.print("Mời bạn nhập lại email: ");
+                email = input_User.nextLine();
+            }
+            for(User user: user_array){
+                if(user.getTaiKhoanNguoiDung().getEmail().equals(email)){
+                    System.out.println("Email đã tồn tại");
+                    isEmailExist = true;
+                    break;
+                }
+            }
+            if(isEmailExist){
+                boolean flag = true;
+                do{
+                    System.out.print("Mời bạn nhập lại email: ");
+                    email = input_User.nextLine();
+                    while(!isGmailAddressRegexValid(email)){
+                        System.out.println("Đây không phải là email hợp lệ");
+                        System.out.print("Mời bạn nhập lại email: ");
+                        email = input_User.nextLine();
+                    }
+                    for(User user : user_array){
+                        if(user.getTaiKhoanNguoiDung().getEmail().equals(email)){
+                            System.out.println("Email đã tồn tại");
+                            flag = true;
+                            break;
+                        }else{
+                            flag = false;
+                        }
+                    }
+                    if(!flag){
+                        System.out.println("Email hợp lệ");
+                    }
+                }while(flag);
+            }
+        }
+        AccountUser a = new AccountUser(taikhoan,matkhau,email);
         this.setTaiKhoanNguoiDung(a);
         
         System.out.println("^___^___^___^___^___^___^___^___^___^___^___^___^___^___^___^___^___^___^___^___^___^");
@@ -269,7 +260,14 @@ public class User implements Serializable {
         System.out.println("0. Free User");
         System.out.println("1. Pro User");
         System.out.println("_____________________________________________________________________________________");
-        int temporary = Integer.parseInt(input_User.nextLine());
+        System.out.print("Mời bạn lựa chọn: ");
+        String s = input_User.nextLine();
+        while(!isIntegerValueValid(s)){
+            System.out.println("Bạn nhập giá trị không hợp lệ");
+            System.out.print("Mời bạn nhập lại: ");
+            s = input_User.nextLine();
+        }
+        int temporary = Integer.parseInt(s);
         if (temporary == 0) {
             this.setLoaitaiKhoan("FREE");
             this.setIdUser(generateID_User(this.getLoaitaiKhoan()));
@@ -277,6 +275,7 @@ public class User implements Serializable {
             User u = new FreeUser();
             CopyGiaTri(u); // HÀM NÀY CÓ TÁC DỤNG GÁN GIÁ TRỊ CỦA THIS CHO U
             if(u instanceof FreeUser fu){
+                fu.setQldmFree(new QuanLyDanhMucFree());
                 if(ghiUserDataLenFile(fu)){ // GHI THÔNG TIN CỦA 1 USER LÊN FILE
                     System.out.println(" Ghi thông tin user thành công");
                 }else{
@@ -296,7 +295,13 @@ public class User implements Serializable {
             System.out.println("Nhập 0 là không đồng ý và bạn sẽ trở thành Free User");
             System.out.println("Nhập 1 là đồng ý");
             System.out.print("Mời bạn lựa chọn: ");
-            int tmp = Integer.parseInt(input_User.nextLine());
+            s = input_User.nextLine();
+            while(!isIntegerValueValid(s)){
+                System.out.println("Bạn nhập giá trị không hợp lệ");
+                System.out.print("Mời bạn nhập lại: ");
+                s = input_User.nextLine();
+            }
+            int tmp = Integer.parseInt(s);
             switch (tmp) {
                 case 1 -> {
                     System.out.println("Xác nhận thanh toán");
@@ -305,8 +310,8 @@ public class User implements Serializable {
                     //ĐANG LÀM TÀ ĐẠO YÊU CẦU KHÔNG BẮT CHƯỚC
                     User u = new ProUser();
                     CopyGiaTri(u); // HÀM NÀY CÓ TÁC DỤNG GÁN GIÁ TRỊ CỦA THIS CHO U
-                    u.getQldm().setSoDanhMuc(10); //SỐ DANH MỤC MẶC ĐỊNH CHO PROUSER
                     if(u instanceof ProUser pu){
+                        pu.setQldmPro(new QuanLyDanhMucPro());
                         if(ghiUserDataLenFile(pu)){ // GHI THÔNG TIN CỦA 1 USER LÊN FILE
                             System.out.println("Ghi thông tin user thành công");
                         }else{
@@ -328,6 +333,7 @@ public class User implements Serializable {
                     User u = new FreeUser();
                     CopyGiaTri(u); // HÀM NÀY CÓ TÁC DỤNG GÁN GIÁ TRỊ CỦA THIS CHO U
                     if(u instanceof FreeUser fu){
+                        fu.setQldmFree(new QuanLyDanhMucFree());
                         if(ghiUserDataLenFile(fu)){ // GHI THÔNG TIN CỦA 1 USER LÊN FILE
                             System.out.println("Ghi thông tin user thành công");
                         }else{
@@ -346,11 +352,34 @@ public class User implements Serializable {
         }
     }
     
+    private boolean  isAccountRegexValid(String account){
+        String regex = "^[a-zA-Z0-9 \\p{L}]{6,}$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(account);
+        return matcher.matches();
+    }
+    
+    
+    private boolean isPasswordRegexValid(String password){
+        String regex = "^[^\\s]{6,}$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(password);
+        return matcher.matches();
+    }
+    private boolean isGmailAddressRegexValid(String gmail){
+        String regex = "^[a-zA-Z0-9]+@gmail\\.com$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(gmail);
+        return matcher.matches();
+    }
+    
+    private boolean isIntegerValueValid(String s){
+        return s.equals("0") || s.equals("1");
+    }
     private void CopyGiaTri(User sourceUser){
         sourceUser.setLoaitaiKhoan(this.getLoaitaiKhoan());
         sourceUser.setIdUser(this.getIdUser());
         sourceUser.setTaiKhoanNguoiDung(this.getTaiKhoanNguoiDung());
-        //sourceUser.setQldm(new QuanLyDanhMuc(2));
     }
     private String generateID_User(String prefix){ //HÀM RANDOM ID DỰA TRÊN MÃ ĐẦU VÀO
         Random random = new Random();              //VD: giá trị truyền vào là "PRO" kết quả khi trả về sẽ là PRO + 1 dãy số ngẫu nhiên có 6 kí tự, vd PRO000001

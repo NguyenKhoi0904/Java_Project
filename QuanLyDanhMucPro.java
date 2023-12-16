@@ -21,7 +21,7 @@ public class QuanLyDanhMucPro extends QuanLyDanhMuc implements Serializable {
 
     public QuanLyDanhMucPro() { // tự đăng ký
         super();
-        this.setSoDanhMuc(10);// so lan tao danh muc cua user
+        this.setSoDanhMuc(7);// so lan tao danh muc cua pro user
         GioiHanNganSach=new NganSach();
 }
     @Override
@@ -809,5 +809,3 @@ public class QuanLyDanhMucPro extends QuanLyDanhMuc implements Serializable {
 
         public void XuatBaoCaoRaFile() { }///////////
     }
-
-

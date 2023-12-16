@@ -2,14 +2,14 @@ package com.bt.quanlythuchicanhan;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.YearMonth;
+
 
 public class GioiHanGiaoDich implements Serializable{
     private int solangiaodich;
     private int ThangHienTai;
-    public GioiHanGiaoDich(int solangiaodich){//free
+    public GioiHanGiaoDich(int solangiaodich,int thang){//free
         this.solangiaodich=solangiaodich;
-        this.ThangHienTai= LocalDate.now().getMonthValue();
+        this.ThangHienTai= thang;
 
     }
 
@@ -30,8 +30,8 @@ public class GioiHanGiaoDich implements Serializable{
        this.ThangHienTai = ThangHienTai;
 
     }
-    public void kiemTraThayDoiThang(){// Dùng để tạo gd cho free user
-        int Thang=LocalDate.now().getMonthValue();
+    public void kiemTraThayDoiThang(int thangmoi){// Dùng để tạo gd cho free user
+        int Thang=thangmoi;
         if(getThang()!=Thang){
             this.setThang(Thang);
             solangiaodich=50;

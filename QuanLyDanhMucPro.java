@@ -1,26 +1,30 @@
 package com.bt.quanlythuchicanhan;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class QuanLyDanhMucPro extends QuanLyDanhMuc{
-    private ArrayList<gioiHanNganSach> GioiHan;
+public class QuanLyDanhMucPro extends QuanLyDanhMuc implements Serializable {
+    private NganSach GioiHanNganSach;
 
-    public ArrayList<gioiHanNganSach> getGioiHan() {
-        return GioiHan;
+    public NganSach getGioiHan() {
+        return GioiHanNganSach;
     }
 
-    public void setGioiHan(ArrayList<gioiHanNganSach> gioiHan) {
-        GioiHan = gioiHan;
-
+    public void setGioiHan(NganSach gioiHan) {
+        GioiHanNganSach = gioiHan;
+    }
+    public void setGioiHan(boolean flag){
+        GioiHanNganSach.batTat(flag);
     }
 
     public QuanLyDanhMucPro() { // tự đăng ký
         super();
-        this.GioiHan = new ArrayList();
+        GioiHanNganSach=new NganSach();
     }
-    public void ThayDoiThangHienTai(){
+
+    public void ThayDoiThangHienTai() {
 
     }
 
@@ -28,7 +32,7 @@ public class QuanLyDanhMucPro extends QuanLyDanhMuc{
     public void ChonDanhMucDeThem() { // abstract
         Scanner sc = new Scanner(System.in);
         System.out.println("Số lần thêm danh mục của bạn còn " + getSoDanhMuc());
-        int SoDanhMucDaThem=10-getSoDanhMuc();
+        int SoDanhMucDaThem = 10 - getSoDanhMuc();// so danh muc toi da la 10
         if (SoDanhMucDaThem < 10) {
             System.out.println("Chọn loại danh mục ");
             System.out.println("Hãy nhập số ");
@@ -48,7 +52,7 @@ public class QuanLyDanhMucPro extends QuanLyDanhMuc{
                             flat = false;
                             ThemDanhMuc(this.getDanhMucThu(), "DMT");
                         default:
-                            flat=true;
+                            flat = true;
                             System.out.println("Lựa chọn không hợp lệ");
                             System.out.println("Hãy nhập số ");
                             System.out.println("1:CHI ");
@@ -90,7 +94,7 @@ public class QuanLyDanhMucPro extends QuanLyDanhMuc{
     }
 
     @Override
-    public void chonloaigiaodich(){
+    public void chonloaigiaodich() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Nhập loại danh mục cần giao dịch ");
         System.out.println("1 Chi                            ");
@@ -134,34 +138,12 @@ public class QuanLyDanhMucPro extends QuanLyDanhMuc{
             return;
         }
     }
+
     @Override
     public void giaodich(ListDanhMuc danhmuc, int loaigd) {// abstract
-        gioiHanNganSach GioiHanHienTai = null;
+        // dat lai ngay hom nay
+        setDateToDay(new NgayThangNam(LocalDate.now().getDayOfMonth(), LocalDate.now().getMonthValue(), LocalDate.now().getYear()));
         Scanner sc = new Scanner(System.in);
-        Boolean find = false;
-        for (gioiHanNganSach ngansachmoithang : GioiHan) {
-            if (ngansachmoithang.getthang() == getdateToDay().getthang() && ngansachmoithang.getnam() == getdateToDay().getnam()) {
-                GioiHanHienTai = ngansachmoithang;
-                find = true;
-            }
-        }
-
-        if (find == false) {
-            System.out.println("Thán hiện tại của bạn đang không có giới hạn ngân sách,bạn có muốn tạo ngân sách mới không?");
-            System.out.println("1.Có");
-            System.out.println("2.Không");
-            String test = sc.nextLine();
-            if (!isInteger(test) || Integer.parseInt(test) > 2 || Integer.parseInt(test) < 3) {
-                System.out.println("Bạn nhập không hợp lệ!!");
-                System.out.println("Hãy nhập lại!!");
-                test = sc.nextLine();
-            }
-            int choice = Integer.parseInt(test);
-            if (choice == 1) {
-                TaoGioiHanNganSach();
-                find=true;
-            }
-        }
         System.out.println("Bạn muốn giao dịch hôm nay hay hôm qua hay tùy chỉnh");
         System.out.println("1.Hôm nay");
         System.out.println("2.Hôm qua");
@@ -177,11 +159,10 @@ public class QuanLyDanhMucPro extends QuanLyDanhMuc{
                 int choice = Integer.parseInt(sc.nextLine());
                 if (choice == 1) {//Hôm nay
                     flat = false;
-                    day = LocalDate.now().getDayOfMonth();
-                    month = LocalDate.now().getMonthValue();
-                    year = LocalDate.now().getYear();
+                    day = getdateToDay().getngay();
+                    month = getdateToDay().getthang();
+                    year = getdateToDay().getnam();
                     date = new NgayThangNam(day, month, year);
-
                 } else if (choice == 2) {//Hôm qua
                     flat = false;
                     day = LocalDate.now().getDayOfMonth();
@@ -227,41 +208,67 @@ public class QuanLyDanhMucPro extends QuanLyDanhMuc{
             } catch (NumberFormatException e) {
                 return;
             }
-
-                System.out.println("Nhập nội dung giao dịch");
-                String noidung = sc.nextLine();
-                System.out.println("Nhập số tiền cần giao dịch");
+            boolean flag = true;
+            while (!GioiHanNganSach.Kiemtrangansachcoduoctaochua(year, month) && flag) {
+                System.out.println("Tháng hiện tại của bạn đang không có giới hạn ngân sách,bạn có muốn tạo ngân sách mới không?");
+                System.out.println("1.Có");
+                System.out.println("2.Không");
                 String test = sc.nextLine();
-
-                while (!isInteger(test)) {
-                    System.out.println("Hãy nhập số!!!!!!!");
+                if (!isInteger(test) || Integer.parseInt(test) < 1 || Integer.parseInt(test) >2) {
+                    System.out.println("Bạn nhập không hợp lệ!!");
+                    System.out.println("Hãy nhập lại!!");
                     test = sc.nextLine();
                 }
+                int choice = Integer.parseInt(test);
+                if (choice == 1) {
+                    TaoGioiHanNganSach();
+                }
+                if (choice == 2) {
+                    flag = false;
+                }
+            }
 
-                int sotien = Integer.parseInt(test);
-                if(find==true){
-                   GioiHanHienTai.kiemtraNganSach(sotien,getDanhMucChi().getTongsotien());
-                   System.out.print("Bạn có muốn giao dịch tiếp không ?");
+            System.out.println("Nhập nội dung giao dịch");
+            String noidung = sc.nextLine();
+            System.out.println("Nhập số tiền cần giao dịch");
+            String test = sc.nextLine();
+
+            while (!isInteger(test)) {
+                System.out.println("Hãy nhập số!!!!!!!");
+                test = sc.nextLine();
+            }
+
+            int sotien = Integer.parseInt(test);
+            if (GioiHanNganSach.getbatTat()) { // Chuc nang gioi han dang duoc su dung
+                int sotiencuathang = 0;
+                for (GiaoDich gd : getDsgiaodich().getDsGD()) {
+                    if (gd.getNgayGiaoDich().getthang() == month && gd.getNgayGiaoDich().getnam() == year) {
+                        sotiencuathang += gd.getsotien();
+                    }
+                }
+                double sophantramneugiaodich = getGioiHan().phantramsudung(sotien, sotiencuathang);
+                System.out.println("Bạn đã sử dụng " + sophantramneugiaodich);
+                if (sophantramneugiaodich > getGioiHan().getPhanTram()) {
+                    System.out.print("Bạn có muốn giao dịch tiếp không ?");
                     System.out.print("1.Có");
                     System.out.print("Các nút còn lại:thoát");
-
-
-                    int choice=Integer.parseInt(sc.nextLine());
-                    if(choice!=1){
+                    try {
+                        int choice = Integer.parseInt(sc.nextLine());
+                        if (choice != 1) {
+                            return;
+                        }
+                    } catch (Exception e) {
                         return;
                     }
-
                 }
                 // tim thong tin danh muc cha
                 System.out.println("Bạn muốn giao dịch với nhóm nào");
                 int i = 1;
                 DanhMuc DanhMucCha = null;
                 for (DanhMuc list : danhmuc.getDsDanhMuc()) {
-
                     System.out.println("Nhóm " + i + ": " + list.gettendanhmuc());
                     int x = 1;
                     for (DanhMuc danhmuccon : list.getdanhsachdanhmuccon()) {
-
                         System.out.println("     " + i + "." + x + " " + danhmuccon.gettendanhmuc());
                         x++;
                     }
@@ -297,7 +304,6 @@ public class QuanLyDanhMucPro extends QuanLyDanhMuc{
                                 System.out.println(temp + ": " + list.gettendanhmuc());
                                 temp++;
 
-
                                 System.out.println("Vui lòng nhập vị trí danh mục trong nhóm này");
                                 type_1 = Integer.parseInt(sc.nextLine());
                                 flat2 = false;
@@ -329,123 +335,130 @@ public class QuanLyDanhMucPro extends QuanLyDanhMuc{
                 }
             }
         }
-
-    public void LapNganSachVaNhacNho(){
-
     }
-    public void SoSanhCacKhoanThuChiTheoThoiGian(){
-
-    }
-    public void XuatBaoCaoRaFile(){
-
-    }
-   public void SuaGioiHanNganSach(){ // sửa giới hạn ngân sách
-       Scanner sc = new Scanner(System.in);
-       System.out.println("Bạn muốn sửa giới hạn ngân sách cho tháng này hay tùy chỉnh?!");
-       System.out.println("1.Tháng này ");
-       System.out.println("2.Tùy chỉnh");
-       System.out.println("Các nút còn lại: về menu");
-       int month = 12;
-       int year = 2023;
-       int choice = Integer.parseInt(sc.nextLine());
-       try {
-           if (choice == 1) {//thang hien tai
-               month = LocalDate.now().getMonthValue();
-               year = LocalDate.now().getYear();
-           } else if (choice == 2) {//tuy chinh
-               System.out.println("Nhập tháng để sửa");
-               String thang = sc.nextLine();
-               while (!Kiemtrathanghople(thang)) {
-                   System.out.println("Tháng không hợp lệ, mời nhập lại!!!!!");
-                   thang = sc.nextLine();
-               }
-               System.out.println("Nhập năm để sửa ");
-               String nam = sc.nextLine();
-               while (!Kiemtranamhople(nam)) {
-                   System.out.println("Năm không hợp lệ, mời nhập lại!!!!!!");
-                   nam = sc.nextLine();
-               }
-               month = Integer.parseInt(thang);
-               year = Integer.parseInt(nam);
-           } else {
-               return;
-           }
-            System.out.println("1.Sửa phần trăm giới hạnn");
-            System.out.println("2.sửa số tiền giới hạn");
-
-            String test = sc.nextLine();
-            while(!isInteger(test) || Integer.parseInt(test)>2 || Integer.parseInt(test)<1){
-                if(!isInteger(test)) {
-                    System.out.println("Bạn nhập không hợp lệ!!");
-                    System.out.println("Hãy nhập lại!!");
-                    test = sc.nextLine();
-                }
-                else{
-                    System.out.println("Bạn nhập quá 2 hoặc bé hơn 1!!");
-                    System.out.println("Hãy nhập lại!!");
-                    test = sc.nextLine();
-                }
+    public void LapNganSachVaNhacNho() {// Chuc nang ngan sach
+        Scanner sc=new Scanner(System.in);
+        System.out.println("__________________________________________________________________XIN NHẬP LỰA CHỌN__________________________________________________________");
+        System.out.println("|1.TẠO NGÂN SÁCH                                                                                                                            |");
+        System.out.println("|2.SỬA NGÂN SÁCH                                                                                                                            |");
+        System.out.println("|CÁC NÚT CÒN LẠI TRỞ VỀ MENU                                                                                                                |");
+        System.out.println("|___________________________________________________________________________________________________________________________________________|");
+        try{
+            int choice = Integer.parseInt(sc.nextLine());
+            if(choice==1){
+                TaoGioiHanNganSach();
             }
+            else if(choice ==2 ){
+                SuaGioiHanNganSach();
+            }
+            else{
+                return;
+            }
+        }
+        catch(NumberFormatException e){
+            return;
+        }
+    }
 
-           int luachon = Integer.parseInt(test);
-            if(luachon==1) {
-            System.out.println("Nhập phần trăm !!");
+
+
+    public void SuaGioiHanNganSach() { // sửa giới hạn ngân sách
+        Scanner sc = new Scanner(System.in);
+        System.out.println("__________________________________________________________________XIN NHẬP LỰA CHỌN__________________________________________________________");
+        System.out.println("|1.SỦA PHẦN TRĂM CỦA NGÂN SÁCH                                                                                                              |");
+        System.out.println("|2.SỬA GIỚI HẠN SỐ TIỀN                                                                                                                     |");
+        System.out.println("|3.TẮT/MỞ GIỚI HẠN                                                                                                                          |");
+        System.out.println("|CÁC NÚT CÒN LẠI TRỞ VỀ MENU                                                                                                                |");
+        System.out.println("|___________________________________________________________________________________________________________________________________________|");
+            String test = sc.nextLine();
+            if (!isInteger(test) || Integer.parseInt(test) > 3 || Integer.parseInt(test) < 1) {
+               return;
+            }
+            int luachon = Integer.parseInt(test);
+            if (luachon == 1) {
+                System.out.println("Nhập phần trăm !!");
                 test = sc.nextLine();
-                while(!isInteger(test) || Integer.parseInt(test)>100 || Integer.parseInt(test)<0){
-                    if(!isInteger(test)) {
+                while (!isInteger(test) || Integer.parseInt(test) > 100 || Integer.parseInt(test) < 0) {
+                    if (!isInteger(test)) {
                         System.out.println("Bạn nhập không hợp lệ!!");
                         System.out.println("Hãy nhập lại!!");
                         test = sc.nextLine();
-                    }
-                    else{
+                    } else {
                         System.out.println("Bạn nhập quá 100 hoặc bé hơn 0!!");
                         System.out.println("Hãy nhập lại!!");
                         test = sc.nextLine();
                     }
                 }
                 double percent = Double.parseDouble(test);
-                for (gioiHanNganSach ketqua : getGioiHan()) {
-                    if (ketqua.getnam() == year && ketqua.getthang() == month) {
-                        ketqua.setPhanTramSoTien(percent);
-                    }
-                }
-            }
-            else{
+                this.getGioiHan().setPhanTram(percent);
+            } else if(luachon == 2) {
                 System.out.println("Nhập phần Giới Hạn số tiền !!");
                 test = sc.nextLine();
-                while(!isInteger(test)){
-
-                        System.out.println("Bạn nhập không hợp lệ!!");
-                        System.out.println("Hãy nhập lại!!");
-                        test = sc.nextLine();
-
+                while (!isInteger(test)) {
+                    System.out.println("Bạn nhập không hợp lệ!!");
+                    System.out.println("Hãy nhập lại!!");
+                    test = sc.nextLine();
                 }
                 int soTienMoi = Integer.parseInt(test);
-                for (gioiHanNganSach ketqua : getGioiHan()) {
-                    if (ketqua.getnam() == year && ketqua.getthang() == month) {
-                        ketqua.setSotien(soTienMoi);
+                this.getGioiHan().setSotien(soTienMoi);
+
+            }
+            else if(luachon == 3){
+                if(getGioiHan().getbatTat()==true){
+                    System.out.println("Chức năng giới hạn ngân sách của bạn hiện đang bật!");
+                    System.out.println("Bạn muốn tắt?");
+                    System.out.println("Nhập 1");
+                    System.out.println("ấn các phím còn lại để thoát");
+                    test = sc.nextLine();
+                    if (!isInteger(test) || Integer.parseInt(test)>1 ||Integer.parseInt(test)<1) {
+                       return;
+                    }
+                    int Chon = Integer.parseInt(test);
+                    if(Chon==1){
+                        this.getGioiHan().batTat(false);
                     }
                 }
-            }
-       } catch (NumberFormatException e) {
-           return;
-       }
-   }
+                else{
+                    System.out.println("Chức năng giới hạn ngân sách của bạn hiện đang tắt!");
+                    System.out.println("Bạn muốn bật lại?");
+                    System.out.println("Nhập 1:Có");
+                    System.out.println("ấn các phím còn lại để thoát");
+                    test = sc.nextLine();
+                    if (!isInteger(test) || Integer.parseInt(test)>1 ||Integer.parseInt(test)<1) {
+                        return;
+                    }
+                    int Chon = Integer.parseInt(test);
+                    if(Chon==1){
+                        this.getGioiHan().batTat(true);
+                    }
+                }
 
-    public void XoaGioiHanNganSach() {
+            }
+            else{
+                return;
+            }
+        }
+
+
+
+
+
+    public void TaoGioiHanNganSach() {
+        setDateToDay(new NgayThangNam(LocalDate.now().getDayOfMonth(),LocalDate.now().getMonthValue(),LocalDate.now().getYear()));
         Scanner sc = new Scanner(System.in);
-        System.out.println("Bạn muốn xóa giới hạn ngân sách cho tháng này hay tùy chỉnh?!");
-        System.out.println("1.Tháng này ");
-        System.out.println("2.Tùy chỉnh");
-        System.out.println("Các nút còn lại: về menu");
+        System.out.println("__________________________________________________________________XIN NHẬP LỰA CHỌN__________________________________________________________");
+        System.out.println("|BẠN MUỐN TẠO GIAO DỊCH CHO THÁNG HIỆN TẠI HAY NHỮNG THÁNG KHÁC?                                                                            |");                                                                              |");
+        System.out.println("|1.HIỆN TẠI                                                                                                                                 |");
+        System.out.println("|2.TÙY CHỈNH                                                                                                                                |");
+        System.out.println("|CÁC NÚT CÒN LẠI: VỀ MENU                                                                                                                   |");
+        System.out.println("|___________________________________________________________________________________________________________________________________________|");
         int month = 12;
         int year = 2023;
-
         int choice = Integer.parseInt(sc.nextLine());
         try {
             if (choice == 1) {//thang hien tai
-                month = LocalDate.now().getMonthValue();
-                year = LocalDate.now().getYear();
+                month = getdateToDay().getthang();
+                year = getdateToDay().getnam();
             } else if (choice == 2) {//tuy chinh
                 System.out.println("Nhập tháng giao dịch");
                 String thang = sc.nextLine();
@@ -464,71 +477,27 @@ public class QuanLyDanhMucPro extends QuanLyDanhMuc{
             } else {
                 return;
             }
-
-            for (gioiHanNganSach ketqua : getGioiHan()) {
-                if (ketqua.getnam() == year && ketqua.getthang() == month) {
-                    this.getGioiHan().remove(ketqua);
-                }
-
+            System.out.println("Nhập số tiền");
+            String test = sc.nextLine();
+            while (!QuanLyDanhMuc.isInteger(test)) {
+                sc.nextLine();
             }
+            int sotien = Integer.parseInt(test);
+            System.out.println("Nhập phần trăm để dễ quản lý hơn: ( lưu ý: phần trăm phải trên 0 và dưới 100");
+            test = sc.nextLine();
+            while (!isInteger(test) || Integer.parseInt(test)> 100 || Integer.parseInt(test)<0)  {
+                test = sc.nextLine();
+            }
+            double percent = Double.parseDouble(test);
+            NganSach GioiHanNganSach = new NganSach(month, year, sotien, percent);
         } catch (NumberFormatException e) {
             return;
         }
+    }public void XuatBaoCaoRaFile() {
+
     }
-        public void TaoGioiHanNganSach () {
-            Scanner sc = new Scanner(System.in);
-            System.out.println("Bạn muốn tạo giới hạn ngân sách cho tháng này hay tùy chỉnh?!");
-            System.out.println("1.Tháng này ");
-            System.out.println("2.Tùy chỉnh");
-            System.out.println("Các nút còn lại: về menu");
+    public void SoSanhCacKhoanThuChiTheoThoiGian() {
 
-            int month = 12;
-            int year = 2023;
-
-            int choice = Integer.parseInt(sc.nextLine());
-            try {
-                if (choice == 1) {//thang hien tai
-                    month = LocalDate.now().getMonthValue();
-                    year = LocalDate.now().getYear();
-                } else if (choice == 2) {//tuy chinh
-                    System.out.println("Nhập tháng giao dịch");
-                    String thang = sc.nextLine();
-                    while (!Kiemtrathanghople(thang)) {
-                        System.out.println("Tháng không hợp lệ, mời nhập lại!!!!!");
-                        thang = sc.nextLine();
-                    }
-                    System.out.println("Nhập năm giao dịch");
-                    String nam = sc.nextLine();
-                    while (!Kiemtranamhople(nam)) {
-                        System.out.println("Năm không hợp lệ, mời nhập lại!!!!!!");
-                        nam = sc.nextLine();
-                    }
-                    month = Integer.parseInt(thang);
-                    year = Integer.parseInt(nam);
-                } else {
-                    return;
-                }
-                System.out.println("Nhập số tiền");
-                String test = sc.nextLine();
-                while (!QuanLyDanhMuc.isInteger(test)) {
-                    sc.nextLine();
-                }
-                int sotien = Integer.parseInt(test);
-                System.out.println("Nhập phần trăm ( lưu ý: phần trăm phải trên 0 và dưới 100");
-                test = sc.nextLine();
-                while (!QuanLyDanhMuc.isInteger(test)) {
-                    test = sc.nextLine();
-                }
-                double percent = Double.parseDouble(test);
-                gioiHanNganSach NganSach = new gioiHanNganSach(month, year, sotien, percent);
-                this.getGioiHan().add(NganSach);
-            } catch (NumberFormatException e) {
-                return;
-            }
-        }
     }
-
-
-
-
+}
 

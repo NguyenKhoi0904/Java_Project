@@ -1,13 +1,14 @@
 package com.bt.quanlythuchicanhan;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Scanner;
 
-public class QuanLyDanhMucFree extends QuanLyDanhMuc{
+public class QuanLyDanhMucFree extends QuanLyDanhMuc implements Serializable {
     private GioiHanGiaoDich solangiaodich;
-    public QuanLyDanhMucFree(){
+    public QuanLyDanhMucFree() {
         super();
-        solangiaodich=new GioiHanGiaoDich(5);
+        solangiaodich=new GioiHanGiaoDich(5,getdateToDay().getthang());
     }
     @Override
     public void ChonDanhMucDeThem() { // abstract
@@ -75,16 +76,17 @@ public class QuanLyDanhMucFree extends QuanLyDanhMuc{
     }
 
     public void TuDongTaoGiaoDichMoiThang() {
-        this.getSolanGiaoDich().kiemTraThayDoiThang();
+        this.getSolanGiaoDich().kiemTraThayDoiThang(getdateToDay().getthang());
     } // Ham nay tu dong tao giao dich khi qua thang moi
     public void ThayDoiThangHienTai(){ // dùng cho case test
         Scanner sc = new Scanner(System.in);
         System.out.println("Thay đổi tháng hiện tại,nhập tháng");
-        this.getSolanGiaoDich().setThang(Integer.parseInt(sc.nextLine()));
-        System.out.println("Số lần gdich là "+this.getSolanGiaoDich().getsolangiaodich());
+        this.getdateToDay().setThang(Integer.parseInt(sc.nextLine()));
+        System.out.println("Số lần giao dich là "+this.getSolanGiaoDich().getsolangiaodich());
     }
 @Override
     public void chonloaigiaodich() {
+        setDateToDay(new NgayThangNam(LocalDate.now().getDayOfMonth(),LocalDate.now().getMonthValue(),LocalDate.now().getYear()));
         Scanner sc = new Scanner(System.in);
         TuDongTaoGiaoDichMoiThang();
         int soluonggiaodich = this.getSolanGiaoDich().getsolangiaodich();
@@ -139,7 +141,8 @@ public class QuanLyDanhMucFree extends QuanLyDanhMuc{
         }
     }
 @Override
-    public void giaodich(ListDanhMuc danhmuc, int loaigd) {// abstract
+    public void giaodich(ListDanhMuc danhmuc, int loaigd) {
+        setDateToDay(new NgayThangNam(LocalDate.now().getDayOfMonth(),LocalDate.now().getMonthValue(),LocalDate.now().getYear()));
         Scanner sc = new Scanner(System.in);
         System.out.println("Bạn muốn giao dịch hôm nay hay hôm qua hay tùy chỉnh");
         System.out.println("1.Hôm nay");
@@ -156,9 +159,9 @@ public class QuanLyDanhMucFree extends QuanLyDanhMuc{
                 int choice = Integer.parseInt(sc.nextLine());
                 if (choice == 1) {//Hôm nay
                     flat = false;
-                    day = LocalDate.now().getDayOfMonth();
-                    month = LocalDate.now().getMonthValue();
-                    year = LocalDate.now().getYear();
+                    day = getdateToDay().getngay();
+                    month = getdateToDay().getthang();
+                    year = getdateToDay().getnam();
                     date = new NgayThangNam(day, month, year);
 
                 } else if (choice == 2) {//Hôm qua
@@ -301,8 +304,8 @@ public class QuanLyDanhMucFree extends QuanLyDanhMuc{
     public void setSolangiaodich(GioiHanGiaoDich solangiaodich) {
         this.solangiaodich = solangiaodich;
     }
-    public void setSolangiaodich(int solan) {
-        this.solangiaodich = new GioiHanGiaoDich(solan);
+    public void setSolangiaodich(int solan,int Thang) {
+        this.solangiaodich = new GioiHanGiaoDich(solan,Thang);
     }
     public static void main(String [] args){
 

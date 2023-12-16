@@ -1,17 +1,22 @@
 package com.bt.quanlythuchicanhan;
 
-public class gioiHanNganSach {
+import java.io.Serializable;
+
+public class NganSach implements Serializable {
     private int thang;
     private int nam;
     private int sotien;
-    private double PhanTramSoTien;
-    public gioiHanNganSach(){
+    private double phantramcanhbao;
+    private boolean BatTat;
+
+    public NganSach(){
     }
-    public gioiHanNganSach(int thang, int nam, int sotien,double PhanTramSoTien) {
+    public NganSach(int thang, int nam, int sotien,double phantramcanhbao) {
         this.thang = thang;
         this.nam = nam;
         this.sotien = sotien;
-        this.PhanTramSoTien=PhanTramSoTien;
+        this.phantramcanhbao=phantramcanhbao;
+        BatTat=true;
     }
 
     public int getthang() {
@@ -22,15 +27,30 @@ public class gioiHanNganSach {
         return this.nam;
     }
 
-    public gioiHanNganSach setNam(int nam) {
+    public void setNam(int nam) {
         this.nam = nam;
-        return this;
-    }
 
-    public int sotien() {
+    }
+    public Boolean Kiemtrangansachcoduoctaochua(int year,int month){
+        if(nam==year && thang==month){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    public int getsotien() {
         return sotien;
     }
-
+    public void setPhanTram(double Phantram){
+        if(Phantram<0 || Phantram>100) {
+          System.out.println("phần trănm không hợp lệ");
+        }
+        else this.phantramcanhbao = phantramcanhbao;
+    }
+    public double getPhanTram(){
+            return phantramcanhbao;
+        }
     public void setSotien(int sotien) {
         this.sotien = sotien;
     }
@@ -39,21 +59,46 @@ public class gioiHanNganSach {
         this.thang = thang;
 
     }
+    public void batTat(boolean flag){
+        this.BatTat=flag;
+    }
+    public boolean getbatTat(boolean flag){
+        return BatTat;
+    }
     public void setPhanTramSoTien(double phantram){
         if(phantram<0 || phantram >100){
             System.out.println("Số phần trăm bạn nhập không hợp lệ");
         }
     }
-    public double getPhanTramSoTien(){
-
-        return PhanTramSoTien;
-    }
-    public void kiemtraNganSach(int tiengd,int sotienHienTai){
-        int tienneugiaodich = tiengd+sotienHienTai;
-        double GioiHantheophantram=sotien*PhanTramSoTien*0.1;
-        if(tienneugiaodich> GioiHantheophantram){
-            System.out.println("Số tiền bạn sử dụng lớn hơn "+(tienneugiaodich-GioiHantheophantram));
+    public double phantramsudung(int tiengd,int sotiencuathangHienTai){
+        int tienhientai = tiengd+sotiencuathangHienTai;
+        return 1.0*tienhientai/getsotien();
+  }
+    public void hienThiBieuDoNganSach(int tienCuaThangHienTai){
+            double percent = 1.0*tienCuaThangHienTai*100/getsotien();
+            System.out.println("Ta có dữ liệu thống kê như sau");
+        if(percent<100){
+            for(int i=1;i<(100-percent)/4;i++){
+                System.out.println("                                           **");
+            }
+            for(int x=1;x<(percent/4);x++){
+                System.out.println("**                                         **");
+            }
+                System.out.println("Tiền đã sử dụng Chiếm"+percent+"%+         Tiền quy định tháng này");
+            System.out.println("Chiếm"+percent+"%");
         }
+        else if(percent>100){
+            for(int i=1;i<((percent-100)/4);i++){
+                System.out.println("**                                           ");
+            }
+            for(int x=1;x<(percent/4);x++){
+                System.out.println("**                                         **");
+            }
+                System.out.println("Tiền đã sử dụng Chiếm"+percent+"%+         Tiền quy định tháng này");
+            System.out.println("Chiếm"+percent+"%");
+        }
+
     }
+
 
 }

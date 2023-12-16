@@ -47,6 +47,7 @@ public abstract class QuanLyDanhMuc implements Serializable {
         this.sodanhmuc=3;// nho fix lai
         this.dateToDay=new NgayThangNam(LocalDate.now().getDayOfMonth(),LocalDate.now().getMonthValue(),LocalDate.now().getYear());
     }
+
     public void ThemDanhMuc(ListDanhMuc danhmuc, String idDanhMuc) {
         Scanner sc = new Scanner(System.in);
         System.out.println("VUI LÒNG NHẬP CÁC THÔNG TIN CÁC DANH MỤC CẦN THÊM");
@@ -659,14 +660,6 @@ public abstract class QuanLyDanhMuc implements Serializable {
         sc.nextLine();
     }
 
-
-
-
-
-
-
-
-
     public void hienThiLichSuGiaoDich() {
         Scanner sc = new Scanner(System.in);
         try {
@@ -740,11 +733,11 @@ public abstract class QuanLyDanhMuc implements Serializable {
                     DanhMuc DanhMucCanGiaoDich = null;
                     int i = 1;
                     for (DanhMuc danhmuc : this.getDanhMucChi().getDsDanhMuc()) {
-                        System.out.println("Nhóm " + i + ": " + danhmuc.gettendanhmuc());
+                            System.out.println("Nhóm " + i + ": " + danhmuc.gettendanhmuc());
                         int x = 1;
                         for (DanhMuc danhmuccon : danhmuc.getdanhsachdanhmuccon()) {
 
-                            System.out.println("     " + x + ". " + danhmuccon.gettendanhmuc());
+                            System.out.println("     " + i+"."+x + ". " + danhmuccon.gettendanhmuc());
                             x++;
                         }
                         i++;
@@ -794,11 +787,10 @@ public abstract class QuanLyDanhMuc implements Serializable {
                         DanhMuc DanhMucCanGiaoDich = null;
                         int i = 1;
                         for (DanhMuc danhmuc : this.getDanhMucThu().getDsDanhMuc()) {
-                            System.out.println("Nhóm " + i + ": " + danhmuc.gettendanhmuc());
+                                System.out.println("Nhóm " + i + ": " + danhmuc.gettendanhmuc());
                             int x = 1;
                             for (DanhMuc danhmuccon : danhmuc.getdanhsachdanhmuccon()) {
-
-                                System.out.println("     " + x + ". " + danhmuccon.gettendanhmuc());
+                                System.out.println("      " +i+"."+ x + ". " + danhmuccon.gettendanhmuc());
                                 x++;
                             }
                             i++;
@@ -1010,11 +1002,11 @@ public abstract class QuanLyDanhMuc implements Serializable {
             DanhMuc DanhMucCanXem = null;
             int i = 1;
             for (DanhMuc danhmuc : this.getDanhMucChi().getDsDanhMuc()) {
-                System.out.println("Nhóm " + i + ": " + danhmuc.gettendanhmuc());
+                    System.out.println("Nhóm " + i + ": " + danhmuc.gettendanhmuc());
                 int x = 1;
                 for (DanhMuc danhmuccon : danhmuc.getdanhsachdanhmuccon()) {
 
-                    System.out.println("     " + x + ". " + danhmuccon.gettendanhmuc());
+                    System.out.println("     " + i+"."+x + ". " + danhmuccon.gettendanhmuc());
                     x++;
                 }
                 i++;

@@ -71,10 +71,10 @@ public abstract class QuanLyDanhMuc implements Serializable {
             name = sc.nextLine();
             danhmuccanthem.setTendanhmuc(name);
         }
-        System.out.println("-Vai trò danh mục cấp 1 hay cấp 2                                                      |");
-        System.out.println("-Nhập 1 nếu danh mục cấp 1                                                             |");
-        System.out.println("-Nhập 2 nếu danh mục cấp 2                                                             |");
-        System.out.println("-Nhập các nút còn lại về menu                                                          |");
+        System.out.println("-Vai trò danh mục cấp 1 hay cấp 2                                                      ");
+        System.out.println("-Nhập 1 nếu danh mục cấp 1                                                             ");
+        System.out.println("-Nhập 2 nếu danh mục cấp 2                                                             ");
+        System.out.println("-Nhập các nút còn lại về menu                                                          ");
         int m;
         try {
             m = Integer.parseInt(sc.nextLine());
@@ -589,26 +589,7 @@ public abstract class QuanLyDanhMuc implements Serializable {
                                             sc.nextLine();
                                             menu();
                                         }
-                                        //break;
 
-                                        /*
-                                        dsdanhmuc.lietkedanhmuc();
-                                        System.out.println("Nhập nhóm danh mục bạn muốn sửa tiền ");////////////////////////////////////////////////
-                                        name1= sc.nextLine();
-                                        Boolean temp2 = true;
-                                        while (temp2) {
-                                            try {
-                                                System.out.println("Nhập số tiền mới");
-                                                int newMoney = Integer.parseInt(sc.nextLine());
-                                                temp = true;
-                                                dsdanhmuc.changeMoneyDanhMuc(name1, newMoney);
-                                                dsdanhmuc.setTongsotien();
-                                            } catch (Exception e) {
-                                                System.out.println("Bạn nhập không hợp lệ vì nhập chữ , vui lòng nhập lại");
-                                            }
-                                        }
-                                        break;
-                                        */
                                     default:
                                         menu();
                                 }
@@ -1072,9 +1053,11 @@ public abstract class QuanLyDanhMuc implements Serializable {
                                         test = sc.nextLine();
                                     }
                                     int Month = Integer.parseInt(test);
-                                    thongkedanhmuctheotuan(Month, Year, DanhMucCanXem, loaigd); // ghi file trong hàm này dòng 1644
-                                    return null;
-
+                                    String ketqua = thongkedanhmuctheotuan(Month, Year, DanhMucCanXem, loaigd); // ghi file trong hàm này dòng 1644
+                                    System.out.println(ketqua);
+                                    System.out.println("nhấn một nút bất kỳ để về menu ");
+                                    sc.nextLine();
+                                    menu();
                                 } else if (choice == 2) {// xem dữ liệu danh mục theo tháng
                                     Cohieu = false;
                                     System.out.println("Vui lòng nhập năm");
@@ -1312,110 +1295,129 @@ public abstract class QuanLyDanhMuc implements Serializable {
         this.danhmucchi = danhmucchi;
     }
 
-    public void thongkedanhmuctheotuan(int month, int year, DanhMuc danhMuc, String loaigd) { // theo tuan
-        int[] soLanGiaoDichMoiTuan = new int[4];
-        int[] sotien = new int[4];
-        for (int i = 0; i < 4; i++) {
-            soLanGiaoDichMoiTuan[i] = 0;
-            sotien[i] = 0;
+    public String thongkedanhmuctheotuan(int month, int year, DanhMuc danhMuc, String loaigd) { // theo tuan
+        if(loaigd==null){
+            return "Bạn chưa có gd nào về danh mục này";
         }
-        for (GiaoDich gd : getDsgiaodich().getDsGD()) {
-            if (gd.getNgayGiaoDich().getthang() == month && gd.getNgayGiaoDich().getnam() == year) {
-                int week = (gd.getNgayGiaoDich().getngay() - 1) / 7; // Xác định tuần
-                if (gd.getTendanhmuc() == danhMuc) {
-                    soLanGiaoDichMoiTuan[week] += 1;
-                    sotien[week] += gd.getsotien();
+        else {
+            StringBuilder ketqua = new StringBuilder();
+            int[] soLanGiaoDichMoiTuan = new int[4];
+            int[] sotien = new int[4];
+            for (int i = 0; i < 4; i++) {
+                soLanGiaoDichMoiTuan[i] = 0;
+                sotien[i] = 0;
+            }
+            for (GiaoDich gd : getDsgiaodich().getDsGD()) {
+                if (gd.getNgayGiaoDich().getthang() == month && gd.getNgayGiaoDich().getnam() == year) {
+                    int week = (gd.getNgayGiaoDich().getngay() - 1) / 7; // Xác định tuần
+                    if (gd.getTendanhmuc() == danhMuc) {
+                        soLanGiaoDichMoiTuan[week] += 1;
+                        sotien[week] += gd.getsotien();
+                    }
                 }
             }
-        }
-        if (loaigd.equals("Giao dịch chi")) {
-            for (int i = 0; i < 4; i++) {
-             //   if(soLanGiaoDichMoiTuan[i]>0) {
-                    System.out.println(" - Tuần " + (i + 1) + " :");
-                    System.out.println("Số lần giao dịch là: " + soLanGiaoDichMoiTuan[i]);
-                    System.out.println("Số tiền sử dụng là: " + sotien[i]);
-               // }
-            }
-        } else {
-            for (int i = 0; i < 4; i++) {
-              //  if(soLanGiaoDichMoiTuan[i]>0) {
-                    System.out.println(" - Tuần " + (i + 1) + " :");
-                    System.out.println("Số lần giao dịch là: " + soLanGiaoDichMoiTuan[i]);
-                    System.out.println("Số tiền đã kiếm được là: " + sotien[i]);
-              //  }
-            }
-        }
 
-    }
-
-    public void thongkedanhmuctheothang(int year, DanhMuc danhMuc, String loaigd) { // theo tháng
-        int[] soLanGiaoDichMoiThang = new int[12];
-        int[] sotien = new int[12];
-
-        for (int i = 0; i < 12; i++) {
-            soLanGiaoDichMoiThang[i] = 0;
-            sotien[i] = 0;
-        }
-
-        for (GiaoDich gd : getDsgiaodich().getDsGD()) {
-            if (gd.getNgayGiaoDich().getnam() == year) {
-                int month = gd.getNgayGiaoDich().getthang() - 1; // Số tháng từ 0 đến 11
-
-                if (gd.getTendanhmuc() == danhMuc) {
-                    soLanGiaoDichMoiThang[month] += 1;
-                    sotien[month] += gd.getsotien();
+            if (loaigd.equals("Giao dịch chi")) {
+                for (int i = 0; i < 4; i++) {
+                    //   if(soLanGiaoDichMoiTuan[i]>0) {
+                    ketqua.append(" - Tuần ").append(i + 1).append(" :\n");
+                    ketqua.append("Số lần giao dịch là: ").append(soLanGiaoDichMoiTuan[i]).append("\n");
+                    ketqua.append("Số tiền sử dụng là: ").append(sotien[i]).append("\n");
+                    // }
+                }
+            } else {
+                for (int i = 0; i < 4; i++) {
+                    //  if(soLanGiaoDichMoiTuan[i]>0) {
+                    ketqua.append(" - Tuần ").append(i + 1).append(" :\n");
+                    ketqua.append("Số lần giao dịch là: ").append(soLanGiaoDichMoiTuan[i]).append("\n");
+                    ketqua.append("Số tiền đã kiếm được là: ").append(sotien[i]).append("\n");
+                    //  }
                 }
             }
+            return ketqua.toString();
         }
-        if (loaigd.equals("Giao dịch chi")) {
-            for (int i = 0; i < 12; i++) {
-                System.out.println(" - Tháng " + (i + 1) + " :");
-                System.out.println("Số lần giao dịch là: " + soLanGiaoDichMoiThang[i]);
-                System.out.println("Số tiền sử dụng là: " + sotien[i]);
-            }
-        } else {
-            for (int i = 0; i < 12; i++) {
-                System.out.println(" - Tháng " + (i + 1) + " :");
-                System.out.println("Số lần giao dịch là: " + soLanGiaoDichMoiThang[i]);
-                System.out.println("Số tiền đã kiếm được là: " + sotien[i]);
-            }
-        }
-
-
     }
 
-    public void thongkedanhmuctheonam(int sonamganday, DanhMuc danhMuc, String loaigd) { // theo tháng
-        int currentYear = LocalDate.now().getYear();
-        int[] soLanGiaoDichTrongNhungNamGanDay = new int[sonamganday];
-        int[] sotien = new int[sonamganday];
-
-        for (int i = 0; i < sonamganday; i++) {
-            soLanGiaoDichTrongNhungNamGanDay[i] = 0;
-            sotien[i] = 0;
+    public String thongkedanhmuctheothang(int year, DanhMuc danhMuc, String loaigd) { // theo tháng
+        if(loaigd==null){
+            return "Bạn chưa có gd nào về danh mục này";
         }
-        for (GiaoDich gd : getDsgiaodich().getDsGD()) {
-            int yearIndex = sonamganday - (currentYear - gd.getNgayGiaoDich().getnam() - 1);
-            if (gd.getTendanhmuc() == danhMuc) {
-                soLanGiaoDichTrongNhungNamGanDay[yearIndex] += 1;
-                sotien[yearIndex] += gd.getsotien();
-            }
-        }
+        else {
+            StringBuilder ketqua = new StringBuilder();
+            int[] soLanGiaoDichMoiThang = new int[12];
+            int[] sotien = new int[12];
 
-        if (loaigd.equals("Giao dịch chi")) {
-            for (int i = sonamganday - 1; i >= 0; i++) {
-                System.out.println(" -Năm " + (currentYear - i) + " :");
-                System.out.println("Số lần giao dịch là: " + soLanGiaoDichTrongNhungNamGanDay[i]);
-                System.out.println("Số tiền sử dụng là: " + sotien[i]);
-            }
-        } else {
             for (int i = 0; i < 12; i++) {
-                System.out.println(" - Tháng " + (i + 1) + " :");
-                System.out.println("Số lần giao dịch là: " + soLanGiaoDichTrongNhungNamGanDay[i]);
-                System.out.println("Số tiền đã kiếm được là: " + sotien[i]);
+                soLanGiaoDichMoiThang[i] = 0;
+                sotien[i] = 0;
             }
+
+            for (GiaoDich gd : getDsgiaodich().getDsGD()) {
+                if (gd.getNgayGiaoDich().getnam() == year) {
+                    int month = gd.getNgayGiaoDich().getthang() - 1; // Số tháng từ 0 đến 11
+
+                    if (gd.getTendanhmuc() == danhMuc) {
+                        soLanGiaoDichMoiThang[month] += 1;
+                        sotien[month] += gd.getsotien();
+                    }
+                }
+            }
+            if (loaigd.equals("Giao dịch chi")) {
+                for (int i = 0; i < 12; i++) {
+                    ketqua.append(" - Tháng ").append(i + 1).append(" :\n");
+                    ketqua.append("Số lần giao dịch là: ").append(soLanGiaoDichMoiThang[i]).append("\n");
+                    ketqua.append("Số tiền sử dụng là: ").append(sotien[i]).append("\n");
+                }
+            } else {
+                for (int i = 0; i < 12; i++) {
+                    ketqua.append(" - Tháng ").append(i + 1).append(" :\n");
+                    ketqua.append("Số lần giao dịch là: ").append(soLanGiaoDichMoiThang[i]).append("\n");
+                    ketqua.append("Số tiền đã kiếm được là: ").append(sotien[i]).append("\n");
+                }
+            }
+
+            return ketqua.toString();
         }
+    }
 
+    public String thongkedanhmuctheonam(int sonamganday, DanhMuc danhMuc, String loaigd) { // theo tháng
+        if(loaigd==null){
+            return "Bạn chưa có gd nào về danh mục này";
+        }
+        else {
+            StringBuilder ketqua = new StringBuilder();
+            int currentYear = LocalDate.now().getYear();
+            int[] soLanGiaoDichTrongNhungNamGanDay = new int[sonamganday];
+            int[] sotien = new int[sonamganday];
 
+            for (int i = 0; i < sonamganday; i++) {
+                soLanGiaoDichTrongNhungNamGanDay[i] = 0;
+                sotien[i] = 0;
+            }
+            for (GiaoDich gd : getDsgiaodich().getDsGD()) {
+                int yearIndex = sonamganday - (currentYear - gd.getNgayGiaoDich().getnam() - 1);
+                if (gd.getTendanhmuc() == danhMuc) {
+                    soLanGiaoDichTrongNhungNamGanDay[yearIndex] += 1;
+                    sotien[yearIndex] += gd.getsotien();
+                }
+            }
+
+            if (loaigd.equals("Giao dịch chi")) {
+                for (int i = sonamganday - 1; i >= 0; i++) {
+                    ketqua.append(" - Năm ").append(currentYear - i).append(" :\n");
+                    ketqua.append("Số lần giao dịch là: ").append(soLanGiaoDichTrongNhungNamGanDay[i]).append("\n").append("\n");
+                    ketqua.append("Số tiền đã kiếm được là: ").append(sotien[i]).append("\n");
+                }
+            } else {
+                for (int i = 0; i < 12; i++) {
+                    ketqua.append(" - Năm ").append(currentYear - i).append(" :\n");
+                    ketqua.append("Số lần giao dịch là: ").append(soLanGiaoDichTrongNhungNamGanDay[i]).append("\n").append("\n");
+                    ketqua.append("Số tiền đã kiếm được là: ").append(sotien[i]).append("\n");
+                }
+            }
+
+            return ketqua.toString();
+        }
     }
     public abstract void thongke(int month , int year);//thong ke theo tuan
     public abstract void thongke(int year);// thong ke theo thang
@@ -1538,7 +1540,8 @@ public abstract class QuanLyDanhMuc implements Serializable {
                         System.out.println(getdateToDay().toStringdate());
                         menu();
                         break;
-                default:
+                case 11: BaoCaoChiTietTungDanhMuc();
+
                     break;
             }
         } catch (NumberFormatException e) {

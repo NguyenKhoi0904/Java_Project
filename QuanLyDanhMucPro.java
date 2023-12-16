@@ -249,7 +249,7 @@ public class QuanLyDanhMucPro extends QuanLyDanhMuc implements Serializable {
                     }
                 }
                 double sophantramneugiaodich = getGioiHan().phantramsudung(sotien, sotiencuathang);
-                System.out.println("Nếu giao dịch thì vượt quá " + sophantramneugiaodich *100);
+                System.out.println("Nếu giao dịch thì vượt quá " + sophantramneugiaodich *100 +"%");
                 if (sophantramneugiaodich*100 > getGioiHan().getPhanTram()) {
                     System.out.println("Bạn có muốn giao dịch tiếp không ?");
                     System.out.println("1.Có");

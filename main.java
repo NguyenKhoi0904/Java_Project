@@ -72,27 +72,29 @@ private static boolean isInteger(String s){
                     System.out.println("---------------------------------------------------------------------------------------");
                     System.out.println("|   0. Đăng ký                                                                        |");
                     System.out.println("|   1. Đăng Nhập                                                                      |");
-                    System.out.println("|   2. Thoát                                                                          |");
+                    System.out.println("|   2. Quên mật khẩu                                                                  |");
+                    System.out.println("|   3. Thoát                                                                          |");
                     System.out.println("---------------------------------------------------------------------------------------");
                     System.out.print("  - Mời bạn lựa chọn: ");
                     n = Integer.parseInt(scanner.nextLine());
                     switch(n){
                         case 0 -> {
                             a.DangKy();
-                            break;
                         }
                         case 1 -> {
                             u = a.DangNhap();
-                            flag = false;
-                            break;
+                            if(u != null){
+                                flag = false;
+                            }
                         }
                         case 2->{
+                            a.QuenMatKhau();
+                        }
+                        case 3->{
                             return;
                         }
                         default ->{
-
                             System.out.println("Vui lòng nhập lại");
-                            flag=true;
                         }
                     }
                 }while(flag);
@@ -107,7 +109,7 @@ private static boolean isInteger(String s){
             if(u instanceof FreeUser freeUser){
                 System.out.println("\t\tFREE USER");
                 boolean cohieu = true;
-                System.out.println("Số danh mục: " + u.getQldm().getSoDanhMuc());
+                
                 do{ 
                     System.out.println("__________________________________________________________________XIN NHẬP LỰA CHỌN__________________________________________________________");
                     System.out.println("|1.THÊM DANH MỤC                                                                                                                            |");
@@ -140,13 +142,13 @@ private static boolean isInteger(String s){
                             freeUser.xoaDanhMuc();
                         }
                         case 4 -> {
-                            freeUser.getQldm().HienThiDanhMuc();
+                            
                         }
                         case 5 -> {
                             freeUser.tao1GiaoDichMoi();
                         }
                         case 6 -> {
-                            freeUser.getQldm().hienThiLichSuGiaoDich();
+                            
                         }
                         case 7 -> {
                             freeUser.timKiemThongTinGiaoDich();
@@ -184,7 +186,7 @@ private static boolean isInteger(String s){
             else if(u instanceof ProUser proUser){
                 System.out.println("\t\tPRO USER");
                 boolean cohieu = true;
-                System.out.println("Số danh mục: " + u.getQldm().getSoDanhMuc());
+                
                 do{
                     System.out.println("__________________________________________________________________XIN NHẬP LỰA CHỌN__________________________________________________________");
                     System.out.println("|1.THÊM DANH MỤC                                                                                                                            |");
@@ -231,13 +233,13 @@ private static boolean isInteger(String s){
                             proUser.doiTenDanhMuc();
                         }
                         case 4 ->{
-                            proUser.getQldm().HienThiDanhMuc();
+                            
                         }
                         case 5 ->{
                             //pro
                         }
                         case 6 ->{
-                            proUser.getQldm().hienThiLichSuGiaoDich();
+                            
                         }
                         case 7 ->{
                             proUser.timKiemThongTinGiaoDich();

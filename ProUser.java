@@ -15,23 +15,29 @@ import java.util.Scanner;
  * @author aries
  */
 public class ProUser extends User implements Serializable, InterfaceClass.QuanLyGiaoDichDanhMuc_Interface, InterfaceClass.ManageCategory{
-    int gioiHanNganSach;
-   /*  private ArrayList<NganSach>;*/
+    private QuanLyDanhMucPro qldmPro;
 
     public ProUser() {
     }
 
-    public ProUser(int gioiHanNganSach) {
-        this.gioiHanNganSach = gioiHanNganSach;
+    public ProUser(QuanLyDanhMucPro qldmPro) {
+        this.qldmPro = qldmPro;
     }
 
-    public int getGioiHanNganSach() {
-        return gioiHanNganSach;
+    public ProUser(QuanLyDanhMucPro qldmPro, AccountUser TaiKhoanNguoiDung, String loaitaiKhoan, String idUser) {
+        super(TaiKhoanNguoiDung, loaitaiKhoan, idUser);
+        this.qldmPro = qldmPro;
     }
 
-    public void setGioiHanNganSach(int gioiHanNganSach) {
-        this.gioiHanNganSach = gioiHanNganSach;
+    public QuanLyDanhMucPro getQldmPro() {
+        return qldmPro;
     }
+
+    public void setQldmPro(QuanLyDanhMucPro qldmPro) {
+        this.qldmPro = qldmPro;
+    }
+
+    
     
     public void DoiSanhCacKhoanThuCHiTheoThoiGianCuaCacThangOrNam(){
         
@@ -53,37 +59,37 @@ public class ProUser extends User implements Serializable, InterfaceClass.QuanLy
     
     @Override
     public void tao1GiaoDichMoi() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        
     }
 
     @Override
     public void thongkeDanhMucTheoNgayThangNam() {
-        //this.getQldm().
+        
     }
 
     @Override
     public void timKiemThongTinGiaoDich() {
-        this.getQldm().timkiemthongtingiaodich();
+        
     }
 
     @Override
     public void taoDanhMuc() {
-        this.getQldm().ChonDanhMucDeThem();
+        
     }
 
     @Override
     public void doiTenDanhMuc() {
-        this.getQldm().chonDanhMucDeSua();
+        
     }
 
     @Override
     public void xoaDanhMuc() {
-        this.getQldm().ChonDanhMucdexoa();
+       
     }
 
     @Override
     public void BaoCaoChiTietTheoTungDanhMucVaThoiGian() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        
     }
     /* public Boolean LapNganSachVaNhacNho(){// viet them regrex de kiem tra;
         Scanner sc = new Scanner(System.in);

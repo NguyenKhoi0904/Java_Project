@@ -6,10 +6,25 @@ import java.util.Scanner;
 
 public class QuanLyDanhMucFree extends QuanLyDanhMuc implements Serializable {
     private GioiHanGiaoDich solangiaodich;
+    private static final long serialVersionUID = 1L;
     public QuanLyDanhMucFree() {
         super();
+        this.setSoDanhMuc(3);
         solangiaodich=new GioiHanGiaoDich(5,getdateToDay().getthang());
     }
+    
+    public GioiHanGiaoDich getSolanGiaoDich() {
+        return solangiaodich;
+    }
+    
+    public void setSolangiaodich(GioiHanGiaoDich solangiaodich) {
+        this.solangiaodich = solangiaodich;
+    }
+    
+    public void setSolangiaodich(int solan,int Thang) {
+        this.solangiaodich = new GioiHanGiaoDich(solan,Thang);
+    }
+    
     @Override
     public void ChonDanhMucDeThem() { // abstract
         Scanner sc = new Scanner(System.in);
@@ -530,17 +545,7 @@ public class QuanLyDanhMucFree extends QuanLyDanhMuc implements Serializable {
         }
 
     }
-    public GioiHanGiaoDich getSolanGiaoDich() {
-        return solangiaodich;
-    }
-
-
-    public void setSolangiaodich(GioiHanGiaoDich solangiaodich) {
-        this.solangiaodich = solangiaodich;
-    }
-    public void setSolangiaodich(int solan,int Thang) {
-        this.solangiaodich = new GioiHanGiaoDich(solan,Thang);
-    }
+    
     public static void main(String [] args){
 
     }

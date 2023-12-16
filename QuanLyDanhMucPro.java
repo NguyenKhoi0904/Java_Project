@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 public class QuanLyDanhMucPro extends QuanLyDanhMuc implements Serializable {
     private NganSach GioiHanNganSach;
+    private static final long serialVersionUID = 1L;
 
     public NganSach getGioiHan() {
         return GioiHanNganSach;
@@ -21,6 +22,7 @@ public class QuanLyDanhMucPro extends QuanLyDanhMuc implements Serializable {
 
     public QuanLyDanhMucPro() { // tự đăng ký
         super();
+        this.setSoDanhMuc(7);
         GioiHanNganSach=new NganSach();
     }
 

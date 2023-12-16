@@ -48,6 +48,7 @@ public abstract class QuanLyDanhMuc implements Serializable {
         this.dateToDay=new NgayThangNam(LocalDate.now().getDayOfMonth(),LocalDate.now().getMonthValue(),LocalDate.now().getYear());
     }
 
+
     public void ThemDanhMuc(ListDanhMuc danhmuc, String idDanhMuc) {
         Scanner sc = new Scanner(System.in);
         System.out.println("VUI LÒNG NHẬP CÁC THÔNG TIN CÁC DANH MỤC CẦN THÊM");
@@ -1231,12 +1232,12 @@ public abstract class QuanLyDanhMuc implements Serializable {
 
     public void ThongKe() {
         Scanner sc = new Scanner(System.in);
-        System.out.println("--------------------------------------------------------------THỐNG KÊ-----------------------------------------------------------------------*");
-        System.out.println("1.THỐNG KÊ THEO TUẦN                                                                                                                         *");
-        System.out.println("2.THỐNG KÊ THEO THÁNG                                                                                                                        *");
-        System.out.println("3.THỐNG KÊ THEO NĂM                                                                                                                          *");
-        System.out.println("NHẬP MỘT NÚT BẤT KỲ ĐỂ TRỞ LẠI MENU                                                                                                          *");
-        System.out.println("_____________________________________________________________________________________________________________________________________________*");
+        System.out.println("*-------------------------------------------------------------THỐNG KÊ-----------------------------------------------------------------------*");
+        System.out.println("*1.THỐNG KÊ THEO TUẦN                                                                                                                        *");
+        System.out.println("*2.THỐNG KÊ THEO THÁNG                                                                                                                       *");
+        System.out.println("*3.THỐNG KÊ THEO NĂM                                                                                                                         *");
+        System.out.println("*NHẬP MỘT NÚT BẤT KỲ ĐỂ TRỞ LẠI MENU                                                                                                         *");
+        System.out.println("*____________________________________________________________________________________________________________________________________________*");
         int choose;
         Boolean flat = true;// đặt biến cờ hiệu này để nhập hợp lệ , nếu nhập quá giới hạn index hoặc nhập chuỗi thì cờ hiệu vẫn bằng true
         try {
@@ -1316,15 +1317,19 @@ public abstract class QuanLyDanhMuc implements Serializable {
         }
         if (loaigd.equals("Giao dịch chi")) {
             for (int i = 0; i < 4; i++) {
-                System.out.println(" - Tuần " + (i + 1) + " :");
-                System.out.println("Số lần giao dịch là: " + soLanGiaoDichMoiTuan[i]);
-                System.out.println("Số tiền sử dụng là: " + sotien[i]);
+             //   if(soLanGiaoDichMoiTuan[i]>0) {
+                    System.out.println(" - Tuần " + (i + 1) + " :");
+                    System.out.println("Số lần giao dịch là: " + soLanGiaoDichMoiTuan[i]);
+                    System.out.println("Số tiền sử dụng là: " + sotien[i]);
+               // }
             }
         } else {
             for (int i = 0; i < 4; i++) {
-                System.out.println(" - Tuần " + (i + 1) + " :");
-                System.out.println("Số lần giao dịch là: " + soLanGiaoDichMoiTuan[i]);
-                System.out.println("Số tiền đã kiếm được là: " + sotien[i]);
+              //  if(soLanGiaoDichMoiTuan[i]>0) {
+                    System.out.println(" - Tuần " + (i + 1) + " :");
+                    System.out.println("Số lần giao dịch là: " + soLanGiaoDichMoiTuan[i]);
+                    System.out.println("Số tiền đã kiếm được là: " + sotien[i]);
+              //  }
             }
         }
 
@@ -1402,197 +1407,10 @@ public abstract class QuanLyDanhMuc implements Serializable {
 }
 
 
-    public void thongke(int month, int year) {//Thong ke theo tuan
-        int[] danhmucthu = new int[4];
-        int[] danhmucchi = new int[4];
+    public abstract void thongke(int month , int year);//thong ke theo tuan
+    public abstract void thongke(int year);// thong ke theo thang
+    public abstract void thongketheonam(int soNamGanDay);//thong ke theo nam cua pro user
 
-        for (int i = 0; i < 4; i++) {
-            danhmucthu[i] = 0;
-            danhmucchi[i] = 0;
-        }
-
-        for (GiaoDich gd : getDsgiaodich().getDsGD()) {
-            if (gd.getNgayGiaoDich().getthang() == month && gd.getNgayGiaoDich().getnam() == year) {
-                int week = (gd.getNgayGiaoDich().getngay() - 1) / 7; // Xác định tuần
-
-                if (gd.getLoaigiaodich().equals("Giao dịch chi")) {
-                    danhmucchi[week] += gd.getsotien();
-                } else if (gd.getLoaigiaodich().equals("Giao dịch thu")) {
-                    danhmucthu[week] += gd.getsotien();
-                }
-            }
-        }
-
-        for (int i = 0; i < 4; i++) {
-            System.out.println(" - Tuần " + (i + 1) + " :");
-            System.out.println(" +Số tiền chi: " + danhmucchi[i]);
-            System.out.println(" +Số tiền thu được: " + danhmucthu[i]);
-            double total = danhmucchi[i] + danhmucthu[i];
-            double percent = (total != 0) ? danhmucchi[i] * 1.0 / total : 0.0;
-            if(i!=0 && danhmucchi[i]>danhmucchi[i-1]){
-                System.out.println("Sử dụng nhiều hơn tuần trước "+(danhmucchi[i]-danhmucchi[i-1]));
-            }
-            if(i!=0 && danhmucchi[i]<danhmucchi[i-1]){
-                System.out.println("Sử dụng ít hơn tuần trước "+(danhmucchi[i-1]-danhmucchi[i]));
-            }
-
-            System.out.println("---->số tiền chi chiếm " + percent * 100 + "% trên tổng số tiền thu và chi tuần này");
-
-            if (danhmucchi[i] > danhmucthu[i]) {
-                int use = danhmucchi[i] - danhmucthu[i];
-                System.out.println(" Sử dụng nhiều hơn thu nhập " + use);
-            }
-        }
-        double totalchi = TongSoTientrongdanhmuc(danhmucchi);
-        System.out.println("---------------------------------------Ta có dữ liệu thống kê như sau-------------------------------------------");
-        System.out.println("- Ta có biểu đồ từ số tiền đã sử dụng cho mỗi tuần                                                              ");
-        for (int i = 0; i < 4; i++) {
-            System.out.print(" - Tuần " + (i + 1) + " : ");
-            // Kiểm tra nếu totalchi khác 0 để tránh lỗi chia cho 0
-            double percent = (totalchi != 0) ? danhmucchi[i] * 100.0 / totalchi : 0.0;
-            // In số lượng dấu sao tương ứng với phần trăm chiếm
-            for (int x = 0; x < percent; x++) {
-                System.out.print("*");
-            }
-            System.out.print("\n");
-            // In phần trăm chiếm
-            System.out.println(" Chiếm " + percent + " %");
-        }
-        System.out.println("- Tuần chi nhiều nhất là Tuần " + (Nhieunhat(danhmucchi) + 1)+" với số tiền là "+danhmucchi[Nhieunhat(danhmucchi)]);
-
-        for(int i=0;i<danhmucchi.length;i++){
-            if(danhmucchi[i]==danhmucchi[Itnhat(danhmucchi)] && danhmucchi[i]!=danhmucchi[Nhieunhat(danhmucchi)]);
-            System.out.println("|Tuần chi ít nhất là Tuần " + (i + 1)+" với số tiền là "+danhmucchi[Itnhat(danhmucchi)]);
-        }
-
-
-
-
-    }
-
-
-    public void thongke(int year) {//Thong ke theo thang
-        int[] danhmucthu = new int[12];
-        int[] danhmucchi = new int[12];
-
-        for (int i = 0; i < 12; i++) {
-            danhmucthu[i] = 0;
-            danhmucchi[i] = 0;
-        }
-
-        for (GiaoDich gd : getDsgiaodich().getDsGD()) {
-            if (gd.getNgayGiaoDich().getnam() == year) {
-                int i = gd.getNgayGiaoDich().getthang() - 1; // Số tháng từ 0 đến 11
-
-                if (gd.getLoaigiaodich().equals("Giao dịch chi")) {
-                    danhmucchi[i] += gd.getsotien();
-                } else if (gd.getLoaigiaodich().equals("Giao dịch thu")) {
-                    danhmucthu[i] += gd.getsotien();
-                }
-            }
-        }
-        for (int i = 0; i < 12; i++) {
-            System.out.println(" - Tháng " + (i + 1) + " :");
-            System.out.println(" +Số tiền chi: " + danhmucchi[i]);
-            System.out.println(" +Số tiền thu được: " + danhmucthu[i]);
-            if(i!=0 && danhmucchi[i]>danhmucchi[i-1]){
-                System.out.println("Sử dụng nhiều hơn tháng trước "+(danhmucchi[i]-danhmucchi[i-1]));
-            }
-            if(i!=0 && danhmucchi[i]<danhmucchi[i-1]){
-                System.out.println("Sử dụng ít hơn tháng trước "+(danhmucchi[i-1]-danhmucchi[i]));
-            }
-
-            double total = danhmucchi[i] + danhmucthu[i];
-            double percent = (total != 0) ? danhmucchi[i] * 1.0 / total : 0.0;
-            System.out.println(" Danh mục chi chiếm " + percent * 100 + "% trên tổng số tiền thu và chi trong tháng này");
-            if (danhmucchi[i] > danhmucthu[i]) {
-                int use = danhmucchi[i] - danhmucthu[i];
-                System.out.println(" Sử dụng nhiều hơn thu nhập " + use);
-            }
-        }
-        double totalchi = TongSoTientrongdanhmuc(danhmucchi);
-        System.out.println("---------------------------------------Ta có dữ liệu thống kê như sau-------------------------------------------");
-        System.out.println("- Ta có biểu đồ từ số tiền đã sử dụng cho mỗi tháng trong năm "+year+":                                         ");
-        for (int i = 0; i < 12; i++) {
-            System.out.print(" - Tháng " + (i + 1) + " : ");
-            // Kiểm tra nếu totalchi khác 0 để tránh lỗi chia cho 0
-            double percent = (totalchi != 0) ? danhmucchi[i] * 100.0 / totalchi : 0.0;
-            // In số lượng dấu sao tương ứng với phần trăm chiếm
-            for (int x = 0; x < percent; x++) {
-                System.out.print("*");
-            }
-            System.out.print("\n");
-            // In phần trăm chiếm
-            System.out.println(" Chiếm " + percent + " %");
-        }
-        System.out.println(" Dữ liệu trong năm "+year +" :");
-        System.out.println("|Tháng chi nhiều nhất là Tháng " + (Nhieunhat(danhmucchi) + 1)+" với số tiền là "+danhmucchi[Nhieunhat(danhmucchi)]);
-        for(int i=0;i<danhmucchi.length;i++){
-            if(danhmucchi[i]==danhmucchi[Itnhat(danhmucchi)]);
-            System.out.println("|Tháng chi ít nhất là Tháng " + (i + 1)+" với số tiền là "+danhmucchi[Itnhat(danhmucchi)]);
-        }
-    }
-    public void thongketheonam(int soNamGanDay){
-        int[] danhmucthu = new int[soNamGanDay];
-        int[] danhmucchi = new int[soNamGanDay];
-        for (int i = 0; i < soNamGanDay; i++) {
-            danhmucthu[i] = 0;
-            danhmucchi[i] = 0;
-        }
-        int currentYear = LocalDate.now().getYear();
-        for (GiaoDich gd : getDsgiaodich().getDsGD()) {
-            int transactionYear = gd.getNgayGiaoDich().getnam();
-            int yearIndex = soNamGanDay - (currentYear - transactionYear) - 1;
-            if (yearIndex >= 0 && yearIndex < soNamGanDay) {
-                if (gd.getLoaigiaodich().equals("Giao dịch chi")) {
-                    danhmucchi[yearIndex] += gd.getsotien();
-                } else if (gd.getLoaigiaodich().equals("Giao dịch thu")) {
-                    danhmucthu[yearIndex] += gd.getsotien();
-                }
-            }
-        }
-        for (int i = soNamGanDay-1; i >=0; i--) {
-            System.out.println(" - Năm " + (currentYear -  i) + " :");
-            System.out.println(" +Số tiền chi: " + danhmucchi[i]);
-            System.out.println(" +Số tiền thu được: " + danhmucthu[i]);
-            if(i!=0 && danhmucchi[i]>danhmucchi[i-1]){
-                System.out.println("Sử dụng nhiều hơn năm trước "+(danhmucchi[i]-danhmucchi[i-1]));
-            }
-            if(i!=0 && danhmucchi[i]<danhmucchi[i-1]){
-                System.out.println("Sử dụng ít hơn năm trước "+(danhmucchi[i-1]-danhmucchi[i]));
-            }
-            double total = danhmucchi[i] + danhmucthu[i];
-            double percent = (total != 0) ? danhmucchi[i] * 1.0 / total : 0.0;
-            System.out.println(" Danh mục chi chiếm " + percent * 100 + "%");
-            if (danhmucchi[i] > danhmucthu[i]) {
-                int use = danhmucchi[i] - danhmucthu[i];
-                System.out.println(" Sử dụng nhiều hơn thu nhập " + use);
-            }
-        }
-        double totalchi = TongSoTientrongdanhmuc(danhmucchi);
-        System.out.println("---------------------------------------Ta có dữ liệu thống kê như sau-------------------------------------------");
-        System.out.println("- Ta có biểu đồ từ số tiền đã sử dụng trong "+soNamGanDay+" gần đây :                                           ");
-        for (int i = soNamGanDay-1; i >=0; i--) {
-            System.out.print(" - Năm " + (i + 1) + " : ");
-            // Kiểm tra nếu totalchi khác 0 để tránh lỗi chia cho 0
-            double percent = (totalchi != 0) ? danhmucchi[i] * 100.0 / totalchi : 0.0;
-            // In số lượng dấu sao tương ứng với phần trăm chiếm
-            for (int x = 0; x < percent; x++) {
-                System.out.print("*");
-            }
-            System.out.print("\n");
-            // In phần trăm chiếm
-            System.out.println(" Chiếm " + percent + " %");
-        }
-        System.out.println(" Dữ liệu từ "+soNamGanDay+" gần đây nhất ");
-        System.out.println("-Năm chi nhiều nhất trong những năm gần đây là " + (Nhieunhat(danhmucchi) + 1)+" với số tiền là "+danhmucchi[Nhieunhat(danhmucchi)]);
-
-        for(int i=0;i<danhmucchi.length;i++){
-            if(danhmucchi[i]==danhmucchi[Itnhat(danhmucchi)]);
-            System.out.println("|Năm sử dụng ít nhất là năm " + (i + 1)+" với số tiền là "+danhmucchi[Itnhat(danhmucchi)]);
-        }
-
-    }
     public double TongSoTientrongdanhmuc(int [] array){
         int sum=0;
         for(int i=0;i<array.length;i++){
@@ -1647,5 +1465,8 @@ public abstract class QuanLyDanhMuc implements Serializable {
     }
 
 
-
+    public static void main(String []args){
+        QuanLyDanhMuc qldm = new QuanLyDanhMucFree();
+        qldm.ThongKe();
+    }
 }

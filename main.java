@@ -258,7 +258,7 @@ private static boolean isInteger(String s){
                         case 12 ->{
                             
                         }
-                        default ->{
+                        case 13 ->{
                             dsUser = main.UserData();
                             int index = 0;
                             for(User user: dsUser){
@@ -270,6 +270,10 @@ private static boolean isInteger(String s){
                             dsUser.set(index, u);
                             main.CapNhatUserDateFile(dsUser);
                             cohieu = false;
+                        }
+                        default ->{
+                            System.out.println("Không có chức năng này");
+                            System.out.println("Vui lòng nhập lại");
                         }
                     }
                 }while(cohieu);

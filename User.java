@@ -16,6 +16,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.util.Random;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -203,11 +205,16 @@ public class User implements Serializable {
 //            input_User.close();
     }
 
-    private ArrayList<User> docUserData(){
+    private ArrayList<User> docUserData() throws ClassNotFoundException, FileNotFoundException{
         ArrayList<User> a = new ArrayList<>();
-        try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream("userData.txt"))) {
-            a = (ArrayList<User>)ois.readObject();
-        } catch (Exception e) {
+        try(FileInputStream fis = new FileInputStream("userData.txt");
+            ObjectInputStream ois = new ObjectInputStream(fis)) {
+            if(fis.available() > 0){
+                a = (ArrayList<User>) ois.readObject();
+            }
+        } catch (EOFException e) {
+            e.printStackTrace();
+        } catch (IOException e){
             e.printStackTrace();
         }
         return a;
@@ -227,41 +234,103 @@ public class User implements Serializable {
     }
 
     public void DangKy() throws FileNotFoundException, ClassNotFoundException {
+        System.out.println("*** Dang ky tai khoan ***");
         Scanner input_User = new Scanner(System.in);
         boolean isAccountExist = false;
-        boolean flag = true;
-        AccountUser a = new AccountUser();
-        a.setInfor_AccountUser();
-            ArrayList<AccountUser> arrayListAU = readAccountUserDataFromFileAndCheck();
-            if(!arrayListAU.isEmpty()){
-                for(AccountUser tmp: arrayListAU){
-                    if(tmp.getTendangnhap().equals(a.getTendangnhap())){        
-                        System.out.println("- Tài khoản đã tồn tại");
-                        isAccountExist = true;
-                        break;
-                    }
-                }
-                if(isAccountExist){
-                    do{
-                        System.out.print("- Mời bạn nhập lại tài khoản: ");
-                        a.setTendangnhap(input_User.nextLine());
-                        for(AccountUser temporary : arrayListAU){
-                            System.out.println(temporary.getTendangnhap());
-                            if(temporary.getTendangnhap().equals(a.getTendangnhap())){
-                                System.out.println("- Tài khoản đã tồn tại");
-                                flag = true;
-                                break;
-                            }else{
-                                flag = false;
-                            }
-                        }
-                        if(!flag){
-                            System.out.println("- Tài khoản hợp lệ");
-                            break;
-                        }
-                    }while(true);
+        boolean isEmailExist = false;
+        
+        ArrayList<User> user_array = docUserData();
+        String taikhoan = null, matkhau = null,email = null;
+        if(!user_array.isEmpty()){
+            //XỬ LÝ TÀI KHOẢN
+            System.out.print("- Tài khoản: ");
+            taikhoan = input_User.nextLine(); //ĐOẠN CODE TỪ DÒNG 246 ĐẾN 281 CHỈ ĐỂ XỬ LÝ TÀI KHOẢN
+            while(!isAccountRegexValid(taikhoan)){
+                System.out.println("Tài khoản phải có ít nhất 6 kí tự và không được có kí tự đặc biệt");
+                System.out.print("Mời bạn nhập lại tài khoản: ");
+                taikhoan = input_User.nextLine();
+            }
+            for(User user: user_array){
+                if(user.getTaiKhoanNguoiDung().getTendangnhap().equals(taikhoan)){
+                    System.out.println("---Tài khoản đã tồn tại");
+                    isAccountExist = true;
+                    break;
                 }
             }
+            if(isAccountExist){
+                boolean flag = true;
+                do{
+                    System.out.print("Mời bạn nhập lại tài khoản: ");
+                    taikhoan = input_User.nextLine();
+                    while(!isAccountRegexValid(taikhoan)){
+                        System.out.println("Tài khoản phải có ít nhất 6 kí tự và không được có kí tự đặc biệt");
+                        System.out.print("Mời bạn nhập lại tài khoản: ");
+                        taikhoan = input_User.nextLine();
+                    }
+                    for(User user : user_array){
+                        if(user.getTaiKhoanNguoiDung().getTendangnhap().equals(taikhoan)){
+                            System.out.println("---Tài khoản đã tồn tại");
+                            flag = true;
+                            break;
+                        }else{
+                            flag = false;
+                        }
+                    }
+                    if(!flag){
+                        System.out.println("Tài khoản hợp lệ");
+                    }
+                }while(true);
+            }
+            //XỬ LÝ MẬT KHẨU
+            System.out.print("Mật khẩu: ");
+            matkhau = input_User.nextLine();
+            while(!isPasswordRegexValid(matkhau)){
+                System.out.println("Mật khẩu phải có ít nhất 6 kí tự và không được có khoảng trắng");
+                System.out.print("Mời bạn nhập lại mật khẩu");
+                matkhau = input_User.nextLine();
+            }
+            
+            //XỬ LÝ EMAIL
+            System.out.println("Email: ");
+            email = input_User.nextLine();
+            while(!isGmailAddressRegexValid(email)){
+                System.out.println("Đây không phải là email hợp lệ");
+                System.out.print("Mời bạn nhập lại email: ");
+                email = input_User.nextLine();
+            }
+            for(User user: user_array){
+                if(user.getTaiKhoanNguoiDung().getEmail().equals(email)){
+                    System.out.println("Email đã tồn tại");
+                    isEmailExist = true;
+                    break;
+                }
+            }
+            if(isEmailExist){
+                boolean flag = true;
+                do{
+                    System.out.print("Mời bạn nhập lại email: ");
+                    email = input_User.nextLine();
+                    while(!isGmailAddressRegexValid(email)){
+                        System.out.println("Đây không phải là email hợp lệ");
+                        System.out.print("Mời bạn nhập lại email: ");
+                        email = input_User.nextLine();
+                    }
+                    for(User user : user_array){
+                        if(user.getTaiKhoanNguoiDung().getEmail().equals(email)){
+                            System.out.println("Email đã tồn tại");
+                            flag = true;
+                            break;
+                        }else{
+                            flag = false;
+                        }
+                    }
+                    if(!flag){
+                        System.out.println("Email hợp lệ");
+                    }
+                }while(flag);
+            }
+        }
+        AccountUser a = new AccountUser(taikhoan,matkhau,email);
         this.setTaiKhoanNguoiDung(a);
         
         System.out.println("^___^___^___^___^___^___^___^___^___^___^___^___^___^___^___^___^___^___^___^___^___^");
@@ -344,6 +413,34 @@ public class User implements Serializable {
                 }
             }
         }
+    }
+    
+    private boolean isAccountValid(String account){
+        return account.length() > 6;
+    }
+    
+    private boolean  isAccountRegexValid(String account){
+        String regex = "^[a-zA-Z0-9 \\p{L}]{6,}$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(account);
+        return matcher.matches();
+    }
+    
+    private boolean isPasswordValid(String password){
+        return password.length() > 6;
+    }
+    
+    private boolean isPasswordRegexValid(String password){
+        String regex = "^[^\\s]{6,}$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(password);
+        return matcher.matches();
+    }
+    private boolean isGmailAddressRegexValid(String gmail){
+        String regex = "^[a-zA-Z0-9]+@gmail\\.com$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(gmail);
+        return matcher.matches();
     }
     
     private void CopyGiaTri(User sourceUser){

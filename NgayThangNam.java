@@ -47,4 +47,5 @@ public class NgayThangNam implements Serializable{
         return this.getngay()+"-"+this.getthang()+"-"+this.getnam();
     }
 
+
 }

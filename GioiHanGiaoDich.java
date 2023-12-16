@@ -31,10 +31,9 @@ public class GioiHanGiaoDich implements Serializable{
 
     }
     public void kiemTraThayDoiThang(int thangmoi){// Dùng để tạo gd cho free user
-        int Thang=thangmoi;
-        if(getThang()!=Thang){
-            this.setThang(Thang);
-            solangiaodich=50;
+        if(getThang()!=thangmoi){
+            this.setThang(thangmoi);
+            this.setSolangiaodich(50);
         }
     }
 

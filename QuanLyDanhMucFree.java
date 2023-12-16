@@ -6,25 +6,10 @@ import java.util.Scanner;
 
 public class QuanLyDanhMucFree extends QuanLyDanhMuc implements Serializable {
     private GioiHanGiaoDich solangiaodich;
-    private static final long serialVersionUID = 1L;
     public QuanLyDanhMucFree() {
         super();
-        this.setSoDanhMuc(3);
         solangiaodich=new GioiHanGiaoDich(5,getdateToDay().getthang());
     }
-    
-    public GioiHanGiaoDich getSolanGiaoDich() {
-        return solangiaodich;
-    }
-    
-    public void setSolangiaodich(GioiHanGiaoDich solangiaodich) {
-        this.solangiaodich = solangiaodich;
-    }
-    
-    public void setSolangiaodich(int solan,int Thang) {
-        this.solangiaodich = new GioiHanGiaoDich(solan,Thang);
-    }
-    
     @Override
     public void ChonDanhMucDeThem() { // abstract
         Scanner sc = new Scanner(System.in);
@@ -82,8 +67,11 @@ public class QuanLyDanhMucFree extends QuanLyDanhMuc implements Serializable {
                     }
 
                 }
+                else{
+                    menu();
+                }
             } catch (NumberFormatException e) {
-                //KHÔNG CẦN XỬ LÝ GÌ Ở CHỖ NÀY
+                menu();
             }
         }
 
@@ -101,7 +89,7 @@ public class QuanLyDanhMucFree extends QuanLyDanhMuc implements Serializable {
     }
 @Override
     public void chonloaigiaodich() {
-        setDateToDay(new NgayThangNam(LocalDate.now().getDayOfMonth(),LocalDate.now().getMonthValue(),LocalDate.now().getYear()));
+        setDateToDay(new NgayThangNam(getdateToDay().getngay(), getdateToDay().getthang(),getdateToDay().getnam()));
         Scanner sc = new Scanner(System.in);
         TuDongTaoGiaoDichMoiThang();
         int soluonggiaodich = this.getSolanGiaoDich().getsolangiaodich();
@@ -130,7 +118,7 @@ public class QuanLyDanhMucFree extends QuanLyDanhMuc implements Serializable {
                             chonloaigiaodich();
                         }
                     } catch (NumberFormatException e) {
-                        //KHÔNG CẦN XỬ LÝ Ở ĐÂY
+                       menu();
                     }
                 } else if (type == 2) {
                     giaodich(getDanhMucThu(), 2);
@@ -219,10 +207,10 @@ public class QuanLyDanhMucFree extends QuanLyDanhMuc implements Serializable {
                     year = Integer.parseInt(nam);
                     date = new NgayThangNam(day, month, year);
                 } else {
-                    return;
+                    menu();
                 }
             } catch (NumberFormatException e) {
-                return;
+                menu();
             }
             System.out.println("Nhập nội dung giao dịch");
             String noidung = sc.nextLine();
@@ -303,11 +291,11 @@ public class QuanLyDanhMucFree extends QuanLyDanhMuc implements Serializable {
                     System.out.println("Đã thêm vào danh mục " + DanhMucCanGiaoDich.gettendanhmuc());
                     System.out.println("Giao dịch thành công");
                     this.getSolanGiaoDich().setSolangiaodich(this.getSolanGiaoDich().getsolangiaodich() - 1);
-                    return;
+                    menu();
                 }
             } else {
                 System.out.println("Danh mục bạn chọn đang rỗng!!!!!( không tồn tại danh mục cấp 1 )");
-                return;
+                menu();
             }
         }
 
@@ -545,8 +533,18 @@ public class QuanLyDanhMucFree extends QuanLyDanhMuc implements Serializable {
         }
 
     }
-    
-    public static void main(String [] args){
-
+    public GioiHanGiaoDich getSolanGiaoDich() {
+        return solangiaodich;
     }
+
+
+    public void setSolangiaodich(GioiHanGiaoDich solangiaodich) {
+        this.solangiaodich = solangiaodich;
+    }
+    public void setSolangiaodich(int solan,int Thang) {
+        this.solangiaodich = new GioiHanGiaoDich(solan,Thang);
+    }
+
+
+
 }

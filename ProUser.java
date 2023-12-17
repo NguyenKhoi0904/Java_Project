@@ -16,7 +16,7 @@ import java.util.Scanner;
  */
 public class ProUser extends User implements Serializable, InterfaceClass.ManageCategory, InterfaceClass.QuanLyGiaoDichDanhMuc_Interface{
     private QuanLyDanhMucPro qldmPro;
-
+    private static final long serialVersionUID = 5097443858675516833L;
     public ProUser() {
     }
 

@@ -21,7 +21,7 @@ import java.util.Scanner;
  */
 public class FreeUser extends User implements Serializable, InterfaceClass.QuanLyGiaoDichDanhMuc_Interface, InterfaceClass.ManageCategory{
     private QuanLyDanhMucFree qldmFree;
-
+    private static final long serialVersionUID = 1L;
     public FreeUser() {
     }
 

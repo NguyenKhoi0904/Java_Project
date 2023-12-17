@@ -64,44 +64,76 @@ public class User implements Serializable {
     
     public void QuenMatKhau() throws ClassNotFoundException, FileNotFoundException{
         Scanner input_User = new Scanner(System.in);
-        ArrayList<User> user_array = docUserData();
-        System.out.println("Mời bạn nhập email để xác định tài khoản");
-        System.out.println("Email: ");
-        String email = input_User.nextLine();
-        while(!isGmailAddressRegexValid(email)){
-            System.out.println("Đây không phải là email hợp lệ");
-            System.out.print("Mời bạn nhập lại email: ");
-            email = input_User.nextLine();
-        }
-        int index = 0;
         boolean flag = false;
         User tmp = new User();
-        for(User user: user_array){
-            if(user.getTaiKhoanNguoiDung().getEmail().equals(email)){
-                flag = true;
-                tmp = user;
-                break;
+        ArrayList<User> user_array = docUserData();
+        do{
+            System.out.println("Mời bạn nhập email để xác định tài khoản");
+            System.out.println("Email: ");
+            String email = input_User.nextLine();
+            while(!isGmailAddressRegexValid(email)){
+                System.out.println("Đây không phải là email hợp lệ");
+                System.out.print("Mời bạn nhập lại email: ");
+                email = input_User.nextLine();
             }
-            index++;
+            int index = 0;
+            for(User user: user_array){
+                if(user.getTaiKhoanNguoiDung().getEmail().equals(email)){
+                    flag = true;
+                    tmp = user;
+                    break;
+                }
+                index++;
+            }
+            if(flag){
+                String verificationCode = generateVerificationCode();
+                System.out.println("Mã xác minh: " + verificationCode);
+                System.out.print("Bạn hãy nhập lại mã xác minh: ");
+                String inputVerificationCode = input_User.nextLine();
+                while(!isVerificationCodeValid(verificationCode, inputVerificationCode)){
+                    System.out.println("Bạn nhập sai mã xác minh");
+                    System.out.print("Mời bạn nhập lại mã xác minh: ");
+                    inputVerificationCode = input_User.nextLine();
+                }
+                System.out.print("Mời bạn nhập mật khẩu mới: ");
+                String newPassword = input_User.nextLine();
+                while(!isPasswordRegexValid(newPassword)){
+                    System.out.println("Mật khẩu phải có ít nhất 6 kí tự và không được có khoảng trắng");
+                    System.out.print("Mời bạn nhập lại mật khẩu");
+                    newPassword = input_User.nextLine();
+                }
+                if(tmp instanceof FreeUser fu){
+                    fu.getTaiKhoanNguoiDung().setMatkhau(newPassword);
+                    user_array.set(index, fu);
+                    if(ghiArrayListUserLenFile(user_array)){
+                        System.out.println("Cập nhật mật khẩu mới thành công");
+                    }else{
+                        System.out.println("Cập nhật mật khẩu mới thành công");
+                    }
+                }else if(tmp instanceof ProUser pu){
+                    pu.getTaiKhoanNguoiDung().setMatkhau(newPassword);
+                    user_array.set(index, pu);
+                    if(ghiArrayListUserLenFile(user_array)){
+                        System.out.println("Cập nhật mật khẩu mới thành công");
+                    }else{
+                        System.out.println("Cập nhật mật khẩu mới thành công");
+                    }
+                }
+            }else{
+                System.out.println("Email chưa được đăng ký");
+                System.out.println("Vui lòng nhập lại email");
+            }
+        }while(!flag);
+    }
+    
+    private boolean ghiArrayListUserLenFile(ArrayList<User> a){
+        try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("userData.txt"))){
+            oos.writeObject(a);
+            return true;
+        }catch(Exception e){
+            e.printStackTrace();
         }
-        if(flag){
-            String verificationCode = generateVerificationCode();
-            System.out.println("Mã xác minh: " + verificationCode);
-            System.out.print("Bạn hãy nhập lại mã xác minh: ");
-            String inputVerificationCode = input_User.nextLine();
-            while(!isVerificationCodeValid(verificationCode, inputVerificationCode)){
-                System.out.println("Bạn nhập sai mã xác minh");
-                System.out.print("Mời bạn nhập lại mã xác minh: ");
-                inputVerificationCode = input_User.nextLine();
-            }
-            System.out.print("Mời bạn nhập mật khẩu mới: ");
-            String newPassword = input_User.nextLine();
-            while(!isPasswordRegexValid(newPassword)){
-                System.out.println("Mật khẩu phải có ít nhất 6 kí tự và không được có khoảng trắng");
-                System.out.print("Mời bạn nhập lại mật khẩu");
-                newPassword = input_User.nextLine();
-            }
-        }
+        return false;
     }
     
     private boolean isVerificationCodeValid(String s, String string){
@@ -187,6 +219,7 @@ public class User implements Serializable {
             System.out.println("FILE TRỐNG");
             //e.printStackTrace();
         } catch (IOException e){
+            System.out.println("Lỗi ở đây");
             e.printStackTrace();
         }
         return a;

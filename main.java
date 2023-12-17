@@ -70,6 +70,7 @@ private static boolean isInteger(String s){
         do{
             try{
                 do{
+                    flag = true;
                     System.out.println("---------------------------------------------------------------------------------------");
                     System.out.println("|   0. Đăng ký                                                                        |");
                     System.out.println("|   1. Đăng Nhập                                                                      |");
@@ -104,7 +105,6 @@ private static boolean isInteger(String s){
             }
             catch(NumberFormatException e){
                 System.out.println("vui lòng nhập lại!");
-                flag=true;
             }
 //            System.out.println("System.in đã đóng chưa? " + System.in.markSupported());
             if(u instanceof FreeUser freeUser){
@@ -212,9 +212,7 @@ private static boolean isInteger(String s){
                     System.out.println("|-------------------------------------------------------------------------------------------------------------------------------------------|");
                     System.out.println("|11.LẬP NGÂN SÁCH VÀ NHẮC NHỞ                                                                                                               |");
                     System.out.println("|-------------------------------------------------------------------------------------------------------------------------------------------|");
-                    System.out.println("|12.CHỨC NĂNG LẬP NGÂN SÁCH VÀ NHẮC NHỞ                                                                                                     |");
-                    System.out.println("|-------------------------------------------------------------------------------------------------------------------------------------------|");
-                    System.out.println("|13.ĐĂNG XUẤT                                                                                                                               |");
+                    System.out.println("|12.ĐĂNG XUẤT                                                                                                                               |");
                     System.out.println("|-------------------------------------------------------------------------------------------------------------------------------------------|");
                     System.out.print(" -Mời bạn lựa chọn: ");
                     String s = scanner.nextLine();

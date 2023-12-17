@@ -133,7 +133,6 @@ public abstract class QuanLyDanhMuc implements Serializable {
                         } catch (NumberFormatException e) {
                             System.out.println("Bạn đã nhập không hợp lệ. Vui lòng nhập số.");
                             flat = true;
-
                         }
                     }
                     break;
@@ -516,12 +515,12 @@ public abstract class QuanLyDanhMuc implements Serializable {
                                                 name2 = sc.nextLine();
                                             }
                                             dsdanhmuc.EditDanhMucCon(name1, name2);
-                                            System.out.println("Sửa danh tên danh mục thành công");
-                                            sc.nextLine();
-                                            System.out.println("Nhấn 1 phím bất kỳ để trở về menu");
-                                            return;
+//                                            System.out.println("Sửa danh tên danh mục thành công");
+//                                            System.out.println("Nhấn 1 phím bất kỳ để trở về menu");
+//                                            sc.nextLine();
+//                                            return;
                                         }
-                                        //break;
+                                        break;
                                     case 2:
                                         sodanhmuc = 1;
                                         for (DanhMuc list : dsdanhmuc.getDsDanhMuc()) {
@@ -594,11 +593,11 @@ public abstract class QuanLyDanhMuc implements Serializable {
                                             dsdanhmuc.changeMoneyDanhMuc(name1, sotien);
                                             dsdanhmuc.setTongsotien();
                                             System.out.println("Sửa số tiền thành công");
-                                            System.out.println("Nhấn 1 phím bất kỳ để trở về menu");
-                                            sc.nextLine();
-                                            return;
+//                                            System.out.println("Nhấn 1 phím bất kỳ để trở về menu");
+//                                            sc.nextLine();
+//                                            return;
                                         }
-
+                                        break;
                                     default:
                                         return;
                                 }
@@ -1017,11 +1016,11 @@ public abstract class QuanLyDanhMuc implements Serializable {
         StringBuilder report = new StringBuilder("\t\tBÁO CÁO CHI TIẾT THEO DANH MỤC\n");
         report.append("\tI.Mục đích và tầm quan trọng\n");
         report.append("\t- Chức năng Chức năng \"Xem Báo Cáo chi tiết theo từng danh mục và thời gian\" là một phần quan trọng trong hệ thống quản lý tài chính cá nhân.\n");
-        report.append("\tNó giúp người dùng:\n");
+        report.append("\t-Nó giúp người dùng:\n");
         report.append("\t.Theo dõi Chi Tiêu: Hiểu rõ hơn về cách họ tiêu tiền theo từng danh mục và trong khoảng thời gian cụ thể\n");
         report.append("\t.Quản Lý Ngân Sách: Đặt ngân sách cho từng danh mục và theo dõi xem họ đã tuân thủ ngân sách hay chưa\n");
         report.append("\tII.Lựa Chọn Danh Mục và Thời Gian\n");
-        report.append("\tChọn danh mục: ");
+        report.append("\t-Chọn danh mục: ");
         System.out.println(report.toString());
         Scanner sc = new Scanner(System.in);
         System.out.println("Bạn muốn xem báo cáo chi tiết theo loại danh mục nào ");
@@ -1037,6 +1036,7 @@ public abstract class QuanLyDanhMuc implements Serializable {
         if (luachon == 1) {// Hien thi theo ten danh muc chi
             String name = null;
             DanhMuc DanhMucCanXem = null;
+            report.append("\tLoại danh mục: Chi\n");
             int i = 1;
             for (DanhMuc danhmuc : this.getDanhMucChi().getDsDanhMuc()) {
                 System.out.println("Nhóm " + i + ": " + danhmuc.gettendanhmuc());
@@ -1156,6 +1156,7 @@ public abstract class QuanLyDanhMuc implements Serializable {
             { //hiển thị theo danh mục thu
                 String name = null;
                 DanhMuc DanhMucCanXem = null;
+                report.append("\tLoại danh mục: Thu\n");
                 int i = 1;
                 for (DanhMuc danhmuc : this.getDanhMucThu().getDsDanhMuc()) {
                     System.out.println("Nhóm " + i + ": " + danhmuc.gettendanhmuc());
@@ -1272,7 +1273,7 @@ public abstract class QuanLyDanhMuc implements Serializable {
             }
         }
         System.out.println(ketqua);
-        return ketqua;
+        return report.toString();
     }
 
     public void ThongKe() {
@@ -1436,11 +1437,11 @@ public abstract class QuanLyDanhMuc implements Serializable {
     }
 
     public String thongkedanhmuctheonam(int sonamganday, DanhMuc danhMuc, String loaigd) { // theo tháng
+        StringBuilder ketqua = new StringBuilder();
         if(loaigd==null){
             return "Bạn chưa có gd nào về danh mục này";
         }
         else {
-            StringBuilder ketqua = new StringBuilder();
             int currentYear = getdateToDay().getnam();
             int[] soLanGiaoDichTrongNhungNamGanDay = new int[sonamganday];
             int[] sotien = new int[sonamganday];

@@ -463,6 +463,7 @@ public abstract class QuanLyDanhMuc implements Serializable {
                                             int x = 1;
                                             for (DanhMuc danhmuccap2 : list.getdanhsachdanhmuccon()) {
                                             System.out.println("      "+sodanhmuc+"."+x + ": " + danhmuccap2.gettendanhmuc());
+                                            x++;
                                             }
                                             sodanhmuc++;
                                         }
@@ -999,11 +1000,19 @@ public abstract class QuanLyDanhMuc implements Serializable {
 
     public String BaoCaoChiTietTungDanhMuc() {// abstract
         String ketqua=null;
+        StringBuilder report = new StringBuilder("\t\tBÁO CÁO CHI TIẾT THEO DANH MỤC\n");
+        report.append("\tI.Mục đích và tầm quan trọng\n");
+        report.append("\t- Chức năng Chức năng \"Xem Báo Cáo chi tiết theo từng danh mục và thời gian\" là một phần quan trọng trong hệ thống quản lý tài chính cá nhân.\n");
+        report.append("\tNó giúp người dùng:\n");
+        report.append("\t.Theo dõi Chi Tiêu: Hiểu rõ hơn về cách họ tiêu tiền theo từng danh mục và trong khoảng thời gian cụ thể\n");
+        report.append("\t.Quản Lý Ngân Sách: Đặt ngân sách cho từng danh mục và theo dõi xem họ đã tuân thủ ngân sách hay chưa\n");
+        report.append("\tII.Lựa Chọn Danh Mục và Thời Gian\n");
+        report.append("\tChọn danh mục: ");
+        System.out.println(report.toString());
         Scanner sc = new Scanner(System.in);
         System.out.println("Bạn muốn xem báo cáo chi tiết theo loại danh mục nào ");
         System.out.println("1.Chi ");
         System.out.println("2.Thu");
-        System.out.println("3.Thoát");
         //Loai danh muc
         String kiemtra = sc.nextLine();
         while (!isInteger(kiemtra) || Integer.parseInt(kiemtra) < 1 || Integer.parseInt(kiemtra) > 2) {
@@ -1025,10 +1034,11 @@ public abstract class QuanLyDanhMuc implements Serializable {
                 }
                 i++;
             }
-            System.out.println("Vui lòng chọn nhóm :");
+            System.out.println("Vui lòng chọn nhóm(Nhập chữ để thoát) :");
             Boolean flat = true;
             while (flat) {
                 try {
+
                     int chonnhom = Integer.parseInt(sc.nextLine());
                     DanhMuc DanhMucCap1 = this.getDanhMucChi().getDsDanhMuc().get(chonnhom - 1);
                     if (DanhMucCap1.getdanhsachdanhmuccon().size() > 0) { //Kiểm tra kích thước của danh mục
@@ -1063,12 +1073,14 @@ public abstract class QuanLyDanhMuc implements Serializable {
                                     System.out.println("Vui lòng nhập năm");
                                     String test = sc.nextLine();
                                     while (!Kiemtranamhople(test)) {
+                                        System.out.println("Hãy nhập lại");
                                         test = sc.nextLine();
                                     }
                                     int Year = Integer.parseInt(test);
                                     System.out.println("vui lòng nhập tháng");
                                     test = sc.nextLine();
                                     while (!Kiemtrathanghople(test)) {
+                                        System.out.println("Hãy nhập lại ");
                                         test = sc.nextLine();
                                     }
                                     int Month = Integer.parseInt(test);
@@ -1082,6 +1094,7 @@ public abstract class QuanLyDanhMuc implements Serializable {
                                     System.out.println("Vui lòng nhập năm");
                                     String test = sc.nextLine();
                                     while (!Kiemtranamhople(test)) {
+                                        System.out.println("Hãy nhập lại ");
                                         test = sc.nextLine();
                                     }
                                     int Year = Integer.parseInt(test);
@@ -1120,7 +1133,7 @@ public abstract class QuanLyDanhMuc implements Serializable {
                     System.out.println("Nhập số nếu tiếp tục ,Hãy nhập chữ để về menu");
                     flat = true;
                 } catch (NumberFormatException e) {
-                    return null;
+                    flat=false;
                 }
             }
         } else if (luachon == 2) {
@@ -1128,7 +1141,7 @@ public abstract class QuanLyDanhMuc implements Serializable {
                 String name = null;
                 DanhMuc DanhMucCanXem = null;
                 int i = 1;
-                for (DanhMuc danhmuc : this.getDanhMucChi().getDsDanhMuc()) {
+                for (DanhMuc danhmuc : this.getDanhMucThu().getDsDanhMuc()) {
                     System.out.println("Nhóm " + i + ": " + danhmuc.gettendanhmuc());
                     int x = 1;
                     for (DanhMuc danhmuccon : danhmuc.getdanhsachdanhmuccon()) {
@@ -1138,12 +1151,13 @@ public abstract class QuanLyDanhMuc implements Serializable {
                     }
                     i++;
                 }
-                System.out.println("Vui lòng chọn nhóm :");
+                System.out.println("Vui lòng chọn nhóm(Nhập chữ để thoát) :");
                 Boolean flat = true;
                 while (flat) {
                     try {
+
                         int chonnhom = Integer.parseInt(sc.nextLine());
-                        DanhMuc DanhMucCap1 = this.getDanhMucChi().getDsDanhMuc().get(chonnhom - 1);
+                        DanhMuc DanhMucCap1 = this.getDanhMucThu().getDsDanhMuc().get(chonnhom - 1);
                         if (DanhMucCap1.getdanhsachdanhmuccon().size() > 0) { //Kiểm tra kích thước của danh mục
                             int x = 1;
                             for (DanhMuc danhmuc : DanhMucCap1.getdanhsachdanhmuccon()) {
@@ -1176,12 +1190,14 @@ public abstract class QuanLyDanhMuc implements Serializable {
                                         System.out.println("Vui lòng nhập năm");
                                         String test = sc.nextLine();
                                         while (!Kiemtranamhople(test)) {
+                                            System.out.println("Hãy nhập lại ");
                                             test = sc.nextLine();
                                         }
                                         int Year = Integer.parseInt(test);
                                         System.out.println("vui lòng nhập tháng");
                                         test = sc.nextLine();
                                         while (!Kiemtrathanghople(test)) {
+                                            System.out.println("Hãy nhập lại ");
                                             test = sc.nextLine();
                                         }
                                         int Month = Integer.parseInt(test);
@@ -1192,6 +1208,7 @@ public abstract class QuanLyDanhMuc implements Serializable {
                                         System.out.println("Vui lòng nhập năm");
                                         String test = sc.nextLine();
                                         while (!Kiemtranamhople(test)) {
+                                            System.out.println("Hãy nhập lại");
                                             test = sc.nextLine();
                                         }
                                         int Year = Integer.parseInt(test);
@@ -1230,6 +1247,8 @@ public abstract class QuanLyDanhMuc implements Serializable {
                         System.out.println("Nhập số nếu tiếp tục ,Hãy nhập chữ để về menu");
                         flat = true;
                     } catch (NumberFormatException e) {
+                        flat=false;
+                        return "Không có danh mục cấp 1";
 
                     }
                 }

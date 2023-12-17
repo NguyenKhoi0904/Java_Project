@@ -491,7 +491,7 @@ public class QuanLyDanhMucPro extends QuanLyDanhMuc implements Serializable {
         }catch (NumberFormatException e) {
             //KHÔNG CẦN XỬ LÝ Ở ĐÂY
         }
-            if(getGioiHan().Kiemtrangansachcoduoctaochua(month,year)){
+            if(getGioiHan().Kiemtrangansachcoduoctaochua(year,month)){
                 System.out.println("Bạn đã tạo ngân sách cho tháng này rồi");
                 System.out.println("Nhấn 1 phím để quay về ");
                 sc.nextLine();

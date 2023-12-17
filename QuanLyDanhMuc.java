@@ -1101,8 +1101,6 @@ public abstract class QuanLyDanhMuc implements Serializable {
                                     int Month = Integer.parseInt(test);
                                     ketqua = thongkedanhmuctheotuan(Month, Year, DanhMucCanXem, loaigd); // ghi file ở khúc này
                                     System.out.println(ketqua);
-
-
                                 } else if (choice == 2) {// xem dữ liệu danh mục theo tháng
                                     Cohieu = false;
                                     System.out.println("Vui lòng nhập năm");
@@ -1137,7 +1135,7 @@ public abstract class QuanLyDanhMuc implements Serializable {
 
 
                         System.out.println("NHẬP MỘT PHÍM BẤT KỲ ĐỂ BACK VỀ MENU");
-                        sc.nextLine();
+//                        sc.nextLine();
 
                     } else {
                         System.out.println("Nhóm bạn chọn hiện đang rỗng");
@@ -1253,7 +1251,6 @@ public abstract class QuanLyDanhMuc implements Serializable {
                                 }
                             }
                             System.out.println("NHẬP MỘT PHÍM BẤT KỲ ĐỂ BACK VỀ MENU");
-                            sc.nextLine();
 
                         } else {
                             System.out.println("Nhóm bạn chọn hiện đang rỗng");
@@ -1272,7 +1269,7 @@ public abstract class QuanLyDanhMuc implements Serializable {
                 }
             }
         }
-        System.out.println(ketqua);
+        //System.out.println(ketqua);
         return report.toString();
     }
 

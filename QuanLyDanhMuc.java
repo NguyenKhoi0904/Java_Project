@@ -855,7 +855,7 @@ public abstract class QuanLyDanhMuc implements Serializable {
                 if (luachon == 1) {
                     int year = getdateToDay().getnam();
                     int month = getdateToDay().getthang();
-                    int day = getdateToDay().getnam();
+                    int day = getdateToDay().getngay();
                     //Hien thi theo ngay thang nam
                     System.out.println("---------------------------------------------------------Lịch sử giao dịch của bạn-----------------------------------------------------------");
                     System.out.println("------------------------------------------------------------Thông tin giao dịch--------------------------------------------------------------");
@@ -865,6 +865,7 @@ public abstract class QuanLyDanhMuc implements Serializable {
                         }
                     }
                     System.out.println("Nhấn 1 nút để quay về menu");
+                    sc.nextLine();
 
                 } else if (luachon == 2) {
                     System.out.println("1.Hiển thị theo ngày tháng năm cụ thể ");
@@ -887,7 +888,7 @@ public abstract class QuanLyDanhMuc implements Serializable {
                             int ngay = Integer.parseInt(kiemtra1);
                             System.out.println("Nhập tháng :");
                             kiemtra1 = sc.nextLine();
-                            while (Kiemtrathanghople(kiemtra1)) {
+                            while (!Kiemtrathanghople(kiemtra1)) {
                                 System.out.println("Nhập tháng không hợp lệ vui lòng nhập lại:");
                                 kiemtra1 = sc.nextLine();
                             }
@@ -987,7 +988,7 @@ public abstract class QuanLyDanhMuc implements Serializable {
     public void timkiemthongtingiaodich() {
         Scanner sc = new Scanner(System.in);
         ArrayList<GiaoDich> ketquatimkiem = new ArrayList<>();
-        System.out.println("Bạn hãy nhập nội dung tìm kiếm ");
+        System.out.println("Bạn hãy nhập nội dung giao dịch ");
                 String find = sc.nextLine();
                 for (GiaoDich giaodich : this.getDsgiaodich().getDsGD()) {
                     String thongtingiaodich = giaodich.getThongtingiaodich();
@@ -1007,7 +1008,7 @@ public abstract class QuanLyDanhMuc implements Serializable {
                 sc.nextLine();
                 }
                 else{
-                    System.out.println("Không tìm thấy kế quả ");
+                    System.out.println("Không tìm thấy kết quả ");
                     System.out.println("Nhấn 1 phím bất kỳ để trở về menu");
                     sc.nextLine();
                 }
@@ -1062,6 +1063,7 @@ public abstract class QuanLyDanhMuc implements Serializable {
                             System.out.println(x + "." + danhmuc.gettendanhmuc());
                             x++;
                         }
+                        System.out.println("Bạn muốn chọn danh mục nào (Chọn số)?");
                         int luachon1 = Integer.parseInt(sc.nextLine());
                         DanhMucCanXem = DanhMucCap1.getdanhsachdanhmuccon().get(luachon1 - 1);// chọn ra 1 danh mục con
                         int SoLanGiaoDichCuaDanhMuc = 0; // tổng số lần giao dịch của danh mục
@@ -1102,8 +1104,7 @@ public abstract class QuanLyDanhMuc implements Serializable {
                                     ketqua = thongkedanhmuctheotuan(Month, Year, DanhMucCanXem, loaigd); // ghi file ở khúc này
                                     System.out.println(ketqua);
 
-                                    System.out.println("nhấn một nút bất kỳ để về menu ");
-                                    sc.nextLine();
+
                                 } else if (choice == 2) {// xem dữ liệu danh mục theo tháng
                                     Cohieu = false;
                                     System.out.println("Vui lòng nhập năm");
@@ -1114,16 +1115,18 @@ public abstract class QuanLyDanhMuc implements Serializable {
                                     }
                                     int Year = Integer.parseInt(test);
                                     ketqua = thongkedanhmuctheothang(Year, DanhMucCanXem, loaigd);// ghi file ở khúc này
+                                    System.out.println(ketqua);
                                 } else if (choice == 3) {// xem dữ liệu danh mục theo năm
                                     Cohieu = false;
-                                    System.out.println("Vui lòng nhập năm gần đây ( trong phạm vi trừ 1 đến 10)");
+                                    System.out.println("Vui lòng nhập năm gần đây ( trong phạm vi trừ 2 đến 10)");
                                     String test = sc.nextLine();
-                                    while (!isInteger(test) || Integer.parseInt(test) < 1 || Integer.parseInt(test) > 10) {
+                                    while (!isInteger(test) || Integer.parseInt(test) < 2 || Integer.parseInt(test) > 10) {
                                         System.out.println("Bạn đã nhập không hợp lệ vui lòng nhập lại");
                                         test=sc.nextLine();
                                     }
                                     int NamGanDay = Integer.parseInt(test);
                                     ketqua = thongkedanhmuctheonam(NamGanDay, DanhMucCanXem, loaigd);// ghi file ở khúc này
+                                    System.out.println(ketqua);
                                 } else {
                                     System.out.println("Vui lòng nhập lại");
                                     Cohieu = true;
@@ -1137,7 +1140,7 @@ public abstract class QuanLyDanhMuc implements Serializable {
 
                         System.out.println("NHẬP MỘT PHÍM BẤT KỲ ĐỂ BACK VỀ MENU");
                         sc.nextLine();
-                        return null;
+
                     } else {
                         System.out.println("Nhóm bạn chọn hiện đang rỗng");
                         System.out.println("Nhập số nếu tiếp tục ,Hãy nhập chữ để về menu");
@@ -1157,11 +1160,11 @@ public abstract class QuanLyDanhMuc implements Serializable {
                 DanhMuc DanhMucCanXem = null;
                 int i = 1;
                 for (DanhMuc danhmuc : this.getDanhMucThu().getDsDanhMuc()) {
-                    System.out.println("Nhóm " + i + ": " + danhmuc.gettendanhmuc());
+                        System.out.println("Nhóm " + i + ": " + danhmuc.gettendanhmuc());
                     int x = 1;
                     for (DanhMuc danhmuccon : danhmuc.getdanhsachdanhmuccon()) {
 
-                        System.out.println("     " + x + ". " + danhmuccon.gettendanhmuc());
+                        System.out.println("     " + i+" "+x + ". " + danhmuccon.gettendanhmuc());
                         x++;
                     }
                     i++;
@@ -1179,6 +1182,7 @@ public abstract class QuanLyDanhMuc implements Serializable {
                                 System.out.println(x + "." + danhmuc.gettendanhmuc());
                                 x++;
                             }
+                            System.out.println("Bạn muốn giao dịch với danh mục con nào");
                             int luachon1 = Integer.parseInt(sc.nextLine());
                             DanhMucCanXem = DanhMucCap1.getdanhsachdanhmuccon().get(luachon1 - 1);// chọn ra 1 danh mục con
                             int SoLanGiaoDichCuaDanhMuc = 0; // tổng số lần giao dịch của danh mục
@@ -1217,7 +1221,7 @@ public abstract class QuanLyDanhMuc implements Serializable {
                                         }
                                         int Month = Integer.parseInt(test);
                                         ketqua = thongkedanhmuctheotuan(Month, Year, DanhMucCanXem, loaigd); // ghi file trong hàm này dòng 1644
-
+                                        System.out.println(ketqua);
                                     } else if (choice == 2) {// xem dữ liệu danh mục theo tháng
                                         Cohieu = false;
                                         System.out.println("Vui lòng nhập năm");
@@ -1228,18 +1232,18 @@ public abstract class QuanLyDanhMuc implements Serializable {
                                         }
                                         int Year = Integer.parseInt(test);
                                         ketqua=thongkedanhmuctheothang(Year, DanhMucCanXem, loaigd);
-
+                                        System.out.println(ketqua);
                                     } else if (choice == 3) {// xem dữ liệu danh mục theo năm
                                         Cohieu = false;
-                                        System.out.println("Vui lòng nhập năm gần đây ( trong phạm vi trừ 1 đến 10)");
+                                        System.out.println("Vui lòng nhập năm gần đây ( trong phạm vi trừ 2 đến 10)");
                                         String test = sc.nextLine();
                                         while (!isInteger(test) || Integer.parseInt(test) < 1 || Integer.parseInt(test) > 10) {
                                             System.out.println("Bạn đã nhập không hợp lệ vui lòng nhập lại");
-                                            sc.nextLine();
+                                            test = sc.nextLine();
                                         }
                                         int NamGanDay = Integer.parseInt(test);
                                         ketqua=thongkedanhmuctheonam(NamGanDay, DanhMucCanXem, loaigd);
-
+                                        System.out.println(ketqua);
                                     } else {
                                         System.out.println("Vui lòng nhập lại");
                                         Cohieu = true;
@@ -1269,6 +1273,7 @@ public abstract class QuanLyDanhMuc implements Serializable {
                 }
             }
         }
+        System.out.println(ketqua);
         return ketqua;
     }
 
@@ -1320,12 +1325,12 @@ public abstract class QuanLyDanhMuc implements Serializable {
                     return;
 
                 case 3:
-                    int currentYear = LocalDate.now().getYear();
+                    int currentYear = getdateToDay().getnam();
                     System.out.println("Số năm hiện tại là " + currentYear);
-                    System.out.println("Nhập số năm gần đây nhất mà bạn muốn xem dữ liệu từ tính từ năm ( " + currentYear+" )");
-                    System.out.println("số năm gần đây phải nằm trong khoảng từ 0 đến 10)");
+                    System.out.println("Nhập số năm gần đây nhất mà bạn muốn xem dữ liệu từ tính từ năm ( " + currentYear+" ) kể cả năm "+currentYear);
+                    System.out.println("số năm gần đây phải nằm trong khoảng từ 2 đến 10)");
                     String test = sc.nextLine();
-                    while (!isInteger(test) || Integer.parseInt(test)<0 ||  Integer.parseInt(test)>10) {
+                    while (!isInteger(test) || Integer.parseInt(test)<2 ||  Integer.parseInt(test)>10) {
                         System.out.println("số năm gần đây không hợp lệ, mời nhập lại");
                         test = sc.nextLine();
                     }
@@ -1438,7 +1443,7 @@ public abstract class QuanLyDanhMuc implements Serializable {
         }
         else {
             StringBuilder ketqua = new StringBuilder();
-            int currentYear = LocalDate.now().getYear();
+            int currentYear = getdateToDay().getnam();
             int[] soLanGiaoDichTrongNhungNamGanDay = new int[sonamganday];
             int[] sotien = new int[sonamganday];
 

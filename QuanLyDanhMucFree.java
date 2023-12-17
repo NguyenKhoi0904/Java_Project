@@ -453,7 +453,7 @@ public class QuanLyDanhMucFree extends QuanLyDanhMuc implements Serializable {
             danhmucthu[i] = 0;
             danhmucchi[i] = 0;
         }
-        int currentYear = LocalDate.now().getYear();
+        int currentYear = getdateToDay().getnam();
         for (GiaoDich gd : getDsgiaodich().getDsGD()) {
             int transactionYear = gd.getNgayGiaoDich().getnam();
             int yearIndex = soNamGanDay - (currentYear - transactionYear) - 1;

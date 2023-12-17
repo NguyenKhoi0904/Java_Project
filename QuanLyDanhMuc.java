@@ -1135,10 +1135,6 @@ public abstract class QuanLyDanhMuc implements Serializable {
                             }
                         }
 
-
-                        System.out.println("NHẬP MỘT PHÍM BẤT KỲ ĐỂ BACK VỀ MENU");
-                        sc.nextLine();
-
                     } else {
                         System.out.println("Nhóm bạn chọn hiện đang rỗng");
                         System.out.println("Nhập số nếu tiếp tục ,Hãy nhập chữ để về menu");
@@ -1252,8 +1248,6 @@ public abstract class QuanLyDanhMuc implements Serializable {
                                     Cohieu = true;
                                 }
                             }
-                            System.out.println("NHẬP MỘT PHÍM BẤT KỲ ĐỂ BACK VỀ MENU");
-                            sc.nextLine();
 
                         } else {
                             System.out.println("Nhóm bạn chọn hiện đang rỗng");
@@ -1461,13 +1455,13 @@ public abstract class QuanLyDanhMuc implements Serializable {
             if (loaigd.equals("Giao dịch chi")) {
                 for (int i = sonamganday - 1; i >= 0; i--) {
                     ketqua.append(" - Năm ").append(currentYear - i).append(" :\n");
-                    ketqua.append("Số lần giao dịch là: ").append(soLanGiaoDichTrongNhungNamGanDay[i]).append("\n").append("\n");
+                    ketqua.append("Số lần giao dịch là: ").append(soLanGiaoDichTrongNhungNamGanDay[i]).append("\n");
                     ketqua.append("Số tiền đã kiếm được là: ").append(sotien[i]).append("\n");
                 }
             } else {
                 for (int i = 0; i < 12; i++) {
                     ketqua.append(" - Năm ").append(currentYear - i).append(" :\n");
-                    ketqua.append("Số lần giao dịch là: ").append(soLanGiaoDichTrongNhungNamGanDay[i]).append("\n").append("\n");
+                    ketqua.append("Số lần giao dịch là: ").append(soLanGiaoDichTrongNhungNamGanDay[i]).append("\n");
                     ketqua.append("Số tiền đã kiếm được là: ").append(sotien[i]).append("\n");
                 }
             }

@@ -133,7 +133,6 @@ public abstract class QuanLyDanhMuc implements Serializable {
                         } catch (NumberFormatException e) {
                             System.out.println("Bạn đã nhập không hợp lệ. Vui lòng nhập số.");
                             flat = true;
-
                         }
                     }
                     break;
@@ -517,12 +516,12 @@ public abstract class QuanLyDanhMuc implements Serializable {
                                                 name2 = sc.nextLine();
                                             }
                                             dsdanhmuc.EditDanhMucCon(name1, name2);
-                                            System.out.println("Sửa danh tên danh mục thành công");
-                                            sc.nextLine();
-                                            System.out.println("Nhấn 1 phím bất kỳ để trở về menu");
-                                            return;
+//                                            System.out.println("Sửa danh tên danh mục thành công");
+//                                            System.out.println("Nhấn 1 phím bất kỳ để trở về menu");
+//                                            sc.nextLine();
+//                                            return;
                                         }
-                                        //break;
+                                        break;
                                     case 2:
                                         sodanhmuc = 1;
                                         for (DanhMuc list : dsdanhmuc.getDsDanhMuc()) {
@@ -596,11 +595,11 @@ public abstract class QuanLyDanhMuc implements Serializable {
                                             dsdanhmuc.changeMoneyDanhMuc(name1, sotien);
                                             dsdanhmuc.setTongsotien();
                                             System.out.println("Sửa số tiền thành công");
-                                            System.out.println("Nhấn 1 phím bất kỳ để trở về menu");
-                                            sc.nextLine();
-                                            return;
+//                                            System.out.println("Nhấn 1 phím bất kỳ để trở về menu");
+//                                            sc.nextLine();
+//                                            return;
                                         }
-
+                                        break;
                                     default:
                                         return;
                                 }
@@ -1276,7 +1275,7 @@ public abstract class QuanLyDanhMuc implements Serializable {
             }
         }
         System.out.println(ketqua);
-        return ketqua;
+        return report.toString();
     }
 
     public void ThongKe() {
@@ -1440,11 +1439,11 @@ public abstract class QuanLyDanhMuc implements Serializable {
     }
 
     public String thongkedanhmuctheonam(int sonamganday, DanhMuc danhMuc, String loaigd) { // theo tháng
+        StringBuilder ketqua = new StringBuilder();
         if(loaigd==null){
             return "Bạn chưa có gd nào về danh mục này";
         }
         else {
-            StringBuilder ketqua = new StringBuilder();
             int currentYear = getdateToDay().getnam();
             int[] soLanGiaoDichTrongNhungNamGanDay = new int[sonamganday];
             int[] sotien = new int[sonamganday];
@@ -1454,7 +1453,7 @@ public abstract class QuanLyDanhMuc implements Serializable {
                 sotien[i] = 0;
             }
             for (GiaoDich gd : getDsgiaodich().getDsGD()) {
-                int yearIndex = sonamganday - (currentYear - gd.getNgayGiaoDich().getnam() - 1);
+                int yearIndex = sonamganday - (currentYear - gd.getNgayGiaoDich().getnam())- 1;
                 if (gd.getTendanhmuc() == danhMuc) {
                     soLanGiaoDichTrongNhungNamGanDay[yearIndex] += 1;
                     sotien[yearIndex] += gd.getsotien();

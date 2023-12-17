@@ -1041,7 +1041,7 @@ public abstract class QuanLyDanhMuc implements Serializable {
             DanhMuc DanhMucCanXem = null;
             int i = 1;
             for (DanhMuc danhmuc : this.getDanhMucChi().getDsDanhMuc()) {
-                    System.out.println("Nhóm " + i + ": " + danhmuc.gettendanhmuc());
+                System.out.println("Nhóm " + i + ": " + danhmuc.gettendanhmuc());
                 int x = 1;
                 for (DanhMuc danhmuccon : danhmuc.getdanhsachdanhmuccon()) {
 
@@ -1160,7 +1160,7 @@ public abstract class QuanLyDanhMuc implements Serializable {
                 DanhMuc DanhMucCanXem = null;
                 int i = 1;
                 for (DanhMuc danhmuc : this.getDanhMucThu().getDsDanhMuc()) {
-                        System.out.println("Nhóm " + i + ": " + danhmuc.gettendanhmuc());
+                    System.out.println("Nhóm " + i + ": " + danhmuc.gettendanhmuc());
                     int x = 1;
                     for (DanhMuc danhmuccon : danhmuc.getdanhsachdanhmuccon()) {
 
@@ -1452,7 +1452,7 @@ public abstract class QuanLyDanhMuc implements Serializable {
                 sotien[i] = 0;
             }
             for (GiaoDich gd : getDsgiaodich().getDsGD()) {
-                int yearIndex = sonamganday - (currentYear - gd.getNgayGiaoDich().getnam() - 1);
+                int yearIndex = sonamganday - (currentYear - gd.getNgayGiaoDich().getnam()) - 1;
                 if (gd.getTendanhmuc() == danhMuc) {
                     soLanGiaoDichTrongNhungNamGanDay[yearIndex] += 1;
                     sotien[yearIndex] += gd.getsotien();
@@ -1460,7 +1460,7 @@ public abstract class QuanLyDanhMuc implements Serializable {
             }
 
             if (loaigd.equals("Giao dịch chi")) {
-                for (int i = sonamganday - 1; i >= 0; i++) {
+                for (int i = sonamganday - 1; i >= 0; i--) {
                     ketqua.append(" - Năm ").append(currentYear - i).append(" :\n");
                     ketqua.append("Số lần giao dịch là: ").append(soLanGiaoDichTrongNhungNamGanDay[i]).append("\n").append("\n");
                     ketqua.append("Số tiền đã kiếm được là: ").append(sotien[i]).append("\n");

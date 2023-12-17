@@ -180,13 +180,12 @@ public class ListDanhMuc implements Serializable{
     }
 
     public void EditDanhMucCon(String namecansua, String name) {
-        Boolean timkiem = false;
-        for (DanhMuc danhmuc : dsdanhmuc) {
-            for (DanhMuc danhmuccon : danhmuc.getdanhsachdanhmuccon()) {
-                if (danhmuccon.gettendanhmuc().equals(namecansua))
-                    timkiem = true;
-                danhmuccon.setTendanhmuc(name);
-            }
+        DanhMuc danhmuccansua =timdanhmuctheoten( getDsDanhMuc(),namecansua);
+        if(danhmuccansua!=null){
+            danhmuccansua.setTendanhmuc(name);
+        }
+       else{
+           System.out.println("Không tìm thấy tên danh mục");
         }
 
     }

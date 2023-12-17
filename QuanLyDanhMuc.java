@@ -497,7 +497,6 @@ public abstract class QuanLyDanhMuc implements Serializable {
                                                     System.out.println("Nhập vị trí danh mục bạn muốn sửa");
                                                     position = Integer.parseInt(sc.nextLine());
                                                     Cohieu = false;
-
                                                     DanhMuc danhmuccansua = danhmuccap1.getdanhsachdanhmuccon().get(position - 1);
                                                     name1 = danhmuccansua.gettendanhmuc();
                                                 } catch (IndexOutOfBoundsException x) {
@@ -573,7 +572,6 @@ public abstract class QuanLyDanhMuc implements Serializable {
                                                     System.out.println("Nhập vị trí danh mục bạn muốn sửa");
                                                     position = Integer.parseInt(sc.nextLine());
                                                     Cohieu = false;
-
                                                     DanhMuc danhmuccansua = Danhmuccap1.getdanhsachdanhmuccon().get(position - 1);
                                                     name1 = danhmuccansua.gettendanhmuc();
                                                 } catch (IndexOutOfBoundsException x) {
@@ -589,7 +587,7 @@ public abstract class QuanLyDanhMuc implements Serializable {
                                             System.out.println("Nhập số tiền");
                                             String test = sc.nextLine();
                                             while (!isInteger(test)) {
-                                                System.out.println("Hãy nhập chữ");
+                                                System.out.println("Hãy nhập số");
                                                 test = sc.nextLine();
                                             }
                                             int sotien = Integer.parseInt(test);

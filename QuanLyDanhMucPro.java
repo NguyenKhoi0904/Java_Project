@@ -104,30 +104,10 @@ public class QuanLyDanhMucPro extends QuanLyDanhMuc implements Serializable {
             }
             if (type == 1) {
                 giaodich(getDanhMucChi(), 1);
-                System.out.println("Bạn có muốn giao dịch tiếp không");
-                System.out.println("1:YES ");
-                System.out.println("Các số còn lại:về menu ");
-                try {
-                    int choice1 = Integer.parseInt(sc.nextLine());
-                    if (choice1 == 1) {
-                        chonloaigiaodich();
-                    }
-                } catch (NumberFormatException e) {
-                    //KHÔNG CẦN XỬ LÝ Ở ĐÂY
-                }
             } else if (type == 2) {
                 giaodich(getDanhMucThu(), 2);
-                System.out.println("Bạn có muốn giao dịch tiếp không");
-                System.out.println("1:YES ");
-                System.out.println("Các số còn lại:về menu ");
-                try {
-                    int choice1 = Integer.parseInt(sc.nextLine());
-                    if (choice1 == 1) {
-                        chonloaigiaodich();
-                    }
-                } catch (NumberFormatException e) {
-                    //KHÔNG CẦN XỬ LÝ Ở ĐÂY
-                }
+            }else{
+               return;
             }
         } catch (NumberFormatException e) {
             //KHÔNG CẦN XỬ LÝ Ở ĐÂY
@@ -239,15 +219,16 @@ public class QuanLyDanhMucPro extends QuanLyDanhMuc implements Serializable {
             }
 
             int sotien = Integer.parseInt(test);
-            if (GioiHanNganSach.getbatTat()) { // Chuc nang gioi han dang duoc su dung
+            if (GioiHanNganSach.getbatTat() && loaigd==1) { // Chuc nang gioi han dang duoc su dung
                 int sotiencuathang = 0;
                 for (GiaoDich gd : getDsgiaodich().getDsGD()) {
-                    if (gd.getNgayGiaoDich().getthang() == month && gd.getNgayGiaoDich().getnam() == year) {
+                    if (gd.getNgayGiaoDich().getthang() == month && gd.getNgayGiaoDich().getnam() == year && gd.getLoaigiaodich().equals("Giao dịch chi")) {
                         sotiencuathang += gd.getsotien();
                     }
                 }
                 double sophantramneugiaodich = getGioiHan().phantramsudung(sotien, sotiencuathang);
-                System.out.println("Nếu giao dịch thì vượt quá " + sophantramneugiaodich *100 +"%");
+                System.out.println("Nếu giao dịch thì số tiền đã chi chiếm  " + sophantramneugiaodich *100 +"% số tiền đã được giới hạn");
+                System.out.println("Và phần trăm bạn đã giới hạn của bạn đang là "+this.GioiHanNganSach.getPhanTram()+"%");
                 if (sophantramneugiaodich*100 > getGioiHan().getPhanTram()) {
                     System.out.println("Bạn có muốn giao dịch tiếp không ?");
                     System.out.println("1.Có");
@@ -327,6 +308,20 @@ public class QuanLyDanhMucPro extends QuanLyDanhMuc implements Serializable {
                         getDsgiaodich().addGD(Bill);
                         System.out.println("Đã thêm vào danh mục " + DanhMucCanGiaoDich.gettendanhmuc());
                         System.out.println("Giao dịch thành công");
+                        System.out.println("Bạn có muốn giao dịch tiếp không");
+                        System.out.println("1:YES ");
+                        System.out.println("Các số còn lại:về menu ");
+                        try {
+                            int choice1 = Integer.parseInt(sc.nextLine());
+                            if (choice1 == 1) {
+                                chonloaigiaodich();
+                            }
+                            else{
+                                return;
+                            }
+                        } catch (NumberFormatException e) {
+                            //KHÔNG CẦN XỬ LÝ Ở ĐÂY
+                        }
                         return;
                     }
                 } else {
@@ -353,7 +348,13 @@ public class QuanLyDanhMucPro extends QuanLyDanhMuc implements Serializable {
                 SuaGioiHanNganSach();
             }
             else if(choice ==3){
-                this.GioiHanNganSach.hienThiBieuDoNganSach(getdateToDay().getthang());
+                int tongtienthangnay=0;
+                for(GiaoDich gd:getDsgiaodich().getDsGD()){
+                    if(gd.getNgayGiaoDich().getthang()==getdateToDay().getthang()){
+                        tongtienthangnay+=gd.getsotien();
+                    }
+                }
+                this.GioiHanNganSach.hienThiBieuDoNganSach( tongtienthangnay);
             }
         }
         catch(NumberFormatException e){
@@ -485,6 +486,7 @@ public class QuanLyDanhMucPro extends QuanLyDanhMuc implements Serializable {
             System.out.println("Nhập phần trăm để dễ quản lý hơn: ( lưu ý: phần trăm phải trên 0 và dưới 100 ) ");
             test = sc.nextLine();
             while (!isInteger(test) || Integer.parseInt(test)> 100 || Integer.parseInt(test)<0)  {
+                System.out.println("Vui lòng nhập hợp lệ");
                 test = sc.nextLine();
             }
             double percent = Double.parseDouble(test);

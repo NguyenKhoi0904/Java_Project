@@ -124,6 +124,7 @@ private static boolean isInteger(String s){
                     System.out.println("|9.XEM BÁO CÁO CHI TIẾT                                                                                                                     |");
                     System.out.println("|10.NÂNG CẤP TÀI KHOẢN                                                                                                                      |");
                     System.out.println("|11.ĐĂNG XUẤT                                                                                                                               |");
+
                     System.out.println("|-------------------------------------------------------------------------------------------------------------------------------------------|");
                     System.out.print(" -Mời bạn lựa chọn: ");
                     String test = scanner.nextLine();
@@ -164,6 +165,7 @@ private static boolean isInteger(String s){
                             freeUser.nangCapTaiKhoan();
                             cohieu = false;
                         }
+
                         case 11 -> {
                             dsUser = main.UserData();
                             int index = 0;

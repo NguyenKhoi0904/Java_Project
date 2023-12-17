@@ -1070,9 +1070,9 @@ public abstract class QuanLyDanhMuc implements Serializable {
                                     int Month = Integer.parseInt(test);
                                     ketqua = thongkedanhmuctheotuan(Month, Year, DanhMucCanXem, loaigd); // ghi file ở khúc này
                                     System.out.println(ketqua);
+
                                     System.out.println("nhấn một nút bất kỳ để về menu ");
                                     sc.nextLine();
-                                    return ketqua;
                                 } else if (choice == 2) {// xem dữ liệu danh mục theo tháng
                                     Cohieu = false;
                                     System.out.println("Vui lòng nhập năm");
@@ -1182,7 +1182,6 @@ public abstract class QuanLyDanhMuc implements Serializable {
                                         }
                                         int Month = Integer.parseInt(test);
                                         ketqua = thongkedanhmuctheotuan(Month, Year, DanhMucCanXem, loaigd); // ghi file trong hàm này dòng 1644
-                                        return null;
 
                                     } else if (choice == 2) {// xem dữ liệu danh mục theo tháng
                                         Cohieu = false;
@@ -1193,7 +1192,6 @@ public abstract class QuanLyDanhMuc implements Serializable {
                                         }
                                         int Year = Integer.parseInt(test);
                                         ketqua=thongkedanhmuctheothang(Year, DanhMucCanXem, loaigd);
-                                        return null;
 
                                     } else if (choice == 3) {// xem dữ liệu danh mục theo năm
                                         Cohieu = false;
@@ -1217,7 +1215,7 @@ public abstract class QuanLyDanhMuc implements Serializable {
                             }
                             System.out.println("NHẬP MỘT PHÍM BẤT KỲ ĐỂ BACK VỀ MENU");
                             sc.nextLine();
-                            return null;
+
                         } else {
                             System.out.println("Nhóm bạn chọn hiện đang rỗng");
                             System.out.println("Nhập số nếu tiếp tục ,Hãy nhập chữ để về menu");
@@ -1228,12 +1226,12 @@ public abstract class QuanLyDanhMuc implements Serializable {
                         System.out.println("Nhập số nếu tiếp tục ,Hãy nhập chữ để về menu");
                         flat = true;
                     } catch (NumberFormatException e) {
-                        return null;
+
                     }
                 }
             }
         }
-        return null;
+        return ketqua;
     }
 
     public void ThongKe() {

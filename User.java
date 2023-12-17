@@ -62,12 +62,61 @@ public class User implements Serializable {
         this.idUser = idUser;
     }
     
-    public void QuenMatKhau(){
+    public void QuenMatKhau() throws ClassNotFoundException, FileNotFoundException{
         Scanner input_User = new Scanner(System.in);
-        System.out.println("Mời bạn nhập tài khoản và email");
-        System.out.print("");
+        ArrayList<User> user_array = docUserData();
+        System.out.println("Mời bạn nhập email để xác định tài khoản");
+        System.out.println("Email: ");
+        String email = input_User.nextLine();
+        while(!isGmailAddressRegexValid(email)){
+            System.out.println("Đây không phải là email hợp lệ");
+            System.out.print("Mời bạn nhập lại email: ");
+            email = input_User.nextLine();
+        }
+        int index = 0;
+        boolean flag = false;
+        User tmp = new User();
+        for(User user: user_array){
+            if(user.getTaiKhoanNguoiDung().getEmail().equals(email)){
+                flag = true;
+                tmp = user;
+                break;
+            }
+            index++;
+        }
+        if(flag){
+            String verificationCode = generateVerificationCode();
+            System.out.println("Mã xác minh: " + verificationCode);
+            System.out.print("Bạn hãy nhập lại mã xác minh: ");
+            String inputVerificationCode = input_User.nextLine();
+            while(!isVerificationCodeValid(verificationCode, inputVerificationCode)){
+                System.out.println("Bạn nhập sai mã xác minh");
+                System.out.print("Mời bạn nhập lại mã xác minh: ");
+                inputVerificationCode = input_User.nextLine();
+            }
+            System.out.print("Mời bạn nhập mật khẩu mới: ");
+            String newPassword = input_User.nextLine();
+            while(!isPasswordRegexValid(newPassword)){
+                System.out.println("Mật khẩu phải có ít nhất 6 kí tự và không được có khoảng trắng");
+                System.out.print("Mời bạn nhập lại mật khẩu");
+                newPassword = input_User.nextLine();
+            }
+        }
     }
     
+    private boolean isVerificationCodeValid(String s, String string){
+        return s.equals(string);
+    }
+    
+    private String generateVerificationCode(){
+        int length = 6;
+        StringBuilder verificationCode = new StringBuilder();
+        Random random = new Random();
+        for(int i = 0; i < length; i++){
+            verificationCode.append(random.nextInt(10));
+        }
+        return verificationCode.toString();
+    }
     public User DangNhap() throws ClassNotFoundException, FileNotFoundException {
         ArrayList<User> pxm = docUserData();
         boolean isAccountValid = false;
@@ -135,7 +184,8 @@ public class User implements Serializable {
             ObjectInputStream ois = new ObjectInputStream(fis)) {
             a = (ArrayList<User>) ois.readObject();
         } catch (EOFException e) {
-            e.printStackTrace();
+            System.out.println("FILE TRỐNG");
+            //e.printStackTrace();
         } catch (IOException e){
             e.printStackTrace();
         }
@@ -162,9 +212,8 @@ public class User implements Serializable {
         boolean isEmailExist = false;
         
         ArrayList<User> user_array = docUserData();
-        String taikhoan = null, matkhau = null,email = null;
-        if(!user_array.isEmpty()){
-            //XỬ LÝ TÀI KHOẢN
+        String taikhoan, matkhau, email;
+        //XỬ LÝ TÀI KHOẢN
             System.out.print("- Tài khoản: ");
             taikhoan = input_User.nextLine(); //ĐOẠN CODE TỪ DÒNG 246 ĐẾN 281 CHỈ ĐỂ XỬ LÝ TÀI KHOẢN
             while(!isAccountRegexValid(taikhoan)){
@@ -213,7 +262,7 @@ public class User implements Serializable {
             }
             
             //XỬ LÝ EMAIL
-            System.out.println("- Email: ");
+            System.out.print("- Email: ");
             email = input_User.nextLine();
             while(!isGmailAddressRegexValid(email)){
                 System.out.println("Đây không phải là email hợp lệ");
@@ -251,7 +300,6 @@ public class User implements Serializable {
                     }
                 }while(flag);
             }
-        }
         AccountUser a = new AccountUser(taikhoan,matkhau,email);
         this.setTaiKhoanNguoiDung(a);
         

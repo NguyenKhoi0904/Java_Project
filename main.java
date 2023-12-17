@@ -64,6 +64,7 @@ private static boolean isInteger(String s){
         System.out.println("\tCHÀO MỪNG BẠN ĐẾN VỚI HỆ THỐNG QUẢN LÝ THU CHI CÁ NHÂN");
         boolean flag = true;
         User a = new User();
+        String chuoi = new String();
         int n;
         Scanner scanner = new Scanner(System.in);
         do{
@@ -107,7 +108,7 @@ private static boolean isInteger(String s){
             }
 //            System.out.println("System.in đã đóng chưa? " + System.in.markSupported());
             if(u instanceof FreeUser freeUser){
-                System.out.println("\t\tFREE USER");
+                System.out.println("- FREE USER");
                 boolean cohieu = true;
                 
                 do{ 
@@ -119,7 +120,7 @@ private static boolean isInteger(String s){
                     System.out.println("|5.TẠO GIAO DỊCH MỚI                                                                                                                        |");
                     System.out.println("|6.XEM LỊCH SỬ GIAO DỊCH                                                                                                                    |");
                     System.out.println("|7.TÌM KIẾM THÔNG TIN GIAO DỊCH                                                                                                             |");
-                    System.out.println("|8.THỐNG KÊ GIAO DỊCH                                                                                                                       |");
+                    System.out.println("|8.THỐNG KÊ DANH MỤC                                                                                                                        |");
                     System.out.println("|9.XEM BÁO CÁO CHI TIẾT                                                                                                                     |");
                     System.out.println("|10.NÂNG CẤP TÀI KHOẢN                                                                                                                      |");
                     System.out.println("|11.ĐĂNG XUẤT                                                                                                                               |");
@@ -127,7 +128,7 @@ private static boolean isInteger(String s){
                     System.out.print(" -Mời bạn lựa chọn: ");
                     String test = scanner.nextLine();
                     while(!isInteger(test)){
-                        System.out.println("Mời bạn nhập lại");
+                        System.out.print("Mời bạn nhập lại: ");
                         test = scanner.nextLine();
                     }
                     int i = Integer.parseInt(test);
@@ -142,13 +143,13 @@ private static boolean isInteger(String s){
                             freeUser.xoaDanhMuc();
                         }
                         case 4 -> {
-                            
+                            freeUser.getQldmFree().HienThiDanhMuc();
                         }
                         case 5 -> {
                             freeUser.tao1GiaoDichMoi();
                         }
                         case 6 -> {
-                            
+                            freeUser.getQldmFree().hienThiLichSuGiaoDich();
                         }
                         case 7 -> {
                             freeUser.timKiemThongTinGiaoDich();
@@ -157,7 +158,7 @@ private static boolean isInteger(String s){
                             freeUser.thongkeDanhMucTheoNgayThangNam();
                         }
                         case 9 -> {
-
+                            freeUser.BaoCaoChiTietTheoTungDanhMucVaThoiGian();
                         }
                         case 10 -> {
                             freeUser.nangCapTaiKhoan();
@@ -184,7 +185,7 @@ private static boolean isInteger(String s){
             }
 
             else if(u instanceof ProUser proUser){
-                System.out.println("\t\tPRO USER");
+                System.out.println("- PRO USER");
                 boolean cohieu = true;
                 
                 do{
@@ -203,13 +204,13 @@ private static boolean isInteger(String s){
                     System.out.println("|-------------------------------------------------------------------------------------------------------------------------------------------|");
                     System.out.println("|7.TÌM KIẾM THÔNG TIN GIAO DỊCH                                                                                                             |");
                     System.out.println("|-------------------------------------------------------------------------------------------------------------------------------------------|");
-                    System.out.println("|8.THỐNG KÊ                                                                                                                                 |");
+                    System.out.println("|8.THỐNG KÊ DANH MỤC VÀ ĐỐI SÁNH CÁC KHOẢN THU CHI                                                                                          |");
                     System.out.println("|-------------------------------------------------------------------------------------------------------------------------------------------|");
                     System.out.println("|9.XEM BÁO CÁO CHI TIẾT                                                                                                                     |");
                     System.out.println("|-------------------------------------------------------------------------------------------------------------------------------------------|");
-                    System.out.println("|10.ĐỐI SÁNH CÁC KHOẢN THU CHI                                                                                                              |");
+                    System.out.println("|10.XUẤT BÁO CÁO RA FILE                                                                                                                    |");
                     System.out.println("|-------------------------------------------------------------------------------------------------------------------------------------------|");
-                    System.out.println("|11.XUẤT BÁO CÁO RA FILE                                                                                                                    |");
+                    System.out.println("|11.LẬP NGÂN SÁCH VÀ NHẮC NHỞ                                                                                                               |");
                     System.out.println("|-------------------------------------------------------------------------------------------------------------------------------------------|");
                     System.out.println("|12.CHỨC NĂNG LẬP NGÂN SÁCH VÀ NHẮC NHỞ                                                                                                     |");
                     System.out.println("|-------------------------------------------------------------------------------------------------------------------------------------------|");
@@ -218,7 +219,7 @@ private static boolean isInteger(String s){
                     System.out.print(" -Mời bạn lựa chọn: ");
                     String s = scanner.nextLine();
                     while(!isInteger(s)){
-                        System.out.println("Mời bạn nhập lại");
+                        System.out.print("Mời bạn nhập lại: ");
                         s = scanner.nextLine();
                     }
                     int i = Integer.parseInt(s);
@@ -233,34 +234,32 @@ private static boolean isInteger(String s){
                             proUser.doiTenDanhMuc();
                         }
                         case 4 ->{
-                            
+                            proUser.getQldmPro().HienThiDanhMuc();
                         }
                         case 5 ->{
-                            //pro
+                            proUser.tao1GiaoDichMoi();
                         }
                         case 6 ->{
-                            
+                            proUser.getQldmPro().hienThiLichSuGiaoDich();
                         }
                         case 7 ->{
                             proUser.timKiemThongTinGiaoDich();
                         }
                         case 8 ->{
-                            
+                            proUser.thongkeDanhMucTheoNgayThangNam();
                         }
                         case 9 ->{
-                            
+                            chuoi = proUser.BaoCaoChiTietTheoTungDanhMucVaThoiGian(); // Cần xử lý hàm BÁO CÁO CHI TIẾT DANH MỤC CỦA PRO
                         }
                         case 10 ->{
-                            
-                        }
-                        case 11 ->{
                             System.out.println("Chức năng chưa hoàn thiện");
                             System.out.println("Bạn hãy chọn chức năng khác");
+                            proUser.xuatBaoCaoRaFile(chuoi);
+                        }
+                        case 11 ->{
+                            proUser.getQldmPro().LapNganSachVaNhacNho();
                         }
                         case 12 ->{
-                            
-                        }
-                        case 13 ->{
                             dsUser = main.UserData();
                             int index = 0;
                             for(User user: dsUser){

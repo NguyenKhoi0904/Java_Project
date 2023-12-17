@@ -1,11 +1,13 @@
 package com.bt.quanlythuchicanhan;
 
+
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Scanner;
 
 public class QuanLyDanhMucFree extends QuanLyDanhMuc implements Serializable {
     private GioiHanGiaoDich solangiaodich;
+    private static final long serialVersionUID = 1L;
     public QuanLyDanhMucFree() {
         super();
         this.setSoDanhMuc(3);
@@ -68,13 +70,9 @@ public class QuanLyDanhMucFree extends QuanLyDanhMuc implements Serializable {
                     if (choice1 == 1) {
                         ChonDanhMucdexoa();
                     }
-
-                }
-                else{
-                    menu();
                 }
             } catch (NumberFormatException e) {
-                menu();
+                //KHÔNG CẦN XỬ LÝ Ở ĐÂY
             }
         }
 
@@ -121,7 +119,7 @@ public class QuanLyDanhMucFree extends QuanLyDanhMuc implements Serializable {
                             chonloaigiaodich();
                         }
                     } catch (NumberFormatException e) {
-                       menu();
+                        //KHÔNG CẦN XỬ LÝ GÌ HẾT
                     }
                 } else if (type == 2) {
                     giaodich(getDanhMucThu(), 2);
@@ -210,10 +208,10 @@ public class QuanLyDanhMucFree extends QuanLyDanhMuc implements Serializable {
                     year = Integer.parseInt(nam);
                     date = new NgayThangNam(day, month, year);
                 } else {
-                    menu();
+                    return;
                 }
             } catch (NumberFormatException e) {
-                menu();
+                return;
             }
             System.out.println("Nhập nội dung giao dịch");
             String noidung = sc.nextLine();
@@ -294,11 +292,11 @@ public class QuanLyDanhMucFree extends QuanLyDanhMuc implements Serializable {
                     System.out.println("Đã thêm vào danh mục " + DanhMucCanGiaoDich.gettendanhmuc());
                     System.out.println("Giao dịch thành công");
                     this.getSolanGiaoDich().setSolangiaodich(this.getSolanGiaoDich().getsolangiaodich() - 1);
-                    menu();
+                    return;
                 }
             } else {
                 System.out.println("Danh mục bạn chọn đang rỗng!!!!!( không tồn tại danh mục cấp 1 )");
-                menu();
+                return;
             }
         }
 

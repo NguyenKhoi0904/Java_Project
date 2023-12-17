@@ -14,7 +14,7 @@ import java.util.Scanner;
  *
  * @author aries
  */
-public class ProUser extends User implements Serializable, InterfaceClass.QuanLyGiaoDichDanhMuc_Interface, InterfaceClass.ManageCategory{
+public class ProUser extends User implements Serializable, InterfaceClass.ManageCategory, InterfaceClass.QuanLyGiaoDichDanhMuc_Interface{
     private QuanLyDanhMucPro qldmPro;
 
     public ProUser() {
@@ -59,37 +59,37 @@ public class ProUser extends User implements Serializable, InterfaceClass.QuanLy
     
     @Override
     public void tao1GiaoDichMoi() {
-        
+        this.getQldmPro().chonloaigiaodich();
     }
 
     @Override
     public void thongkeDanhMucTheoNgayThangNam() {
-        
+        this.getQldmPro().ThongKe();
     }
 
     @Override
     public void timKiemThongTinGiaoDich() {
-        
+        this.getQldmPro().timkiemthongtingiaodich();
     }
 
     @Override
     public void taoDanhMuc() {
-        
+        this.getQldmPro().ChonDanhMucDeThem();
     }
 
     @Override
     public void doiTenDanhMuc() {
-        
+        this.getQldmPro().chonDanhMucDeSua();
     }
 
     @Override
     public void xoaDanhMuc() {
-       
+       this.getQldmPro().ChonDanhMucdexoa();
     }
 
     @Override
-    public void BaoCaoChiTietTheoTungDanhMucVaThoiGian() {
-        
+    public String BaoCaoChiTietTheoTungDanhMucVaThoiGian() {
+        return this.getQldmPro().BaoCaoChiTietTungDanhMuc();
     }
     /* public Boolean LapNganSachVaNhacNho(){// viet them regrex de kiem tra;
         Scanner sc = new Scanner(System.in);

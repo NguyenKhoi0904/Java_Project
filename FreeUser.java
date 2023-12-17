@@ -4,6 +4,7 @@
  */
 package com.bt.quanlythuchicanhan;
 
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.ObjectInputStream;
@@ -43,7 +44,10 @@ public class FreeUser extends User implements Serializable, InterfaceClass.QuanL
     
     
     public void nangCapTaiKhoan() throws IOException{
+        Scanner scanner = new Scanner(System.in);
         ProUser proUser = nangcap();
+        QuanLyDanhMucPro pldm_pro = dataTranfer();
+        proUser.setQldmPro(pldm_pro);
         ArrayList<User> arraylist = docUserData();
         System.out.println("Bạn phải trả 100USD để nâng cấp tài khoản thành Pro User (Nâng cấp 1 lần, sử dụng mãi mãi)");
         System.out.println("Bạn sẽ được sử dụng thêm các chức năng đặc quyền của Pro User và vô vàn những ưu đãi đặc biệt");
@@ -51,7 +55,13 @@ public class FreeUser extends User implements Serializable, InterfaceClass.QuanL
         System.out.println("0. Không đồng ý");
         System.out.println("1. Đồng ý");
         int dem = 0;
-        int luachon = nhap();
+        String s = scanner.nextLine();
+        while(!isIntegerValueValid(s)){
+            System.out.println("Nhập giá trị không hợp lệ");
+            System.out.print("Mời bạn nhập lại: ");
+            s = scanner.nextLine();
+        }
+        int luachon = Integer.parseInt(s);
         if(luachon == 1){
             for(User u: arraylist){
                 if(u.getIdUser().equals(this.getIdUser())){
@@ -64,31 +74,22 @@ public class FreeUser extends User implements Serializable, InterfaceClass.QuanL
         }
     }
     
-    private int nhap(){
-        Scanner scanner = new Scanner(System.in);
-        String s;
-        do{
-            System.out.print("Mời bạn lựa chọn: ");
-            s = scanner.nextLine();
-            switch(s){
-                case "1" -> {
-                    return 1;
-                }
-                case "0" -> {
-                    return 0;
-                }
-                default -> {
-                    System.out.println("Bạn nhập sai rồi");
-                }
-            }
-        }while(true);
-                
+    private boolean isIntegerValueValid(String s){
+        return s.equals("0") || s.equals("1");
+    }
+    
+    private QuanLyDanhMucPro dataTranfer(){
+        QuanLyDanhMucPro ql = new QuanLyDanhMucPro();
+        ql.setdanhmucchi(this.getQldmFree().getDanhMucChi());
+        ql.setdanhmucthu(this.getQldmFree().getDanhMucThu());
+        ql.setDsgiaodich(this.getQldmFree().getDsgiaodich());
+        return ql;
+        
     }
     private ProUser nangcap(){
         ProUser pu = new ProUser();
         pu.setLoaitaiKhoan("PRO");
         pu.setIdUser(generateID_User(pu.getLoaitaiKhoan()));
-        
         pu.setTaiKhoanNguoiDung(this.getTaiKhoanNguoiDung());
         return pu;
     }
@@ -120,37 +121,37 @@ public class FreeUser extends User implements Serializable, InterfaceClass.QuanL
 
     @Override
     public void tao1GiaoDichMoi() {
-        
+        this.getQldmFree().chonloaigiaodich();
     }
 
     @Override
     public void thongkeDanhMucTheoNgayThangNam() {
-        
+        this.getQldmFree().ThongKe();
     }
 
     @Override
     public void timKiemThongTinGiaoDich() {
-        
+        this.getQldmFree().timkiemthongtingiaodich();
     }
 
     @Override
     public void taoDanhMuc() {
-        
+        this.getQldmFree().ChonDanhMucDeThem();
     }
     
     @Override
     public void doiTenDanhMuc() {
-        
+        this.getQldmFree().chonDanhMucDeSua();
     }
 
     @Override
     public void xoaDanhMuc() {
-        
+        this.getQldmFree().ChonDanhMucdexoa();
     }
 
     @Override
-    public void BaoCaoChiTietTheoTungDanhMucVaThoiGian() {
-        
+    public String BaoCaoChiTietTheoTungDanhMucVaThoiGian() {
+        return this.getQldmFree().BaoCaoChiTietTungDanhMuc();
     }
 
 }

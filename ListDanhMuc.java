@@ -2,8 +2,8 @@
 package com.bt.quanlythuchicanhan;
 
 import java.io.Serializable;
- import java.util.ArrayList;
- import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 public class ListDanhMuc implements Serializable{
     private String type;

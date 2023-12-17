@@ -235,6 +235,7 @@ public abstract class QuanLyDanhMuc implements Serializable {
                             int x = 1;
                             for (DanhMuc danhmuccap2 : list.getdanhsachdanhmuccon()) {
                                 System.out.println( "       "+i+"."+x + ": " + danhmuccap2.gettendanhmuc());
+                                x++;
                             }
                             i++;
                         }
@@ -529,6 +530,7 @@ public abstract class QuanLyDanhMuc implements Serializable {
                                             int x = 1;
                                             for (DanhMuc danhmuccap2 : list.getdanhsachdanhmuccon()) {
                                                 System.out.println(x + ": " + danhmuccap2.gettendanhmuc());
+                                                x++;
                                             }
                                             sodanhmuc++;
                                         }

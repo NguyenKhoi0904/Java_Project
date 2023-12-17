@@ -239,7 +239,8 @@ private static boolean isInteger(String s){
                     System.out.println("|-------------------------------------------------------------------------------------------------------------------------------------------|");
                     System.out.println("|12.ĐĂNG XUẤT                                                                                                                               |");
                     System.out.println("|-------------------------------------------------------------------------------------------------------------------------------------------|");
-                    System.out.println("|13.THAY ĐỔI NGÀY THÁNG NĂM HIỆN TẠI(CHỈ PHÙ HỢP VỚI TEST)                                                                                  |");
+                    System.out.println("|13.THAY ĐỔI NGÀY THÁNG NĂM HIỆN TẠI(CHỈ PHÙ HỢP VỚI TEST)" +
+                            "                                                                                  |");
                     System.out.println("|-------------------------------------------------------------------------------------------------------------------------------------------|");
                     System.out.print(" -Mời bạn lựa chọn: ");
                     String s = scanner.nextLine();

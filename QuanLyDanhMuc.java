@@ -95,11 +95,14 @@ public abstract class QuanLyDanhMuc implements Serializable {
                         if (choice1 == 1) {
                             ChonDanhMucDeThem();
                         }
+                        else{
+                            return;
+                        }
                     } catch (NumberFormatException e) {
                         //KHÔNG CẦN XỬ LÝ GÌ HẾT
                         return;
                     }
-//                    break;
+                          break;
                 case 2:
                     int i = 1;
                     for (DanhMuc list : danhmuc.getDsDanhMuc()) {
@@ -127,6 +130,9 @@ public abstract class QuanLyDanhMuc implements Serializable {
                                 if (choice1 == 1) {
                                     ChonDanhMucDeThem();
                                 }
+                                else{
+                                    return;
+                                }
                             } catch (Exception e) {
                                 //KHÔNG CẦN XỬ LÝ Ở ĐÂY
                                 return;
@@ -146,7 +152,7 @@ public abstract class QuanLyDanhMuc implements Serializable {
 
             }
         } catch (NumberFormatException e) {
-            //KHÔNG CẦN XỬ LÝ GÌ HẾT
+           return;
         }
     }
     public void ChonDanhMucdexoa() {
@@ -171,6 +177,9 @@ public abstract class QuanLyDanhMuc implements Serializable {
                     if (choice1 == 1) {
                         ChonDanhMucdexoa();
                     }
+                    else{
+                        return;
+                    }
                 } catch (NumberFormatException e) {
                     //KHÔNG CẦN XỬ LÝ GÌ HẾT
                 }
@@ -186,6 +195,8 @@ public abstract class QuanLyDanhMuc implements Serializable {
                     if (choice2 == 1) {
                         ChonDanhMucdexoa();
                     }
+                    else
+                        return;
                 } catch (NumberFormatException e) {
                     //KHÔNG CẦN XỬ LÝ GÌ HẾT
                 }

@@ -48,6 +48,7 @@ public class QuanLyDanhMucPro extends QuanLyDanhMuc implements Serializable {
                         case 2:
                             flat = false;
                             ThemDanhMuc(this.getDanhMucThu(), "DMT");
+                            break;
                         default:
                             flat = true;
                             System.out.println("Lựa chọn không hợp lệ");
@@ -73,17 +74,14 @@ public class QuanLyDanhMucPro extends QuanLyDanhMuc implements Serializable {
                 choice = Integer.parseInt(sc.nextLine());
                 if (choice == 1) {
                     ChonDanhMucdexoa();
-                    System.out.println("Bạn có muốn xóa tiếp danh mục nào nữa không");
-                    System.out.println("1:YES ");
-                    System.out.println("Các số còn lại:NO ");
-                    int choice1 = Integer.parseInt(sc.nextLine());
-                    if (choice1 == 1) {
-                        ChonDanhMucdexoa();
+                }
+                    else{
+                        return;
                     }
 
-                }
+
             } catch (NumberFormatException e) {
-                //KHÔNG CẦN XỬ LÝ GÌ Ở CHỖ NÀY
+                return;
             }
         }
 

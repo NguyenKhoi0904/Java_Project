@@ -138,7 +138,7 @@ private static boolean isInteger(String s){
                     System.out.println("|9.XEM BÁO CÁO CHI TIẾT                                                                                                                     |");
                     System.out.println("|10.NÂNG CẤP TÀI KHOẢN                                                                                                                      |");
                     System.out.println("|11.ĐĂNG XUẤT                                                                                                                               |");
-                    System.out.println("|12.ĐỔI NGÀY THÁNG NĂM HIỆN TẠI (Chức năng này chỉ để test )                                                                                |");
+                    System.out.println("|12.ĐỔI NGÀY THÁNG NĂM HIỆN TẠI (Chức năng này chỉ để test và demo cho giảng viên)                                                          |");
                     System.out.println("|-------------------------------------------------------------------------------------------------------------------------------------------|");
                     System.out.print(" -Mời bạn lựa chọn: ");
                     String test = scanner.nextLine();
@@ -239,7 +239,7 @@ private static boolean isInteger(String s){
                     System.out.println("|-------------------------------------------------------------------------------------------------------------------------------------------|");
                     System.out.println("|12.ĐĂNG XUẤT                                                                                                                               |");
                     System.out.println("|-------------------------------------------------------------------------------------------------------------------------------------------|");
-                    System.out.println("|13.THAY ĐỔI NGÀY THÁNG NĂM HIỆN TẠI(CHỈ PHÙ HỢP VỚI TEST)                                                                                  |");
+                    System.out.println("|13.ĐỔI NGÀY THÁNG NĂM HIỆN TẠI (Chức năng này chỉ để test và demo cho giảng viên)                                                          |");
                     System.out.println("|-------------------------------------------------------------------------------------------------------------------------------------------|");
                     System.out.print(" -Mời bạn lựa chọn: ");
                     String s = scanner.nextLine();

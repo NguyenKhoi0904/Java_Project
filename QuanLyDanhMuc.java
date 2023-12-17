@@ -1036,6 +1036,7 @@ public abstract class QuanLyDanhMuc implements Serializable {
         if (luachon == 1) {// Hien thi theo ten danh muc chi
             String name = null;
             DanhMuc DanhMucCanXem = null;
+            report.append("\tLoại danh mục: Chi\n");
             int i = 1;
             for (DanhMuc danhmuc : this.getDanhMucChi().getDsDanhMuc()) {
                     System.out.println("Nhóm " + i + ": " + danhmuc.gettendanhmuc());
@@ -1153,6 +1154,7 @@ public abstract class QuanLyDanhMuc implements Serializable {
             { //hiển thị theo danh mục thu
                 String name = null;
                 DanhMuc DanhMucCanXem = null;
+                report.append("\tLoại danh mục: Thu\n");
                 int i = 1;
                 for (DanhMuc danhmuc : this.getDanhMucThu().getDsDanhMuc()) {
                     System.out.println("Nhóm " + i + ": " + danhmuc.gettendanhmuc());

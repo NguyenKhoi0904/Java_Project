@@ -79,12 +79,12 @@ public class NganSach implements Serializable {
         System.out.println("Ta có dữ liệu thống kê như sau");
         if(percent<100){
             for(int i=1;i<(100-percent)/4;i++){
-                System.out.println("                                           **");
+                System.out.println("                                            **");
             }
             for(int x=1;x<(percent/4);x++){
-                System.out.println("**                                         **");
+                System.out.println("**                                          **");
             }
-                System.out.println("used                                 money-condition");
+                System.out.println("used                                        money-condition");
                 System.out.println("Tiền đã sử dụng Chiếm"+percent+"%+             Tiền quy định tháng này");
         }
         else if(percent>100){

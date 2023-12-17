@@ -545,7 +545,4 @@ public class QuanLyDanhMucFree extends QuanLyDanhMuc implements Serializable {
     public void setSolangiaodich(int solan,int Thang) {
         this.solangiaodich = new GioiHanGiaoDich(solan,Thang);
     }
-
-
-
 }

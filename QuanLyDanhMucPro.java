@@ -241,7 +241,6 @@ public class QuanLyDanhMucPro extends QuanLyDanhMuc implements Serializable {
             }
 
             int sotien = Integer.parseInt(test);
-            System.out.println("chức năng đang được bật đúng không ?"+GioiHanNganSach.getbatTat());
             if (GioiHanNganSach.getbatTat()) { // Chuc nang gioi han dang duoc su dung
                 int sotiencuathang = 0;
                 for (GiaoDich gd : getDsgiaodich().getDsGD()) {
@@ -250,7 +249,7 @@ public class QuanLyDanhMucPro extends QuanLyDanhMuc implements Serializable {
                     }
                 }
                 double sophantramneugiaodich = getGioiHan().phantramsudung(sotien, sotiencuathang);
-                System.out.println("Nếu giao dịch thì vượt quá " + sophantramneugiaodich *100);
+                System.out.println("Nếu giao dịch thì vượt quá " + sophantramneugiaodich *100 +"%");
                 if (sophantramneugiaodich*100 > getGioiHan().getPhanTram()) {
                     System.out.println("Bạn có muốn giao dịch tiếp không ?");
                     System.out.println("1.Có");
@@ -344,6 +343,7 @@ public class QuanLyDanhMucPro extends QuanLyDanhMuc implements Serializable {
         System.out.println("__________________________________________________________________XIN NHẬP LỰA CHỌN__________________________________________________________");
         System.out.println("|1.TẠO NGÂN SÁCH                                                                                                                            |");
         System.out.println("|2.SỬA NGÂN SÁCH                                                                                                                            |");
+        System.out.println("|3.XEM BIỂU ĐỒ PHẦN TRĂM ĐÃ SỬ DỤNG CỦA THÁNG HIỆN TẠI                                                                                      |");
         System.out.println("|CÁC NÚT CÒN LẠI TRỞ VỀ MENU                                                                                                                |");
         System.out.println("|___________________________________________________________________________________________________________________________________________|");
         try{
@@ -353,6 +353,9 @@ public class QuanLyDanhMucPro extends QuanLyDanhMuc implements Serializable {
             }
             else if(choice ==2 ){
                 SuaGioiHanNganSach();
+            }
+            else if(choice ==3){
+                this.GioiHanNganSach.hienThiBieuDoNganSach(getdateToDay().getthang());
             }
         }
         catch(NumberFormatException e){
@@ -404,7 +407,7 @@ public class QuanLyDanhMucPro extends QuanLyDanhMuc implements Serializable {
 
             }
             else if(luachon == 3){
-                if(getGioiHan().getbatTat()==true){
+                if(this.getGioiHan().getbatTat()){
                     System.out.println("Chức năng giới hạn ngân sách của bạn hiện đang bật!");
                     System.out.println("Bạn muốn tắt?");
                     System.out.println("Nhập 1");
@@ -444,7 +447,7 @@ public class QuanLyDanhMucPro extends QuanLyDanhMuc implements Serializable {
         setDateToDay(new NgayThangNam(LocalDate.now().getDayOfMonth(),LocalDate.now().getMonthValue(),LocalDate.now().getYear()));
         Scanner sc = new Scanner(System.in);
         System.out.println("__________________________________________________________________XIN NHẬP LỰA CHỌN__________________________________________________________");
-        System.out.println("|GIAO DỊCH VỚI THÁNG HIỆN TẠI HAY NHỮNG THÁNG KHÁC?                                                                                         |");
+        System.out.println("|BẠN MUỐN TẠO NGÂN SÁCH THÁNG HIỆN TẠI HAY NHỮNG THÁNG KHÁC?                                                                                |");
         System.out.println("|1.HIỆN TẠI                                                                                                                                 |");
         System.out.println("|2.TÙY CHỈNH                                                                                                                                |");
         System.out.println("|CÁC NÚT CÒN LẠI: VỀ MENU                                                                                                                   |");
@@ -481,7 +484,7 @@ public class QuanLyDanhMucPro extends QuanLyDanhMuc implements Serializable {
                 sc.nextLine();
             }
             int sotien = Integer.parseInt(test);
-            System.out.println("Nhập phần trăm để dễ quản lý hơn: ( lưu ý: phần trăm phải trên 0 và dưới 100  ");
+            System.out.println("Nhập phần trăm để dễ quản lý hơn: ( lưu ý: phần trăm phải trên 0 và dưới 100 ) ");
             test = sc.nextLine();
             while (!isInteger(test) || Integer.parseInt(test)> 100 || Integer.parseInt(test)<0)  {
                 test = sc.nextLine();
@@ -493,10 +496,7 @@ public class QuanLyDanhMucPro extends QuanLyDanhMuc implements Serializable {
             //KHÔNG CẦN XỬ LÝ Ở ĐÂY
         }
     }
-        
-    
-    
-    
+
     @Override
     public void thongke(int month , int year) {//Thong ke theo tuan cua pro user
             int[] danhmucthu = new int[4];
@@ -802,5 +802,5 @@ public class QuanLyDanhMucPro extends QuanLyDanhMuc implements Serializable {
         }
 
 
-        public void XuatBaoCaoRaFile() { }///////////
+        public void XuatBaoCaoRaFile(){};
     }

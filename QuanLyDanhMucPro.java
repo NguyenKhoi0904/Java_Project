@@ -219,7 +219,7 @@ public class QuanLyDanhMucPro extends QuanLyDanhMuc implements Serializable {
             }
 
             int sotien = Integer.parseInt(test);
-            if (GioiHanNganSach.getbatTat() && loaigd==1) { // Chuc nang gioi han dang duoc su dung
+            if (GioiHanNganSach.getbatTat() && loaigd==1 && GioiHanNganSach.Kiemtrangansachcoduoctaochua(getdateToDay().getnam(), getdateToDay().getthang())) { // Chuc nang gioi han dang duoc su dung
                 int sotiencuathang = 0;
                 for (GiaoDich gd : getDsgiaodich().getDsGD()) {
                     if (gd.getNgayGiaoDich().getthang() == month && gd.getNgayGiaoDich().getnam() == year && gd.getLoaigiaodich().equals("Giao dịch chi")) {
@@ -395,6 +395,9 @@ public class QuanLyDanhMucPro extends QuanLyDanhMuc implements Serializable {
                 }
                 double percent = Double.parseDouble(test);
                 this.getGioiHan().setPhanTram(percent);
+                System.out.println("Điều chỉnh thành công");
+                System.out.println("Nhấn 1 nút để trở về menu");
+                sc.nextLine();
             } else if(luachon == 2) {
                 System.out.println("Nhập phần Giới Hạn số tiền !!");
                 test = sc.nextLine();
@@ -405,6 +408,9 @@ public class QuanLyDanhMucPro extends QuanLyDanhMuc implements Serializable {
                 }
                 int soTienMoi = Integer.parseInt(test);
                 this.getGioiHan().setSotien(soTienMoi);
+                System.out.println("Điều chỉnh thành công");
+                System.out.println("Nhấn 1 nút để trở về menu");
+                sc.nextLine();
 
             }
             else if(luachon == 3){
@@ -500,7 +506,8 @@ public class QuanLyDanhMucPro extends QuanLyDanhMuc implements Serializable {
             System.out.println("Nhập số tiền");
             String test = sc.nextLine();
             while (!QuanLyDanhMuc.isInteger(test)) {
-                sc.nextLine();
+                System.out.println("Bạn nhập không hợp lệ vui lòng nhập lại");
+                test=sc.nextLine();
             }
             int sotien = Integer.parseInt(test);
             System.out.println("Nhập phần trăm để dễ quản lý hơn: ( lưu ý: phần trăm phải trên 0 và dưới 100 ) ");
@@ -512,6 +519,8 @@ public class QuanLyDanhMucPro extends QuanLyDanhMuc implements Serializable {
             double percent = Double.parseDouble(test);
             this.GioiHanNganSach= new NganSach(month, year, sotien, percent);
             System.out.println("Bạn đã tạo ngân sách giới hạn thành công");
+            System.out.println("Ấn một nút bất kỳ để tiếp tục");
+            sc.nextLine();
         }
     }
 

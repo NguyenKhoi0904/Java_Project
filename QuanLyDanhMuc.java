@@ -1272,7 +1272,7 @@ public abstract class QuanLyDanhMuc implements Serializable {
                                         Cohieu = false;
                                         System.out.println("Vui lòng nhập năm gần đây ( trong phạm vi trừ 2 đến 10)");
                                         String test = sc.nextLine();
-                                        while (!isInteger(test) || Integer.parseInt(test) < 1 || Integer.parseInt(test) > 10) {
+                                        while (!isInteger(test) || Integer.parseInt(test) < 2 || Integer.parseInt(test) > 10) {
                                             System.out.println("Bạn đã nhập không hợp lệ vui lòng nhập lại");
                                             test = sc.nextLine();
                                         }

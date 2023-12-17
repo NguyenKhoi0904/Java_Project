@@ -1007,7 +1007,7 @@ public abstract class QuanLyDanhMuc implements Serializable {
                 sc.nextLine();
                 }
                 else{
-                    System.out.println("Không tìm thấy kế quả ");
+                    System.out.println("Không tìm thấy kết quả ");
                     System.out.println("Nhấn 1 phím bất kỳ để trở về menu");
                     sc.nextLine();
                 }
@@ -1018,11 +1018,11 @@ public abstract class QuanLyDanhMuc implements Serializable {
         StringBuilder report = new StringBuilder("\t\tBÁO CÁO CHI TIẾT THEO DANH MỤC\n");
         report.append("\tI.Mục đích và tầm quan trọng\n");
         report.append("\t- Chức năng Chức năng \"Xem Báo Cáo chi tiết theo từng danh mục và thời gian\" là một phần quan trọng trong hệ thống quản lý tài chính cá nhân.\n");
-        report.append("\tNó giúp người dùng:\n");
+        report.append("\t-Nó giúp người dùng:\n");
         report.append("\t.Theo dõi Chi Tiêu: Hiểu rõ hơn về cách họ tiêu tiền theo từng danh mục và trong khoảng thời gian cụ thể\n");
         report.append("\t.Quản Lý Ngân Sách: Đặt ngân sách cho từng danh mục và theo dõi xem họ đã tuân thủ ngân sách hay chưa\n");
         report.append("\tII.Lựa Chọn Danh Mục và Thời Gian\n");
-        report.append("\tChọn danh mục: ");
+        report.append("\t-Chọn danh mục: ");
         System.out.println(report.toString());
         Scanner sc = new Scanner(System.in);
         System.out.println("Bạn muốn xem báo cáo chi tiết theo loại danh mục nào ");

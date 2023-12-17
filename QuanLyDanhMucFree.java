@@ -38,6 +38,7 @@ public class QuanLyDanhMucFree extends QuanLyDanhMuc implements Serializable {
                         case 2:
                             flat = false;
                             ThemDanhMuc(this.getDanhMucThu(), "DMT");
+                            break;
                         default:
                             flat=true;
                             System.out.println("Lựa chọn không hợp lệ");
@@ -63,16 +64,10 @@ public class QuanLyDanhMucFree extends QuanLyDanhMuc implements Serializable {
                 choice = Integer.parseInt(sc.nextLine());
                 if (choice == 1) {
                     ChonDanhMucdexoa();
-                    System.out.println("Bạn có muốn xóa tiếp danh mục nào nữa không");
-                    System.out.println("1:YES ");
-                    System.out.println("Các số còn lại:NO ");
-                    int choice1 = Integer.parseInt(sc.nextLine());
-                    if (choice1 == 1) {
-                        ChonDanhMucdexoa();
-                    }
                 }
+               else return;
             } catch (NumberFormatException e) {
-                //KHÔNG CẦN XỬ LÝ Ở ĐÂY
+                return;
             }
         }
 
@@ -110,30 +105,9 @@ public class QuanLyDanhMucFree extends QuanLyDanhMuc implements Serializable {
                 }
                 if (type == 1) {
                     giaodich(getDanhMucChi(), 1);
-                    System.out.println("Bạn có muốn giao dịch tiếp không");
-                    System.out.println("1:YES ");
-                    System.out.println("Các số còn lại:về menu ");
-                    try {
-                        int choice1 = Integer.parseInt(sc.nextLine());
-                        if (choice1 == 1) {
-                            chonloaigiaodich();
-                        }
-                    } catch (NumberFormatException e) {
-                        //KHÔNG CẦN XỬ LÝ GÌ HẾT
-                    }
                 } else if (type == 2) {
                     giaodich(getDanhMucThu(), 2);
-                    System.out.println("Bạn có muốn giao dịch tiếp không");
-                    System.out.println("1:YES ");
-                    System.out.println("Các số còn lại:về menu ");
-                    try {
-                        int choice1 = Integer.parseInt(sc.nextLine());
-                        if (choice1 == 1) {
-                            chonloaigiaodich();
-                        }
-                    } catch (NumberFormatException e) {
-                        //KHÔNG CẦN XỬ LÝ Ở ĐÂY
-                    }
+
                 }
             } catch (NumberFormatException e) {
                 //KHÔNG CẦN XỬ LÝ Ở ĐÂY
@@ -292,6 +266,20 @@ public class QuanLyDanhMucFree extends QuanLyDanhMuc implements Serializable {
                     System.out.println("Đã thêm vào danh mục " + DanhMucCanGiaoDich.gettendanhmuc());
                     System.out.println("Giao dịch thành công");
                     this.getSolanGiaoDich().setSolangiaodich(this.getSolanGiaoDich().getsolangiaodich() - 1);
+                    System.out.println("Bạn có muốn giao dịch tiếp không");
+                    System.out.println("1:YES ");
+                    System.out.println("Các số còn lại:về menu ");
+                    try {
+                        int choice1 = Integer.parseInt(sc.nextLine());
+                        if (choice1 == 1) {
+                            chonloaigiaodich();
+                        }
+                        else{
+                            return;
+                        }
+                    } catch (NumberFormatException e) {
+                        //KHÔNG CẦN XỬ LÝ GÌ HẾT
+                    }
                     return;
                 }
             } else {

@@ -95,11 +95,14 @@ public abstract class QuanLyDanhMuc implements Serializable {
                         if (choice1 == 1) {
                             ChonDanhMucDeThem();
                         }
+                        else{
+                            return;
+                        }
                     } catch (NumberFormatException e) {
                         //KHÔNG CẦN XỬ LÝ GÌ HẾT
                         return;
                     }
-//                    break;
+                          break;
                 case 2:
                     int i = 1;
                     for (DanhMuc list : danhmuc.getDsDanhMuc()) {
@@ -127,6 +130,9 @@ public abstract class QuanLyDanhMuc implements Serializable {
                                 if (choice1 == 1) {
                                     ChonDanhMucDeThem();
                                 }
+                                else{
+                                    return;
+                                }
                             } catch (Exception e) {
                                 //KHÔNG CẦN XỬ LÝ Ở ĐÂY
                                 return;
@@ -146,7 +152,7 @@ public abstract class QuanLyDanhMuc implements Serializable {
 
             }
         } catch (NumberFormatException e) {
-            //KHÔNG CẦN XỬ LÝ GÌ HẾT
+           return;
         }
     }
     public void ChonDanhMucdexoa() {
@@ -162,37 +168,18 @@ public abstract class QuanLyDanhMuc implements Serializable {
             if (choice == 1) {
 
                 xoaDanhMuc(getDanhMucChi());
-                System.out.println("Bạn có muốn xóa tiếp danh mục nào nữa không");
-                System.out.println("1:YES ");
-                System.out.println("Các nút còn lại:về menu ");
-                int choice1;
-                try {
-                    choice1 = Integer.parseInt(sc.nextLine());
-                    if (choice1 == 1) {
-                        ChonDanhMucdexoa();
-                    }
-                } catch (NumberFormatException e) {
-                    //KHÔNG CẦN XỬ LÝ GÌ HẾT
-                }
+
             } else if (choice == 2) {
 
                 xoaDanhMuc(getDanhMucThu());
-                System.out.println("Bạn có muốn xóa tiếp danh mục nào nữa không");
-                System.out.println("1:YES ");
-                System.out.println("Các nút còn lại:về menu ");
-                int choice2;
-                try {
-                    choice2 = Integer.parseInt(sc.nextLine());
-                    if (choice2 == 1) {
-                        ChonDanhMucdexoa();
-                    }
-                } catch (NumberFormatException e) {
-                    //KHÔNG CẦN XỬ LÝ GÌ HẾT
-                }
+
+            }
+            else{
+                return;
             }
 
         } catch (NumberFormatException x) {
-            //KHÔNG CẦN XỬ LÝ GÌ HẾT
+            return;
         }
     }
 
@@ -265,13 +252,31 @@ public abstract class QuanLyDanhMuc implements Serializable {
                         DanhMuc DanhMucCap1 = null;
                         int type;
                         Boolean flat1 = true; // đặt biến cờ hiệu này để nhập hợp lệ , nếu nhập quá giới hạn index hoặc nhập chuỗi thì cờ hiệu vẫn bằng true
-                        while (flat1) {
+                        while (flat1 ) {
                             try {
                                 flat1 = false;
                                 System.out.println("Chọn Nhóm :");
                                 type = Integer.parseInt(sc.nextLine());
                                 flat1 = false;
                                 DanhMucCap1 = dsdanhmuc.getDsDanhMuc().get(type - 1); // lấy ra nhóm Danh Mục cấp 1 cần xóa
+                                if(DanhMucCap1.getdanhsachdanhmuccon().size()==0) {
+                                    System.out.println("Danh Mục bạn chọn hiện đang rỗng");
+                                    System.out.println("Bạn muốn chọn tiếp hay về menu?");
+                                    System.out.println("1:Chọn tiếp");
+                                    System.out.println("Các phím còn lại : về menu");
+                                    try {
+                                        int temp=Integer.parseInt(sc.nextLine());
+                                        if(temp==1) {
+                                            flat1=true;
+                                        }
+                                        else {
+                                            return;
+                                        }
+                                    }
+                                    catch(NumberFormatException e) {
+                                        return;
+                                    }
+                                }
                             } catch (IndexOutOfBoundsException x) {
                                 System.out.println("Số bạn nhập không nằm trong vị trí cho phép , vui lòng nhập lại !!!!!.");
                                 flat1 = true;
@@ -282,11 +287,11 @@ public abstract class QuanLyDanhMuc implements Serializable {
                             }
                         }
 
-                        Boolean flat2 = true;// đặt biến cờ hiệu này để nhập hợp lệ , nếu nhập quá giới hạn index hoặc nhập chuỗi thì cờ hiệu vẫn bằng true
+                            Boolean flat2 = true;// đặt biến cờ hiệu này để nhập hợp lệ , nếu nhập quá giới hạn index hoặc nhập chuỗi thì cờ hiệu vẫn bằng true
                         while (flat2) {
                             int type_1;
                             try {
-                                if (DanhMucCap1 != null && DanhMucCap1.getdanhsachdanhmuccon().size() > 0) { // Nếu tìm được danh mục cấp 1 và Danh mục cấp 1 không rỗng
+                                // Nếu tìm được danh mục cấp 1 và Danh mục cấp 1 không rỗng
                                     System.out.println("Trong nhóm bạn chọn bao gồm : ");
                                     int temp = 1;
                                     for (DanhMuc list : DanhMucCap1.getdanhsachdanhmuccon()) {
@@ -300,14 +305,12 @@ public abstract class QuanLyDanhMuc implements Serializable {
                                     DanhMuc DanhMucCanXoa = DanhMucCap1.getdanhsachdanhmuccon().get(type_1 - 1);
                                     NameDanhMucCanXoa = DanhMucCanXoa.gettendanhmuc();
 
-                                } else { // Nếu kích thước danh mục cấp 1 rỗng
-                                    System.out.println("Nhóm bạn chọn hiện đang không có danh mục");
-                                    System.out.println("Nhập 1 phím bất kỳ để quay trở về menu");
-                                    sc.nextLine();
+                                } /* else { // Nếu kích thước danh mục cấp 1 rỗng
+                                    System.out.println("Nhóm bạn chọn hiện đang không có danh mục cấp 1");
                                     return;
 
-                                }
-                            } catch (IndexOutOfBoundsException x) {
+                                }*/
+                             catch (IndexOutOfBoundsException x) {
                                 System.out.println("Số bạn nhập không nằm trong vị trí cho phép , vui lòng nhập lại !!!!!.");
                                 flat2 = true;
                             } catch (NumberFormatException e) {
@@ -329,6 +332,20 @@ public abstract class QuanLyDanhMuc implements Serializable {
         }
         dsdanhmuc.deleteDanhMuc(NameDanhMucCanXoa);
         setSoDanhMuc(getSoDanhMuc() + 1);
+        System.out.println("Bạn có muốn xóa tiếp danh mục nào nữa không");
+        System.out.println("1:YES ");
+        System.out.println("Các nút còn lại:về menu ");
+        int choice2;
+        try {
+            choice2 = Integer.parseInt(sc.nextLine());
+            if (choice2 == 1) {
+                ChonDanhMucdexoa();
+            }
+            else
+                return;
+        } catch (NumberFormatException e) {
+            return;
+        }
     }
 
     public void chonDanhMucDeSua() {

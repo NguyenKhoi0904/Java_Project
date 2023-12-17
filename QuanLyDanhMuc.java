@@ -1456,13 +1456,13 @@ public abstract class QuanLyDanhMuc implements Serializable {
 
             if (loaigd.equals("Giao dịch chi")) {
                 for (int i = sonamganday - 1; i >= 0; i--) {
-                    ketqua.append(" - Năm ").append(currentYear - i).append(" :\n");
+                    ketqua.append(" - Năm ").append(currentYear - sonamganday+i+1).append(" :\n");
                     ketqua.append("Số lần giao dịch là: ").append(soLanGiaoDichTrongNhungNamGanDay[i]).append("\n");
                     ketqua.append("Số tiền đã kiếm được là: ").append(sotien[i]).append("\n");
                 }
             } else {
-                for (int i = 0; i < 12; i++) {
-                    ketqua.append(" - Năm ").append(currentYear - i).append(" :\n");
+                for (int i = sonamganday - 1; i >= 0; i--) {
+                    ketqua.append(" - Năm ").append(currentYear - sonamganday+i+1).append(" :\n");
                     ketqua.append("Số lần giao dịch là: ").append(soLanGiaoDichTrongNhungNamGanDay[i]).append("\n");
                     ketqua.append("Số tiền đã kiếm được là: ").append(sotien[i]).append("\n");
                 }

@@ -283,7 +283,7 @@ public class User implements Serializable {
                     if(!flag){
                         System.out.println("Tài khoản hợp lệ");
                     }
-                }while(true);
+                }while(flag);
             }
             //XỬ LÝ MẬT KHẨU
             System.out.print("- Mật khẩu: ");

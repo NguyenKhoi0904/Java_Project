@@ -1133,13 +1133,9 @@ public abstract class QuanLyDanhMuc implements Serializable {
                             }
                         }
 
-<<<<<<< HEAD
-
                         System.out.println("NHẬP MỘT PHÍM BẤT KỲ ĐỂ BACK VỀ MENU");
 //                        sc.nextLine();
 
-=======
->>>>>>> 6d5754441c41dfe98b8e4cc7a814240512c50909
                     } else {
                         System.out.println("Nhóm bạn chọn hiện đang rỗng");
                         System.out.println("Nhập số nếu tiếp tục ,Hãy nhập chữ để về menu");
@@ -1253,10 +1249,7 @@ public abstract class QuanLyDanhMuc implements Serializable {
                                     Cohieu = true;
                                 }
                             }
-<<<<<<< HEAD
                             System.out.println("NHẬP MỘT PHÍM BẤT KỲ ĐỂ BACK VỀ MENU");
-=======
->>>>>>> 6d5754441c41dfe98b8e4cc7a814240512c50909
 
                         } else {
                             System.out.println("Nhóm bạn chọn hiện đang rỗng");

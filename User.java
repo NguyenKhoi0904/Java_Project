@@ -69,7 +69,7 @@ public class User implements Serializable {
         ArrayList<User> user_array = docUserData();
         do{
             System.out.println("Mời bạn nhập email để xác định tài khoản");
-            System.out.println("Email: ");
+            System.out.print("Email: ");
             String email = input_User.nextLine();
             while(!isGmailAddressRegexValid(email)){
                 System.out.println("Đây không phải là email hợp lệ");

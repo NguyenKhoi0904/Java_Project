@@ -1453,7 +1453,7 @@ public abstract class QuanLyDanhMuc implements Serializable {
                 sotien[i] = 0;
             }
             for (GiaoDich gd : getDsgiaodich().getDsGD()) {
-                int yearIndex = sonamganday - (currentYear - gd.getNgayGiaoDich().getnam()) - 1;git 
+                int yearIndex = sonamganday - (currentYear - gd.getNgayGiaoDich().getnam()) - 1;
                 if (gd.getTendanhmuc() == danhMuc) {
                     soLanGiaoDichTrongNhungNamGanDay[yearIndex] += 1;
                     sotien[yearIndex] += gd.getsotien();

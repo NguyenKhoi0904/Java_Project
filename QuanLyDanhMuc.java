@@ -987,9 +987,13 @@ public abstract class QuanLyDanhMuc implements Serializable {
                 for (GiaoDich output : ketquatimkiem) {
                     System.out.println(output.toStringGiaoDich());
                 }
+                System.out.println("Nhấn 1 phím bất kỳ để trở về menu");
+                sc.nextLine();
                 }
                 else{
                     System.out.println("Không tìm thấy kế quả ");
+                    System.out.println("Nhấn 1 phím bất kỳ để trở về menu");
+                    sc.nextLine();
                 }
     }
 
@@ -1088,7 +1092,7 @@ public abstract class QuanLyDanhMuc implements Serializable {
                                     String test = sc.nextLine();
                                     while (!isInteger(test) || Integer.parseInt(test) < 1 || Integer.parseInt(test) > 10) {
                                         System.out.println("Bạn đã nhập không hợp lệ vui lòng nhập lại");
-                                        sc.nextLine();
+                                        test=sc.nextLine();
                                     }
                                     int NamGanDay = Integer.parseInt(test);
                                     ketqua = thongkedanhmuctheonam(NamGanDay, DanhMucCanXem, loaigd);// ghi file ở khúc này

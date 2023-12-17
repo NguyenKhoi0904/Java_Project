@@ -124,7 +124,7 @@ private static boolean isInteger(String s){
                     System.out.println("|9.XEM BÁO CÁO CHI TIẾT                                                                                                                     |");
                     System.out.println("|10.NÂNG CẤP TÀI KHOẢN                                                                                                                      |");
                     System.out.println("|11.ĐĂNG XUẤT                                                                                                                               |");
-
+                    System.out.println("|12.ĐỔI NGÀY THÁNG NĂM HIỆN TẠI (Chức năng này chỉ để test )                                                                                |");
                     System.out.println("|-------------------------------------------------------------------------------------------------------------------------------------------|");
                     System.out.print(" -Mời bạn lựa chọn: ");
                     String test = scanner.nextLine();
@@ -178,6 +178,15 @@ private static boolean isInteger(String s){
                             dsUser.set(index, u);
                             main.CapNhatUserDateFile(dsUser);
                             cohieu = false;
+                        }
+                        case 12->{// c
+                            System.out.println("nhap ngay");
+                            int ngay=Integer.parseInt(scanner.nextLine());
+                            System.out.println("nhap thang");
+                            int thang=Integer.parseInt(scanner.nextLine());
+                            System.out.println("nhap nam");
+                            int nam=Integer.parseInt(scanner.nextLine());
+                            freeUser.getQldmFree().setDateToDay(new NgayThangNam(ngay,thang,nam));
                         }
                         default -> {
                             
@@ -271,6 +280,16 @@ private static boolean isInteger(String s){
                             dsUser.set(index, u);
                             main.CapNhatUserDateFile(dsUser);
                             cohieu = false;
+                        }
+                        case 13->{
+                            System.out.println("nhap ngay");
+                            int ngay=Integer.parseInt(scanner.nextLine());
+                            System.out.println("nhap thang");
+                            int thang=Integer.parseInt(scanner.nextLine());
+                            System.out.println("nhap nam");
+                            int nam=Integer.parseInt(scanner.nextLine());
+                            proUser.getQldmPro().setDateToDay(new NgayThangNam(ngay,thang,nam));
+
                         }
                         default ->{
                             System.out.println("Không có chức năng này");

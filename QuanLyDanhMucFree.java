@@ -99,15 +99,14 @@ public class QuanLyDanhMucFree extends QuanLyDanhMuc implements Serializable {
 
             try {
                 int type = Integer.parseInt(sc.nextLine());
-                while (type != 1 && type != 2) {
-                    System.out.println("Vui lòng nhập lại");
-                    type = Integer.parseInt(sc.nextLine());
-                }
                 if (type == 1) {
                     giaodich(getDanhMucChi(), 1);
                 } else if (type == 2) {
                     giaodich(getDanhMucThu(), 2);
 
+                }
+                else{
+                    return;
                 }
             } catch (NumberFormatException e) {
                 //KHÔNG CẦN XỬ LÝ Ở ĐÂY

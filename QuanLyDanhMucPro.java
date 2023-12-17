@@ -355,6 +355,8 @@ public class QuanLyDanhMucPro extends QuanLyDanhMuc implements Serializable {
                     }
                 }
                 this.GioiHanNganSach.hienThiBieuDoNganSach( tongtienthangnay);
+                System.out.println("Nhấn 1 nút bất kỳ để quay về menu");
+                sc.nextLine();
             }
         }
         catch(NumberFormatException e){
@@ -418,6 +420,10 @@ public class QuanLyDanhMucPro extends QuanLyDanhMuc implements Serializable {
                     int Chon = Integer.parseInt(test);
                     if(Chon==1){
                         this.getGioiHan().batTat(false);
+                        System.out.println("Bạn đã tắt");
+                        System.out.println("Ấn 1 phím bất kỳ để thoát");
+                        sc.nextLine();
+
                     }
                 }
                 else{
@@ -432,6 +438,9 @@ public class QuanLyDanhMucPro extends QuanLyDanhMuc implements Serializable {
                     int Chon = Integer.parseInt(test);
                     if(Chon==1){
                         this.getGioiHan().batTat(true);
+                        System.out.println("Bạn đã bật");
+                        System.out.println("Ấn 1 phím bất kỳ để thoát");
+                        sc.nextLine();
                     }
                 }
 
@@ -443,7 +452,7 @@ public class QuanLyDanhMucPro extends QuanLyDanhMuc implements Serializable {
 
 
     public void TaoGioiHanNganSach() {
-        setDateToDay(new NgayThangNam(LocalDate.now().getDayOfMonth(),LocalDate.now().getMonthValue(),LocalDate.now().getYear()));
+        setDateToDay(new NgayThangNam(getdateToDay().getngay(),getdateToDay().getthang(),getdateToDay().getnam()));
         Scanner sc = new Scanner(System.in);
         System.out.println("__________________________________________________________________XIN NHẬP LỰA CHỌN__________________________________________________________");
         System.out.println("|BẠN MUỐN TẠO NGÂN SÁCH THÁNG HIỆN TẠI HAY NHỮNG THÁNG KHÁC?                                                                                |");
@@ -477,6 +486,17 @@ public class QuanLyDanhMucPro extends QuanLyDanhMuc implements Serializable {
             } else {
                 return;
             }
+
+
+        }catch (NumberFormatException e) {
+            //KHÔNG CẦN XỬ LÝ Ở ĐÂY
+        }
+            if(getGioiHan().Kiemtrangansachcoduoctaochua(month,year)){
+                System.out.println("Bạn đã tạo ngân sách cho tháng này rồi");
+                System.out.println("Nhấn 1 phím để quay về ");
+                sc.nextLine();
+            }
+            else{
             System.out.println("Nhập số tiền");
             String test = sc.nextLine();
             while (!QuanLyDanhMuc.isInteger(test)) {
@@ -492,10 +512,9 @@ public class QuanLyDanhMucPro extends QuanLyDanhMuc implements Serializable {
             double percent = Double.parseDouble(test);
             this.GioiHanNganSach= new NganSach(month, year, sotien, percent);
             System.out.println("Bạn đã tạo ngân sách giới hạn thành công");
-        } catch (NumberFormatException e) {
-            //KHÔNG CẦN XỬ LÝ Ở ĐÂY
         }
     }
+
 
     @Override
     public void thongke(int month , int year) {//Thong ke theo tuan cua pro user

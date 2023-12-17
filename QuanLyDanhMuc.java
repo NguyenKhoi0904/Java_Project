@@ -1016,12 +1016,12 @@ public abstract class QuanLyDanhMuc implements Serializable {
         StringBuilder report = new StringBuilder("\t\tBÁO CÁO CHI TIẾT THEO DANH MỤC\n");
         report.append("\tI.Mục đích và tầm quan trọng\n");
         report.append("\t- Chức năng Chức năng \"Xem Báo Cáo chi tiết theo từng danh mục và thời gian\" là một phần quan trọng trong hệ thống quản lý tài chính cá nhân.\n");
-        report.append("\t-Nó giúp người dùng:\n");
+        report.append("\t-Chức năng này giúp người dùng:\n");
         report.append("\t.Theo dõi Chi Tiêu: Hiểu rõ hơn về cách họ tiêu tiền theo từng danh mục và trong khoảng thời gian cụ thể\n");
         report.append("\t.Quản Lý Ngân Sách: Đặt ngân sách cho từng danh mục và theo dõi xem họ đã tuân thủ ngân sách hay chưa\n");
-        report.append("\tII.Lựa Chọn Danh Mục và Thời Gian\n");
-        report.append("\t-Chọn danh mục: ");
+        report.append("\tII.Lựa Chọn Danh Mục,Thời Gian và hiển thị báo cáo chi tiết\n");
         System.out.println(report.toString());
+        report.append("\t-Theo danh mục: \n");
         Scanner sc = new Scanner(System.in);
         System.out.println("Bạn muốn xem báo cáo chi tiết theo loại danh mục nào ");
         System.out.println("1.Chi ");
@@ -1055,6 +1055,7 @@ public abstract class QuanLyDanhMuc implements Serializable {
 
                     int chonnhom = Integer.parseInt(sc.nextLine());
                     DanhMuc DanhMucCap1 = this.getDanhMucChi().getDsDanhMuc().get(chonnhom - 1);
+                    report.append("\tDanh mục cha: ").append(DanhMucCap1.gettendanhmuc()).append("\n");
                     if (DanhMucCap1.getdanhsachdanhmuccon().size() > 0) { //Kiểm tra kích thước của danh mục
                         int x = 1;
                         for (DanhMuc danhmuc : DanhMucCap1.getdanhsachdanhmuccon()) {
@@ -1064,6 +1065,7 @@ public abstract class QuanLyDanhMuc implements Serializable {
                         System.out.println("Bạn muốn chọn danh mục nào (Chọn số)?");
                         int luachon1 = Integer.parseInt(sc.nextLine());
                         DanhMucCanXem = DanhMucCap1.getdanhsachdanhmuccon().get(luachon1 - 1);// chọn ra 1 danh mục con
+                        report.append("\tDanh mục con: ").append(DanhMucCanXem.gettendanhmuc()).append("\n");
                         int SoLanGiaoDichCuaDanhMuc = 0; // tổng số lần giao dịch của danh mục
                         String loaigd = null;
                         for (GiaoDich lichsu : getDsgiaodich().getDsGD()) {
@@ -1073,7 +1075,9 @@ public abstract class QuanLyDanhMuc implements Serializable {
                             }
                         }
                         System.out.println("Tổng số lần giao dịch của danh mục này là: " + SoLanGiaoDichCuaDanhMuc);
+                        report.append("\tTổng số lần giao dịch của danh mục này là: ").append(SoLanGiaoDichCuaDanhMuc).append("\n");
                         //Bạn muốn xem dữ liệu theo tuần , theo tháng ,theo năm
+                        report.append("\t-Theo thời gian: \n");
                         System.out.println("Bạn muốn xem dữ liệu theo");
                         System.out.println("1.Tuần");
                         System.out.println("2.Tháng");
@@ -1082,8 +1086,10 @@ public abstract class QuanLyDanhMuc implements Serializable {
                         Boolean Cohieu = true;
                         while (Cohieu) {
                             try {
+                                
                                 int choice = Integer.parseInt(sc.nextLine());
                                 if (choice == 1) { // xem dữ liệu danh mục theo tuần
+                                    report.append("\tXem dữ liệu danh mục theo tuần\n");
                                     Cohieu = false;
                                     System.out.println("Vui lòng nhập năm");
                                     String test = sc.nextLine();
@@ -1099,9 +1105,16 @@ public abstract class QuanLyDanhMuc implements Serializable {
                                         test = sc.nextLine();
                                     }
                                     int Month = Integer.parseInt(test);
+                                    
+                                    report.append("\tNăm: ").append(Year).append("\n");
+                                    report.append("\tTháng: ").append(Month).append("\n");
+                                    
                                     ketqua = thongkedanhmuctheotuan(Month, Year, DanhMucCanXem, loaigd); // ghi file ở khúc này
                                     System.out.println(ketqua);
+                                    
+                                    report.append("\t").append(ketqua).append("\n");
                                 } else if (choice == 2) {// xem dữ liệu danh mục theo tháng
+                                    report.append("\tXem dữ liệu danh mục theo tháng\n");
                                     Cohieu = false;
                                     System.out.println("Vui lòng nhập năm");
                                     String test = sc.nextLine();
@@ -1110,9 +1123,15 @@ public abstract class QuanLyDanhMuc implements Serializable {
                                         test = sc.nextLine();
                                     }
                                     int Year = Integer.parseInt(test);
+                                    
+                                    report.append("\tNăm: ").append(Year).append("\n");
+                                    
                                     ketqua = thongkedanhmuctheothang(Year, DanhMucCanXem, loaigd);// ghi file ở khúc này
                                     System.out.println(ketqua);
+                                    
+                                    report.append("\t").append(ketqua).append("\n");
                                 } else if (choice == 3) {// xem dữ liệu danh mục theo năm
+                                    report.append("\tXem dữ liệu danh mục theo năm\n");
                                     Cohieu = false;
                                     System.out.println("Vui lòng nhập năm gần đây ( trong phạm vi trừ 2 đến 10)");
                                     String test = sc.nextLine();
@@ -1121,8 +1140,12 @@ public abstract class QuanLyDanhMuc implements Serializable {
                                         test=sc.nextLine();
                                     }
                                     int NamGanDay = Integer.parseInt(test);
+                                    
+                                    report.append("\t").append(NamGanDay).append(" năm gần đây: ").append("\n");
+                                    
                                     ketqua = thongkedanhmuctheonam(NamGanDay, DanhMucCanXem, loaigd);// ghi file ở khúc này
                                     System.out.println(ketqua);
+                                    report.append("\t").append(ketqua).append("\n");
                                 } else {
                                     System.out.println("Vui lòng nhập lại");
                                     Cohieu = true;
@@ -1169,9 +1192,9 @@ public abstract class QuanLyDanhMuc implements Serializable {
                 Boolean flat = true;
                 while (flat) {
                     try {
-
                         int chonnhom = Integer.parseInt(sc.nextLine());
                         DanhMuc DanhMucCap1 = this.getDanhMucThu().getDsDanhMuc().get(chonnhom - 1);
+                        report.append("\tDanh mục cha: ").append(DanhMucCap1.gettendanhmuc()).append("\n");
                         if (DanhMucCap1.getdanhsachdanhmuccon().size() > 0) { //Kiểm tra kích thước của danh mục
                             int x = 1;
                             for (DanhMuc danhmuc : DanhMucCap1.getdanhsachdanhmuccon()) {
@@ -1181,6 +1204,7 @@ public abstract class QuanLyDanhMuc implements Serializable {
                             System.out.println("Bạn muốn giao dịch với danh mục con nào");
                             int luachon1 = Integer.parseInt(sc.nextLine());
                             DanhMucCanXem = DanhMucCap1.getdanhsachdanhmuccon().get(luachon1 - 1);// chọn ra 1 danh mục con
+                            report.append("\tDanh mục con: ").append(DanhMucCanXem.gettendanhmuc()).append("\n");
                             int SoLanGiaoDichCuaDanhMuc = 0; // tổng số lần giao dịch của danh mục
                             String loaigd = null;
                             for (GiaoDich lichsu : getDsgiaodich().getDsGD()) {
@@ -1190,6 +1214,7 @@ public abstract class QuanLyDanhMuc implements Serializable {
                                 }
                             }
                             System.out.println("Tổng số lần giao dịch của danh mục này là: " + SoLanGiaoDichCuaDanhMuc);
+                            report.append("\tTổng số lần giao dịch của danh mục này là: ").append(SoLanGiaoDichCuaDanhMuc).append("\n");
                             //Bạn muốn xem dữ liệu theo tuần , theo tháng ,theo năm
                             System.out.println("Bạn muốn xem dữ liệu theo");
                             System.out.println("1.Tuần");
@@ -1202,6 +1227,7 @@ public abstract class QuanLyDanhMuc implements Serializable {
                                     int choice = Integer.parseInt(sc.nextLine());
                                     if (choice == 1) { // xem dữ liệu danh mục theo tuần
                                         Cohieu = false;
+                                        report.append("\tXem dữ liệu danh mục theo tuần\n");
                                         System.out.println("Vui lòng nhập năm");
                                         String test = sc.nextLine();
                                         while (!Kiemtranamhople(test)) {
@@ -1216,9 +1242,16 @@ public abstract class QuanLyDanhMuc implements Serializable {
                                             test = sc.nextLine();
                                         }
                                         int Month = Integer.parseInt(test);
+                                        
+                                        report.append("\tNăm: ").append(Year).append("\n");
+                                        report.append("\tTháng: ").append(Month).append("\n");
+                                        
                                         ketqua = thongkedanhmuctheotuan(Month, Year, DanhMucCanXem, loaigd); // ghi file trong hàm này dòng 1644
                                         System.out.println(ketqua);
+                                        
+                                        report.append("\t").append(ketqua).append("\n");
                                     } else if (choice == 2) {// xem dữ liệu danh mục theo tháng
+                                        report.append("\tXem dữ liệu danh mục theo tháng\n");
                                         Cohieu = false;
                                         System.out.println("Vui lòng nhập năm");
                                         String test = sc.nextLine();
@@ -1227,9 +1260,15 @@ public abstract class QuanLyDanhMuc implements Serializable {
                                             test = sc.nextLine();
                                         }
                                         int Year = Integer.parseInt(test);
+                                        
+                                        report.append("\tNăm: ").append(Year).append("\n");
+                                        
                                         ketqua=thongkedanhmuctheothang(Year, DanhMucCanXem, loaigd);
                                         System.out.println(ketqua);
+                                        
+                                        report.append("\t").append(ketqua).append("\n");
                                     } else if (choice == 3) {// xem dữ liệu danh mục theo năm
+                                        report.append("\tXem dữ liệu danh mục theo năm\n");
                                         Cohieu = false;
                                         System.out.println("Vui lòng nhập năm gần đây ( trong phạm vi trừ 2 đến 10)");
                                         String test = sc.nextLine();
@@ -1238,8 +1277,11 @@ public abstract class QuanLyDanhMuc implements Serializable {
                                             test = sc.nextLine();
                                         }
                                         int NamGanDay = Integer.parseInt(test);
+                                        report.append("\t").append(NamGanDay).append(" năm gần đây: ").append("\n");
                                         ketqua=thongkedanhmuctheonam(NamGanDay, DanhMucCanXem, loaigd);
                                         System.out.println(ketqua);
+                                        
+                                        report.append("\t").append(ketqua).append("\n");
                                     } else {
                                         System.out.println("Vui lòng nhập lại");
                                         Cohieu = true;
@@ -1269,6 +1311,24 @@ public abstract class QuanLyDanhMuc implements Serializable {
             }
         }
         //System.out.println(ketqua);
+        report.append("\tIII.Kết Luận và Hướng Phát Triển Tương Lai\n");
+        report.append("\t-Tóm Tắt Lợi Ích và Tính Năng\n");
+        report.append("\t.Chức năng \"Xem Báo Cáo chi tiết theo từng danh "
+                + "mục và thời gian\" mang lại nhiều lợi ích quan trọng cho người dùng trong quản lý tài chính cá nhân:\n");
+        report.append("\t1.Theo Dõi Chi Tiêu Chi Tiết: Cho phép người dùng theo dõi mức chi tiêu của "
+                + "họ theo từng danh mục cụ thể và trong các khoảng thời gian nhất định.\n");
+        report.append("\t2.Quản Lý Ngân Sách Hiệu Quả: Hỗ trợ người dùng đặt ngân sách cho từng danh mục,"
+                + " giúp họ theo dõi việc tuân thủ ngân sách và điều chỉnh chi tiêu nếu cần thiết.\n");
+        report.append("\t3.Trực Quan Hóa Thông Tin: Sử dụng biểu đồ và bảng báo cáo để trực quan hóa thông tin, giúp người dùng nhanh chóng nhận diện xu hướng, mức độ quan trọng của từng danh mục và thay đổi theo thời gian.\n");
+        report.append("\t4.Lọc và Sắp Xếp Linh Hoạt: Cung cấp tính năng lọc và sắp xếp, giúp người dùng tinh chỉnh báo cáo theo nhiều tiêu chí khác nhau, từ loại giao dịch đến mức độ quan trọng.\n");
+        report.append("\t5.Xuất Báo Cáo Thuận Tiện: Cho phép người dùng xuất báo cáo chi tiết theo danh mục và thời gian vào các định dạng khác nhau như PDF hoặc CSV, giúp họ lưu trữ hoặc chia sẻ thông tin một cách thuận lợi.\n");
+        report.append("\t- Hướng Phát Triển Tương Lai\n");
+        report.append("\tĐể nâng cao trải nghiệm người dùng và mở rộng khả năng quản lý tài chính, có một số hướng phát triển có thể được xem xét trong tương lai:\n");
+        report.append("\t1.Tích Hợp Thêm Nhiều Danh Mục và Thống Kê Nâng Cao: Mở rộng danh sách danh mục và thêm các thống kê nâng cao để cung cấp thông tin chi tiết hơn về xu hướng và biến động tài chính.\n");
+        report.append("\t2.Giao Diện Người Dùng Tương Tác: Phát triển giao diện người dùng tương tác hơn, cho phép người dùng tương tác trực tiếp với báo cáo và biểu đồ, thực hiện phân tích chi tiết.\n");
+        report.append("\t3.Dự Đoán Tài Chính Tương Lai: Tích hợp tính năng dự đoán để người dùng có thể xem trước chi tiêu trong tương lai dựa trên xu hướng hiện tại.\n");
+        report.append("\t4.Kết Nối Với Ngân Hàng và Dịch Vụ Tài Chính Khác: Mở rộng tính năng kết nối để tự động đồng bộ dữ liệu từ ngân hàng và các dịch vụ tài chính khác, tăng tính chính xác và thuận tiện.\n");
+        report.append("\t5.Phân Tích Dữ Liệu Sâu Rộng: Sử dụng công nghệ phân tích dữ liệu để cung cấp thông tin chi tiết và gợi ý thông minh dựa trên hành vi và xu hướng chi tiêu cụ thể của người dùng.\n");
         return report.toString();
     }
 

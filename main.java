@@ -277,8 +277,6 @@ private static boolean isInteger(String s){
                             chuoi = proUser.BaoCaoChiTietTheoTungDanhMucVaThoiGian(); // Cần xử lý hàm BÁO CÁO CHI TIẾT DANH MỤC CỦA PRO
                         }
                         case 10 ->{
-                            System.out.println("Chức năng chưa hoàn thiện");
-                            System.out.println("Bạn hãy chọn chức năng khác");
                             proUser.xuatBaoCaoRaFile(chuoi);
                         }
                         case 11 ->{

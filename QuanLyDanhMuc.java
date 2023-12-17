@@ -235,6 +235,7 @@ public abstract class QuanLyDanhMuc implements Serializable {
                             int x = 1;
                             for (DanhMuc danhmuccap2 : list.getdanhsachdanhmuccon()) {
                                 System.out.println( "       "+i+"."+x + ": " + danhmuccap2.gettendanhmuc());
+                                x++;
                             }
                             i++;
                         }
@@ -529,6 +530,7 @@ public abstract class QuanLyDanhMuc implements Serializable {
                                             int x = 1;
                                             for (DanhMuc danhmuccap2 : list.getdanhsachdanhmuccon()) {
                                                 System.out.println(x + ": " + danhmuccap2.gettendanhmuc());
+                                                x++;
                                             }
                                             sodanhmuc++;
                                         }
@@ -1322,8 +1324,14 @@ public abstract class QuanLyDanhMuc implements Serializable {
                 case 3:
                     int currentYear = LocalDate.now().getYear();
                     System.out.println("Số năm hiện tại là " + currentYear);
-                    System.out.println("Nhập số năm gần đây nhất mà bạn muốn xem dữ liệu từ trước năm " + currentYear);
-                    int year = Integer.parseInt(sc.nextLine());
+                    System.out.println("Nhập số năm gần đây nhất mà bạn muốn xem dữ liệu từ tính từ năm ( " + currentYear+" )");
+                    System.out.println("số năm gần đây phải nằm trong khoảng từ 0 đến 10)");
+                    String test = sc.nextLine();
+                    while (!isInteger(test) || Integer.parseInt(test)<0 ||  Integer.parseInt(test)>10) {
+                        System.out.println("số năm gần đây không hợp lệ, mời nhập lại");
+                        test = sc.nextLine();
+                    }
+                    int year=Integer.parseInt(test);
                     thongketheonam(year);
                     System.out.println("NHẬP MỘT PHÍM BẤT KỲ ĐỂ BACK VỀ MENU");
                     sc.nextLine();

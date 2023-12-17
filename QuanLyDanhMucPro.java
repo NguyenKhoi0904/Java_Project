@@ -284,12 +284,12 @@ public class QuanLyDanhMucPro extends QuanLyDanhMuc implements Serializable {
                             for (DanhMuc list : DanhMucCha.getdanhsachdanhmuccon()) {
                                 System.out.println(temp + ": " + list.gettendanhmuc());
                                 temp++;
-
+                            }
                                 System.out.println("Vui lòng nhập vị trí danh mục trong nhóm này");
                                 type_1 = Integer.parseInt(sc.nextLine());
                                 flat2 = false;
                                 DanhMucCanGiaoDich = DanhMucCha.getdanhsachdanhmuccon().get(type_1 - 1);
-                            }
+
                         } catch (IndexOutOfBoundsException e) {
                             System.out.println("Số bạn nhập không nằm trong vị trí cho phép , vui lòng nhập lại !!!!!.");
                             flat2 = true;
@@ -310,7 +310,7 @@ public class QuanLyDanhMucPro extends QuanLyDanhMuc implements Serializable {
                         System.out.println("Giao dịch thành công");
                         System.out.println("Bạn có muốn giao dịch tiếp không");
                         System.out.println("1:YES ");
-                        System.out.println("Các số còn lại:về menu ");
+                        System.out.println("Các nút còn lại:về menu ");
                         try {
                             int choice1 = Integer.parseInt(sc.nextLine());
                             if (choice1 == 1) {

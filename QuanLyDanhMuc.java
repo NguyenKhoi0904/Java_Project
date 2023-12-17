@@ -49,17 +49,7 @@ public abstract class QuanLyDanhMuc implements Serializable {
         this.dateToDay=new NgayThangNam(LocalDate.now().getDayOfMonth(),LocalDate.now().getMonthValue(),LocalDate.now().getYear());
     }
 
-    public static void HuongDanSuDung(){
 
-            System.out.println("******************************************************************************************************************************************");
-            System.out.println("*                                                 HƯỚNG DẪN SỬ DỤNG                                                                      *");
-            System.out.println("*   Danh mục cấp 1 : là những danh mục mặc đinh đã có sẵn và không thể giao dịch mà chỉ có thể thêm xóa sửa danh mục hoặc thêm các danh  *");
-            System.out.println("*   mục con                                                                                                                              *");
-            System.out.println("*   Danh mục cấp 2 : là những danh mục con của danh mục 1 , danh mục cấp 2 có thể giao dịch                                              *");
-            System.out.println("*   Để chọn danh mục cấp 2 , bạn phải nhập các nhóm thông qua các danh mục cấp 1,nếu danh mục cấp 1 rỗng bạn sẽ không thể thực hiện được *");
-            System.out.println("*   các chức năng như thêm xóa sửa                                                                                                       *");
-            System.out.println("******************************************************************************************************************************************");
-        }
     public void ThemDanhMuc(ListDanhMuc danhmuc, String idDanhMuc) {
         Scanner sc = new Scanner(System.in);
         System.out.println("VUI LÒNG NHẬP CÁC THÔNG TIN CÁC DANH MỤC CẦN THÊM");
@@ -730,7 +720,6 @@ public abstract class QuanLyDanhMuc implements Serializable {
             } else if (choice == 3) { //Hien thi theo ten danh muc
 
                 System.out.println("Tên danh mục bạn muốn hiển thị trong lịch sử thuộc loại danh mục nào ");
-
                 System.out.println("1.Chi ");
                 System.out.println("2.Thu");
                 //Loai danh muc
@@ -857,6 +846,7 @@ public abstract class QuanLyDanhMuc implements Serializable {
                 System.out.println("2:Tùy chỉnh");
                 String test = sc.nextLine();
                 if (!isInteger(test)) {
+                    System.out.println("Hãy nhập lại");
                     test = sc.nextLine();
                 }
                 int luachon = Integer.parseInt(sc.nextLine());
@@ -865,15 +855,20 @@ public abstract class QuanLyDanhMuc implements Serializable {
                     int month = LocalDate.now().getMonthValue();
                     int day = LocalDate.now().getDayOfMonth();
                     //Hien thi theo ngay thang nam
+                    System.out.println("---------------------------------------------------------Lịch sử giao dịch của bạn-----------------------------------------------------------");
+                    System.out.println("------------------------------------------------------------Thông tin giao dịch--------------------------------------------------------------");
                     for (GiaoDich lichsu : dsgiaodich.getDsGD()) {
                         if (lichsu.getNgayGiaoDich().getngay() == day && lichsu.getNgayGiaoDich().getnam() == year && lichsu.getNgayGiaoDich().getthang() == month) {
                             System.out.println(lichsu.toStringGiaoDich());
                         }
                     }
+                    System.out.println("Nhấn 1 nút để quay về menu");
+
                 } else if (luachon == 2) {
                     System.out.println("1.Hiển thị theo ngày tháng năm cụ thể ");
                     System.out.println("2.Hiển thị theo tháng");
                     System.out.println("3.Hiển thị theo năm ");
+                    System.out.println("Các nút còn lại back về menu ");
                     String input = sc.nextLine();
                     while (!isInteger(input) && Integer.parseInt(input) > 3 || Integer.parseInt(input) < 1) {
                         input = sc.nextLine();
@@ -902,11 +897,15 @@ public abstract class QuanLyDanhMuc implements Serializable {
                                 kiemtra1 = sc.nextLine();
                             }
                             int nam = Integer.parseInt(kiemtra1);
+                            System.out.println("---------------------------------------------------------Lịch sử giao dịch của bạn-----------------------------------------------------------");
+                            System.out.println("------------------------------------------------------------Thông tin giao dịch--------------------------------------------------------------");
                             for (GiaoDich lichsu : dsgiaodich.getDsGD()) {
                                 if (lichsu.getNgayGiaoDich().getngay() == ngay && lichsu.getNgayGiaoDich().getnam() == nam && lichsu.getNgayGiaoDich().getthang() == thang) {
                                     System.out.println(lichsu.toStringGiaoDich());
                                 }
                             }
+                            System.out.println("Ấn 1 nút để back về menu");
+                            sc.nextLine();
                             break;
                         case 2:
 
@@ -926,11 +925,15 @@ public abstract class QuanLyDanhMuc implements Serializable {
                                 kiemtra2 = sc.nextLine();
                             }
                             nam = Integer.parseInt(kiemtra2);
+                            System.out.println("---------------------------------------------------------Lịch sử giao dịch của bạn-----------------------------------------------------------");
+                            System.out.println("------------------------------------------------------------Thông tin giao dịch--------------------------------------------------------------");
                             for (GiaoDich lichsu : dsgiaodich.getDsGD()) {
                                 if (lichsu.getNgayGiaoDich().getnam() == nam && lichsu.getNgayGiaoDich().getthang() == thang) {
                                     System.out.println(lichsu.toStringGiaoDich());
                                 }
                             }
+                            System.out.println("Ấn 1 nút để back về menu");
+                            sc.nextLine();
                             break;
                         case 3:
                             String kiemtra3 = sc.nextLine();
@@ -949,14 +952,22 @@ public abstract class QuanLyDanhMuc implements Serializable {
                                 kiemtra3 = sc.nextLine();
                             }
                             nam = Integer.parseInt(kiemtra3);
+                            System.out.println("---------------------------------------------------------Lịch sử giao dịch của bạn-----------------------------------------------------------");
+                            System.out.println("------------------------------------------------------------Thông tin giao dịch--------------------------------------------------------------");
                             for (GiaoDich lichsu : dsgiaodich.getDsGD()) {
                                 if (lichsu.getNgayGiaoDich().getnam() == nam) {
                                     System.out.println(lichsu.toStringGiaoDich());
                                 }
                             }
+                            System.out.println("Ấn 1 nút để back về menu");
+                            sc.nextLine();
                             break;
+                        default: return;
                     }
                 }
+            }
+            else{
+                return;
             }
 
             //2.2.1 hien thi theo ngày tháng năm
@@ -985,6 +996,8 @@ public abstract class QuanLyDanhMuc implements Serializable {
                     }
                 }
                 if(ketquatimkiem.size()>0){
+                    System.out.println("---------------------------------------------------------Lịch sử giao dịch của bạn-----------------------------------------------------------");
+                    System.out.println("------------------------------------------------------------Thông tin giao dịch--------------------------------------------------------------");
                 for (GiaoDich output : ketquatimkiem) {
                     System.out.println(output.toStringGiaoDich());
                 }
@@ -1452,7 +1465,7 @@ public abstract class QuanLyDanhMuc implements Serializable {
     }
     public abstract void thongke(int month , int year);//thong ke theo tuan
     public abstract void thongke(int year);// thong ke theo thang
-    public abstract void thongketheonam(int soNamGanDay);//thong ke theo nam cua pro user
+    public abstract void thongketheonam(int soNamGanDay);//thong ke theo nam
 
     public double TongSoTientrongdanhmuc(int [] array){
         int sum=0;
@@ -1506,83 +1519,5 @@ public abstract class QuanLyDanhMuc implements Serializable {
     public void setDsgiaodich(ListGiaoDich dsgiaodich) {
         this.dsgiaodich = dsgiaodich;
     }
-    public static void main_menu() {
-        System.out.println("_________________________________________________________________XIN NHẬP LỰA CHỌN_________________________________________________________");
-        System.out.println("|1.THÊM DANH MỤC                                                                                                                            |");
-        System.out.println("|-------------------------------------------------------------------------------------------------------------------------------------------|");
-        System.out.println("|2.XÓA DANH MỤC                                                                                                                             |");
-        System.out.println("|-------------------------------------------------------------------------------------------------------------------------------------------|");
-        System.out.println("|3.SỬA DANH MỤC                                                                                                                             |");
-        System.out.println("|-------------------------------------------------------------------------------------------------------------------------------------------|");
-        System.out.println("|4.HIỂN THỊ DANH MỤC                                                                                                                        |");
-        System.out.println("|-------------------------------------------------------------------------------------------------------------------------------------------|");
-        System.out.println("|5.GIAO DỊCH                                                                                                                                |");
-        System.out.println("|-------------------------------------------------------------------------------------------------------------------------------------------|");
-        System.out.println("|6.XEM LỊCH SỬ GIAO DỊCH                                                                                                                    |");
-        System.out.println("|-------------------------------------------------------------------------------------------------------------------------------------------|");
-        System.out.println("|7.THỐNG KÊ GIAO DỊCH                                                                                                                       |");
-        System.out.println("|-------------------------------------------------------------------------------------------------------------------------------------------|");
-        System.out.println("|8.TÌM KIẾM THÔNG TIN GIAO DỊCH                                                                                                             |");
-        System.out.println("|-------------------------------------------------------------------------------------------------------------------------------------------|");
-    }
-    public void menu() {
-        Scanner sc = new Scanner(System.in);
-        HuongDanSuDung();
-        // chay menu;
-        main_menu();
 
-        System.out.println("-Hãy nhập lựa chọn của bạn :");
-        try {
-            int choice = Integer.parseInt(sc.nextLine());
-            switch (choice) {
-                case 1:
-                    ChonDanhMucDeThem();
-                    break;
-
-                case 2:
-                    ChonDanhMucdexoa();
-                    break;
-
-                case 3:
-                    chonDanhMucDeSua();
-                    break;
-
-                case 4:
-                    HienThiDanhMuc();
-                    break;
-
-                case 5:
-                    chonloaigiaodich();
-                    break;
-                case 6:
-                    hienThiLichSuGiaoDich();
-                    break;
-                case 7:
-                    ThongKe();
-                    break;
-                case 8:
-                    timkiemthongtingiaodich();
-                    break;
-                case 9:setDateToDay(new NgayThangNam(Integer.parseInt(sc.nextLine()),Integer.parseInt(sc.nextLine()),Integer.parseInt(sc.nextLine())));
-
-                menu();
-                break;
-                case 10:System.out.println("xem ngày tháng hiện tại");
-                        System.out.println(getdateToDay().toStringdate());
-                        menu();
-                        break;
-                case 11: BaoCaoChiTietTungDanhMuc();
-
-                    break;
-            }
-        } catch (NumberFormatException e) {
-            System.out.println("VUI LÒNG NHẬP SỐ");
-            menu();
-
-        }
-    }
-    public static void main(String [] args){
-        QuanLyDanhMuc qldm = new QuanLyDanhMucPro();
-        qldm.menu();
-    }
 }

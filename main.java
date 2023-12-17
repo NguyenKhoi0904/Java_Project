@@ -32,6 +32,19 @@ private static void CapNhatUserDateFile(ArrayList<User> a) throws FileNotFoundEx
             e.printStackTrace();
         }
     }
+    public static void HuongDanSuDung(){
+
+        System.out.println("******************************************************************************************************************************************");
+        System.out.println("*                                                 HƯỚNG DẪN SỬ DỤNG                                                                      *");
+        System.out.println("*   Danh mục cấp 1 : là những danh mục mặc định đã có sẵn và không thể giao dịch mà chỉ có thể thêm xóa sửa danh mục hoặc thêm các danh  *");
+        System.out.println("*   mục con                                                                                                                              *");
+        System.out.println("*   Danh mục cấp 2 : là những danh mục con của danh mục 1 , danh mục cấp 2 có thể giao dịch                                              *");
+        System.out.println("*   Để chọn danh mục cấp 2 , bạn phải nhập các nhóm thông qua các danh mục cấp 1,nếu danh mục cấp 1 rỗng bạn sẽ không thể thực hiện được *");
+        System.out.println("*   các chức năng như thêm xóa sửa                                                                                                       *");
+        System.out.println("*   Thời gian trong chương trình này hoàn toàn là thời gian thực                                                                         *");
+        System.out.println("*                                                                                                                                        *");
+        System.out.println("******************************************************************************************************************************************");
+    }
 private static ArrayList<User> UserData(){
         ArrayList<User> a = new ArrayList<>();
         try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream("userData.txt"))) {
@@ -61,6 +74,7 @@ private static boolean isInteger(String s){
 //        } catch (Exception e) {
 //        }
 //        System.out.println(a);
+        HuongDanSuDung();
         System.out.println("\tCHÀO MỪNG BẠN ĐẾN VỚI HỆ THỐNG QUẢN LÝ THU CHI CÁ NHÂN");
         boolean flag = true;
         User a = new User();
@@ -224,6 +238,8 @@ private static boolean isInteger(String s){
                     System.out.println("|11.CHỨC NĂNG LẬP NGÂN SÁCH VÀ NHẮC NHỞ                                                                                                     |");
                     System.out.println("|-------------------------------------------------------------------------------------------------------------------------------------------|");
                     System.out.println("|12.ĐĂNG XUẤT                                                                                                                               |");
+                    System.out.println("|-------------------------------------------------------------------------------------------------------------------------------------------|");
+                    System.out.println("|13.THAY ĐỔI NGÀY THÁNG NĂM HIỆN TẠI, CHỈ PHÙ HỢP VỚI TEST                                                                                  |");
                     System.out.println("|-------------------------------------------------------------------------------------------------------------------------------------------|");
                     System.out.print(" -Mời bạn lựa chọn: ");
                     String s = scanner.nextLine();

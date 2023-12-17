@@ -849,11 +849,11 @@ public abstract class QuanLyDanhMuc implements Serializable {
                     System.out.println("Hãy nhập lại");
                     test = sc.nextLine();
                 }
-                int luachon = Integer.parseInt(sc.nextLine());
+                int luachon = Integer.parseInt(test);
                 if (luachon == 1) {
-                    int year = LocalDate.now().getYear();
-                    int month = LocalDate.now().getMonthValue();
-                    int day = LocalDate.now().getDayOfMonth();
+                    int year = getdateToDay().getnam();
+                    int month = getdateToDay().getthang();
+                    int day = getdateToDay().getnam();
                     //Hien thi theo ngay thang nam
                     System.out.println("---------------------------------------------------------Lịch sử giao dịch của bạn-----------------------------------------------------------");
                     System.out.println("------------------------------------------------------------Thông tin giao dịch--------------------------------------------------------------");

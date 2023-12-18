@@ -112,6 +112,10 @@ public class ListDanhMuc implements Serializable{
             Scanner sc = new Scanner(System.in);
             if (danhMuc.gettendanhmuc().equals(tendanhmuc)) {
                 timThay = true;
+                if(danhMuc.getdanhsachdanhmuccon().isEmpty()){
+                    danhMucCanXoa = danhMuc;
+                }
+                else{
                 System.out.println("Nếu Bạn xóa thì sẽ xóa toàn bộ số tiền của danh mục con");
                 System.out.println("1: có ");
                 System.out.println("2: không ");
@@ -134,6 +138,7 @@ public class ListDanhMuc implements Serializable{
                 catch(Exception e){
                         System.out.println("vui lòng nhập số hợp lệ");
                         deleteDanhMuc(tendanhmuc);
+                }
                 }
 
             } else {

@@ -1,0 +1,52 @@
+		BÁO CÁO CHI TIẾT THEO DANH MỤC
+	I.Mục đích và tầm quan trọng
+	- Chức năng Chức năng "Xem Báo Cáo chi tiết theo từng danh mục và thời gian" là một phần quan trọng trong hệ thống quản lý tài chính cá nhân.
+	-Chức năng này giúp người dùng:
+	.Theo dõi Chi Tiêu: Hiểu rõ hơn về cách họ tiêu tiền theo từng danh mục và trong khoảng thời gian cụ thể
+	.Quản Lý Ngân Sách: Đặt ngân sách cho từng danh mục và theo dõi xem họ đã tuân thủ ngân sách hay chưa
+	II.Lựa Chọn Danh Mục,Thời Gian và hiển thị báo cáo chi tiết
+	-Theo danh mục: 
+	Loại danh mục: Chi
+	Danh mục cha: Thiết yếu
+	Danh mục con: đá
+	Tổng số lần giao dịch của danh mục này là: 4
+	-Theo thời gian: 
+	Xem dữ liệu danh mục theo năm
+	7 năm gần đây: 
+	 - Năm 2023 :
+Số lần giao dịch là: 4
+Số tiền đã kiếm được là: 147533
+ - Năm 2022 :
+Số lần giao dịch là: 0
+Số tiền đã kiếm được là: 0
+ - Năm 2021 :
+Số lần giao dịch là: 0
+Số tiền đã kiếm được là: 0
+ - Năm 2020 :
+Số lần giao dịch là: 0
+Số tiền đã kiếm được là: 0
+ - Năm 2019 :
+Số lần giao dịch là: 0
+Số tiền đã kiếm được là: 0
+ - Năm 2018 :
+Số lần giao dịch là: 0
+Số tiền đã kiếm được là: 0
+ - Năm 2017 :
+Số lần giao dịch là: 0
+Số tiền đã kiếm được là: 0
+
+	III.Kết Luận và Hướng Phát Triển Tương Lai
+	-Tóm Tắt Lợi Ích và Tính Năng
+	.Chức năng "Xem Báo Cáo chi tiết theo từng danh mục và thời gian" mang lại nhiều lợi ích quan trọng cho người dùng trong quản lý tài chính cá nhân:
+	1.Theo Dõi Chi Tiêu Chi Tiết: Cho phép người dùng theo dõi mức chi tiêu của họ theo từng danh mục cụ thể và trong các khoảng thời gian nhất định.
+	2.Quản Lý Ngân Sách Hiệu Quả: Hỗ trợ người dùng đặt ngân sách cho từng danh mục, giúp họ theo dõi việc tuân thủ ngân sách và điều chỉnh chi tiêu nếu cần thiết.
+	3.Trực Quan Hóa Thông Tin: Sử dụng biểu đồ và bảng báo cáo để trực quan hóa thông tin, giúp người dùng nhanh chóng nhận diện xu hướng, mức độ quan trọng của từng danh mục và thay đổi theo thời gian.
+	4.Lọc và Sắp Xếp Linh Hoạt: Cung cấp tính năng lọc và sắp xếp, giúp người dùng tinh chỉnh báo cáo theo nhiều tiêu chí khác nhau, từ loại giao dịch đến mức độ quan trọng.
+	5.Xuất Báo Cáo Thuận Tiện: Cho phép người dùng xuất báo cáo chi tiết theo danh mục và thời gian vào các định dạng khác nhau như PDF hoặc CSV, giúp họ lưu trữ hoặc chia sẻ thông tin một cách thuận lợi.
+	- Hướng Phát Triển Tương Lai
+	Để nâng cao trải nghiệm người dùng và mở rộng khả năng quản lý tài chính, có một số hướng phát triển có thể được xem xét trong tương lai:
+	1.Tích Hợp Thêm Nhiều Danh Mục và Thống Kê Nâng Cao: Mở rộng danh sách danh mục và thêm các thống kê nâng cao để cung cấp thông tin chi tiết hơn về xu hướng và biến động tài chính.
+	2.Giao Diện Người Dùng Tương Tác: Phát triển giao diện người dùng tương tác hơn, cho phép người dùng tương tác trực tiếp với báo cáo và biểu đồ, thực hiện phân tích chi tiết.
+	3.Dự Đoán Tài Chính Tương Lai: Tích hợp tính năng dự đoán để người dùng có thể xem trước chi tiêu trong tương lai dựa trên xu hướng hiện tại.
+	4.Kết Nối Với Ngân Hàng và Dịch Vụ Tài Chính Khác: Mở rộng tính năng kết nối để tự động đồng bộ dữ liệu từ ngân hàng và các dịch vụ tài chính khác, tăng tính chính xác và thuận tiện.
+	5.Phân Tích Dữ Liệu Sâu Rộng: Sử dụng công nghệ phân tích dữ liệu để cung cấp thông tin chi tiết và gợi ý thông minh dựa trên hành vi và xu hướng chi tiêu cụ thể của người dùng.

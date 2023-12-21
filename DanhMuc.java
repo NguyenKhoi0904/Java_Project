@@ -21,16 +21,19 @@ public class DanhMuc implements Serializable{
     private String id_danhmuc;
     private String tendanhmuc;
     private int Tien;
+    private int TienDanhMucCap1=0;
     private ArrayList<DanhMuc> dsDanhMuccon;
     public DanhMuc(String id_danhmuc,String tendanhmuc){
         this.id_danhmuc=id_danhmuc;
         this.tendanhmuc=tendanhmuc;
         Tien=0;
+        this.TienDanhMucCap1=0;
         dsDanhMuccon= new ArrayList<>();
     }
-    public DanhMuc(String id_danhmuc,String tendanhmuc,int Tien){
+    public DanhMuc(String id_danhmuc,String tendanhmuc,String danhmuccha){
         this.id_danhmuc=id_danhmuc;
         this.tendanhmuc=tendanhmuc;
+        this.name_danhmuccha=danhmuccha;
         this.Tien=Tien;
         dsDanhMuccon= new ArrayList<>();
     }
@@ -63,12 +66,18 @@ public class DanhMuc implements Serializable{
         setMoney();
 
     }
+    public void setTienDanhMucCap1(int tien){
+        this.TienDanhMucCap1+=tien;
+    }
+    public int getTienDanhMucCap1(){
+        return this.TienDanhMucCap1;
+    }
     public void setMoney(){
         int tongtien=0;
         for(DanhMuc money : dsDanhMuccon){
             tongtien+=money.Tien;
         }
-        this.Tien=tongtien;
+        this.Tien=tongtien+getTienDanhMucCap1();
     }
     public void setMoney(int money){
 

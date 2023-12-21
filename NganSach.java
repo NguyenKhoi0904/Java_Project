@@ -1,6 +1,7 @@
 package com.bt.quanlythuchicanhan;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class NganSach implements Serializable {
     private int thang;
@@ -9,14 +10,29 @@ public class NganSach implements Serializable {
     private double phantramcanhbao;
     private boolean BatTat;
 
+    private DanhMuc danhmucchi;
+
+    public DanhMuc danhmucchi() {
+        return danhmucchi;
+    }
+
+    public NganSach setDanhmucchi(DanhMuc danhmucchi) {
+        this.danhmucchi = danhmucchi;
+        return this;
+    }
+
     public NganSach(){
     }
-    public NganSach(int thang, int nam, int sotien,double phantramcanhbao) {
+    public NganSach(int thang, int nam, int sotien,double phantramcanhbao,DanhMuc danhmucchi) {
         this.thang = thang;
         this.nam = nam;
         this.sotien = sotien;
         this.phantramcanhbao=phantramcanhbao;
+        this.danhmucchi=danhmucchi;
         BatTat=true;
+    }
+    public NganSach(DanhMuc danhmucchi){
+        this.danhmucchi=danhmucchi;
     }
 
     public int getthang() {
@@ -31,8 +47,8 @@ public class NganSach implements Serializable {
         this.nam = nam;
 
     }
-    public Boolean Kiemtrangansachcoduoctaochua(int year,int month){
-        if(nam==year && thang==month){
+    public Boolean Kiemtrangansachcoduoctaochua(int year,int month,DanhMuc danhmuccankiemtra){
+        if(nam==year && thang==month && danhmucchi==danhmuccankiemtra){
             return true;
         }
         else{
@@ -75,6 +91,7 @@ public class NganSach implements Serializable {
         return 1.0*tienhientai/getsotien();
     }
     public void hienThiBieuDoNganSach(int tienCuaThangHienTai){
+        System.out.println("Ta có tiền đã xài tháng này là "+tienCuaThangHienTai);
         double percent = 1.0*tienCuaThangHienTai*100/getsotien();
         System.out.println("Ta có dữ liệu thống kê như sau");
         if(percent<100){
@@ -97,6 +114,13 @@ public class NganSach implements Serializable {
             System.out.println("used                                 money-condition");
             System.out.println("Tiền đã sử dụng Chiếm "+percent+"%          Tiền quy định tháng này");
 
+        }
+        else if(percent==100){
+            for(int i=1;i<100/4;i++){
+                System.out.println("**                                         **");
+            }
+            System.out.println("used                                 money-condition");
+            System.out.println("Tiền đã sử dụng Chiếm "+percent+"%          Tiền quy định tháng này");
         }
         System.out.println("Trong đó");
         System.out.println("used:Tiền đã sử dụng");

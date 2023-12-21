@@ -20,6 +20,7 @@ public class ListDanhMuc implements Serializable{
     private ArrayList<DanhMuc> dsdanhmuc;
     private int tongsotien = 0;
 
+
     public ListDanhMuc() {
         dsdanhmuc = new ArrayList<>();
     }
@@ -92,6 +93,7 @@ public class ListDanhMuc implements Serializable{
             tongtien += money.getMoney();
         }
         this.tongsotien = tongtien;
+
     }
 
     public void setTongsotien(int money) {
